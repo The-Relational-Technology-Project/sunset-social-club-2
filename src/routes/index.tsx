@@ -12,9 +12,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Sunset social club" },
-      { name: "description", content: "Neighbors coming together to strengthen our social fabric in the Sunset in SF." },
+      { name: "description", content: "Neighbors coming together to strengthen our social fabric in the Sunset in San Francisco." },
       { property: "og:title", content: "Sunset social club" },
-      { property: "og:description", content: "Neighbors coming together to strengthen our social fabric in the Sunset in SF." },
+      { property: "og:description", content: "Neighbors coming together to strengthen our social fabric in the Sunset in San Francisco." },
     ],
   }),
   component: Home,

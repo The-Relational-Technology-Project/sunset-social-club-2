@@ -47,7 +47,7 @@ function Home() {
         <p className="mt-1 font-hand text-[1.75rem] leading-tight">
           Volunteer Day + Pizza Party
         </p>
-        <p className="mt-1 text-sm opacity-90">Tap for details and to RSVP on Luma</p>
+        <p className="mt-1 text-sm opacity-90">Tap for details and to RSVP</p>
       </a>
 
       {/* Coffee + donuts photo on the landing page */}

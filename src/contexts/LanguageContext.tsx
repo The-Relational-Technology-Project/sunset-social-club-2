@@ -17,7 +17,7 @@ const translations: Record<Language, Dict> = {
     "banner.cta": "Tap to RSVP →",
 
     // Hero
-    "hero.tagline": "A neighborhood club to strengthen our social fabric in the Sunset in SF.",
+    "hero.tagline": "Neighbors coming together to strengthen our social fabric in the Sunset in San Francisco.",
     "hero.photoAlt": "Sunset Social Club neighbors gathered on the sidewalk",
 
     // Schedule

@@ -37,14 +37,6 @@ export function Header() {
         </Link>
         <nav className="flex shrink-0 items-center gap-3 text-sm sm:gap-5 sm:text-[0.95rem]">
           <Link
-            to="/"
-            activeOptions={{ exact: true }}
-            activeProps={{ className: "text-ink" }}
-            className="text-dusk hover:text-ink"
-          >
-            {t("nav.home")}
-          </Link>
-          <Link
             to="/about"
             activeProps={{ className: "text-ink" }}
             className="text-dusk hover:text-ink"

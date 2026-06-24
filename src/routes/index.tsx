@@ -4,7 +4,7 @@ import { Logo } from "../components/Logo";
 import { Schedule } from "../components/Schedule";
 import { EmailSignupForm } from "../components/EmailSignupForm";
 import { IdeaBoard } from "../components/IdeaBoard";
-import { EVENT_RSVP_URL } from "../lib/site-config";
+
 import coffee from "../assets/coffee_and_donuts.jpg.asset.json";
 import oceanBeach from "../assets/ocean_beach_sf.jpeg.asset.json";
 

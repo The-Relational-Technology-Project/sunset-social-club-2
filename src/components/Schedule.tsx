@@ -4,7 +4,7 @@ export function Schedule() {
   return (
     <section>
       <h2 className="font-hand text-[2rem] leading-tight">What's coming up</h2>
-      <p className="mt-1 text-ink/70">Every Wednesday. Loose on purpose.</p>
+      <p className="mt-1 text-ink/70">We gather most Wednesdays!</p>
       <div
         className="paper-card mt-5 overflow-auto p-2"
         style={{ minHeight: 420 }}

@@ -4,7 +4,7 @@ export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
 
 // Paste the iframe embed code from Luma here (luma.com/sunsetsocialclub → Embed).
 // If empty, the schedule card renders empty rather than inventing events.
-export const LUMA_CALENDAR_EMBED = "";
+export const LUMA_CALENDAR_EMBED = `<iframe src="https://luma.com/embed/calendar/cal-EktVbYQFoGMjT6M/events?lt=light" width="100%" height="600" frameborder="0" style="border: 1px solid #bfcbda88; border-radius: 12px; display: block;" allowfullscreen aria-hidden="false" tabindex="0"></iframe>`;
 
 // URL of the single serverless function that handles all form submissions.
 // If empty, forms show their success message and reset with no network call.

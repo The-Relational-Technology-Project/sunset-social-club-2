@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { LanguageProvider } from "../contexts/LanguageContext";
 
 function NotFoundComponent() {
   return (
@@ -114,9 +115,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Header />
-      <Outlet />
-      <Footer />
+      <LanguageProvider>
+        <Header />
+        <Outlet />
+        <Footer />
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

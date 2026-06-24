@@ -58,7 +58,7 @@ export function IdeaBoard() {
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-sm text-ink/70">{t("ideas.note")}</p>
+      
     </section>
   );
 }

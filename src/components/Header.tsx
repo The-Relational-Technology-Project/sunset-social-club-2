@@ -11,10 +11,12 @@ export function Header() {
         rel="noopener noreferrer"
         className="block bg-sunset text-paper transition-opacity hover:opacity-95"
       >
-        <div className="mx-auto flex max-w-[640px] flex-wrap items-center justify-center gap-x-3 gap-y-1 px-5 py-2.5 text-center text-sm">
-          <span className="eyebrow opacity-90">July 22 · Kickoff</span>
-          <span className="font-extrabold tracking-tight">Volunteer Day + Pizza Party</span>
-          <span className="opacity-90">Tap for details and to RSVP →</span>
+        <div className="mx-auto flex max-w-[960px] flex-col items-center justify-center gap-1 px-5 py-4 text-center sm:flex-row sm:gap-4 sm:py-5">
+          <span className="eyebrow text-[0.8rem] opacity-90">July 22 · Kickoff</span>
+          <span className="text-lg font-extrabold tracking-tight sm:text-xl">
+            Volunteer Day + Pizza Party
+          </span>
+          <span className="text-sm opacity-95 sm:text-base">Tap to RSVP →</span>
         </div>
       </a>
       <div className="mx-auto flex max-w-[640px] items-center justify-between px-5 py-4">

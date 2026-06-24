@@ -21,6 +21,10 @@ function About() {
       <h1 className="text-[2.1rem] font-extrabold leading-tight tracking-tight">{t("about.title")}</h1>
       <p className="mt-1 text-ink/70">{t("about.subtitle")}</p>
 
+      <div className="paper-card mt-6 border-dashed px-4 py-3 text-sm text-ink/70">
+        <span className="font-semibold text-ink">Heads up:</span> the text below is placeholder copy. Real words from the club are on the way.
+      </div>
+
       <p className="mt-7 text-lg text-ink/85">{t("about.p1")}</p>
       <p className="mt-5 text-ink/80">{t("about.p2")}</p>
 

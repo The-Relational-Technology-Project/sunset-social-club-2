@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { submitForm } from "../lib/site-config";
+import { supabase } from "../integrations/supabase/client";
 import { useLanguage } from "../contexts/LanguageContext";
 
 type Idea = { idea: string; name: string };
@@ -12,17 +13,40 @@ const SEED: Idea[] = [
 
 export function IdeaBoard() {
   const { t } = useLanguage();
-  const [ideas, setIdeas] = useState<Idea[]>(SEED);
+  const [ideas, setIdeas] = useState<Idea[]>([]);
   const [idea, setIdea] = useState("");
   const [name, setName] = useState("");
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data, error } = await supabase
+        .from("ideas")
+        .select("idea, name")
+        .order("created_at", { ascending: false })
+        .limit(100);
+      if (cancelled) return;
+      if (error || !data) {
+        setIdeas(SEED);
+      } else {
+        setIdeas(data.length ? data : SEED);
+      }
+      setLoaded(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     const next: Idea = { idea: idea.trim(), name: name.trim() };
-    setIdeas((prev) => [next, ...prev]);
-    await submitForm("idea", { idea: next.idea, name: next.name });
+    if (!next.idea || !next.name) return;
+    setIdeas((prev) => [next, ...prev.filter((i) => i !== SEED[0] || loaded)]);
     setIdea("");
     setName("");
+    await submitForm("idea", { idea: next.idea, name: next.name });
   }
 
   return (
@@ -33,7 +57,7 @@ export function IdeaBoard() {
         <div>
           <label htmlFor="idea-text" className="field-label">{t("ideas.ideaLabel")}</label>
           <textarea
-            id="idea-text" required value={idea} rows={3}
+            id="idea-text" required value={idea} rows={3} maxLength={1000}
             onChange={(e) => setIdea(e.target.value)}
             placeholder={t("ideas.ideaPlaceholder")}
             className="field-input resize-y"
@@ -42,7 +66,7 @@ export function IdeaBoard() {
         <div>
           <label htmlFor="idea-name" className="field-label">{t("ideas.nameLabel")}</label>
           <input
-            id="idea-name" type="text" required value={name}
+            id="idea-name" type="text" required value={name} maxLength={100}
             onChange={(e) => setName(e.target.value)}
             placeholder={t("ideas.namePlaceholder")} className="field-input"
           />
@@ -58,7 +82,7 @@ export function IdeaBoard() {
           </li>
         ))}
       </ul>
-      
+
     </section>
   );
 }

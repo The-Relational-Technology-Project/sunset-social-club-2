@@ -1,4 +1,6 @@
 // Site-wide constants. Edit values here, not in components.
+import { supabase } from "../integrations/supabase/client";
+
 export const CONTACT_EMAIL = "hello@sunsetsocialclub.org";
 export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
 
@@ -6,21 +8,37 @@ export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
 // If empty, the schedule card renders empty rather than inventing events.
 export const LUMA_CALENDAR_EMBED = `<iframe src="https://luma.com/embed/calendar/cal-EktVbYQFoGMjT6M/events?lt=light" width="100%" height="600" frameborder="0" style="border: 1px solid #bfcbda88; border-radius: 12px; display: block;" allowfullscreen aria-hidden="false" tabindex="0"></iframe>`;
 
-// URL of the single serverless function that handles all form submissions.
-// If empty, forms show their success message and reset with no network call.
-export const FORM_ENDPOINT = "";
-
 export type FormType = "signup" | "idea" | "contact";
 
 export async function submitForm(type: FormType, payload: Record<string, string>) {
-  if (!FORM_ENDPOINT) return;
   try {
-    await fetch(FORM_ENDPOINT, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ type, ...payload }),
-    });
-  } catch {
-    // Swallow network errors for now; the success message still shows.
+    if (type === "signup") {
+      const email = (payload.email ?? "").trim().slice(0, 255);
+      const firstName = (payload.firstName ?? "").trim().slice(0, 100) || null;
+      if (!email) return { ok: false };
+      const { error } = await supabase
+        .from("email_signups")
+        .insert({ email, first_name: firstName });
+      if (error) throw error;
+    } else if (type === "idea") {
+      const idea = (payload.idea ?? "").trim().slice(0, 1000);
+      const name = (payload.name ?? "").trim().slice(0, 100);
+      if (!idea || !name) return { ok: false };
+      const { error } = await supabase.from("ideas").insert({ idea, name });
+      if (error) throw error;
+    } else if (type === "contact") {
+      const name = (payload.name ?? "").trim().slice(0, 100);
+      const email = (payload.email ?? "").trim().slice(0, 255);
+      const message = (payload.message ?? "").trim().slice(0, 2000);
+      if (!name || !email || !message) return { ok: false };
+      const { error } = await supabase
+        .from("contact_messages")
+        .insert({ name, email, message });
+      if (error) throw error;
+    }
+    return { ok: true };
+  } catch (err) {
+    console.error("submitForm failed", err);
+    return { ok: false };
   }
 }

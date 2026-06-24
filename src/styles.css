@@ -2,16 +2,17 @@
 @source "../src";
 
 @theme {
-  --color-fog: #E7EAEB;
-  --color-paper: #F8F9F9;
-  --color-ink: #1D1C1A;
+  --color-fog: #FFFFFF;
+  --color-paper: #FFFFFF;
+  --color-ink: #000000;
+  --color-dusk: #4A4A4A;
   --color-sunset: #EC6A4C;
   --color-amber: #E8A33D;
-  --color-dusk: #3E5C6B;
 
   --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-hand: "Caveat", "Hanken Grotesk", cursive;
 }
+
 
 @layer base {
   html {

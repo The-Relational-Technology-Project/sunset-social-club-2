@@ -3,7 +3,7 @@ import { LUMA_CALENDAR_EMBED } from "../lib/site-config";
 export function Schedule() {
   return (
     <section>
-      <h2 className="font-hand text-[2rem] leading-tight">What's coming up</h2>
+      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight">What's coming up</h2>
       <p className="mt-1 text-ink/70">We gather most Wednesdays!</p>
       <div
         className="paper-card mt-5 overflow-auto p-2"

@@ -16,7 +16,7 @@ export function EmailSignupForm() {
 
   return (
     <section>
-      <h2 className="font-hand text-[2rem] leading-tight">Stay in the loop</h2>
+      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight">Stay in the loop</h2>
       <p className="mt-1 text-ink/70">We'll send you notes and updates</p>
       <form onSubmit={onSubmit} className="mt-5 space-y-4">
         <div>

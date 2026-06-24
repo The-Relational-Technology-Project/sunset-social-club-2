@@ -44,7 +44,7 @@ function Home() {
         style={{ boxShadow: "0 18px 40px -22px rgba(236, 106, 76, 0.7)" }}
       >
         <p className="eyebrow opacity-90">July 22 · Kickoff</p>
-        <p className="mt-1 font-hand text-[1.75rem] leading-tight">
+        <p className="mt-1 text-[1.5rem] font-extrabold leading-tight tracking-tight">
           Volunteer Day + Pizza Party
         </p>
         <p className="mt-1 text-sm opacity-90">Tap for details and to RSVP</p>

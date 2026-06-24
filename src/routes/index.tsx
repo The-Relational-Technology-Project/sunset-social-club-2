@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Logo } from "../components/Logo";
-import { EventCard } from "../components/EventCard";
+
 import { Schedule } from "../components/Schedule";
 import { EmailSignupForm } from "../components/EmailSignupForm";
 import { IdeaBoard } from "../components/IdeaBoard";

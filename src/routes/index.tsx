@@ -12,9 +12,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Sunset social club" },
-      { name: "description", content: "A neighborhood club in the Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us." },
+      { name: "description", content: "A neighborhood club in the Sunset that exists to strengthen our social fabric." },
       { property: "og:title", content: "Sunset social club" },
-      { property: "og:description", content: "A neighborhood club in the Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us." },
+      { property: "og:description", content: "A neighborhood club in the Sunset that exists to strengthen our social fabric." },
     ],
   }),
   component: Home,
@@ -28,7 +28,7 @@ function Home() {
         <div className="flex flex-col items-center">
           <Logo variant="hero" />
           <p className="mt-8 max-w-[34rem] text-ink/80">
-            A neighborhood club in the Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us.
+            A neighborhood club in the Sunset that exists to strengthen our social fabric.
           </p>
         </div>
       </section>

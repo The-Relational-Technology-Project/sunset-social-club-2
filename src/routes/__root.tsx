@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Sunset social club" },
-      { name: "description", content: "A neighborhood club in the Outer Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us." },
+      { name: "description", content: "A neighborhood club in the Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

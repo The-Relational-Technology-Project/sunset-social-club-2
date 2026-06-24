@@ -23,7 +23,7 @@ function About() {
         Sunset Social Club is a small thing with a simple idea: neighbors are better off when they actually know each other.
       </p>
       <p className="mt-5 text-ink/80">
-        It started the way most of these things do. A few of us live in the Outer Sunset, love it here, and realized we recognized a lot of faces without knowing many names. We wanted a regular, low-key reason to be in the same room as the people on our blocks, not for a cause or a meeting, just to share a meal and let friendships happen.
+        It started the way most of these things do. A few of us live in the Sunset, love it here, and realized we recognized a lot of faces without knowing many names. We wanted a regular, low-key reason to be in the same room as the people on our blocks, not for a cause or a meeting, just to share a meal and let friendships happen.
       </p>
 
       <div className="paper-card my-7 overflow-hidden">

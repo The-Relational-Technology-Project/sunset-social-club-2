@@ -10,7 +10,7 @@ export function Footer() {
           <Link to="/contact" className="hover:text-ink">Contact</Link>
           <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-ink">{CONTACT_EMAIL}</a>
         </div>
-        <p className="sm:text-right">Outer Sunset, San Francisco · made by neighbors</p>
+        <p className="sm:text-right">Sunset, San Francisco · made by neighbors</p>
       </div>
     </footer>
   );

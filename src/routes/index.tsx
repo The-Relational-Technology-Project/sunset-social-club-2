@@ -12,9 +12,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Sunset social club" },
-      { name: "description", content: "A neighborhood club in the Outer Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us." },
+      { name: "description", content: "A neighborhood club in the Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us." },
       { property: "og:title", content: "Sunset social club" },
-      { property: "og:description", content: "A neighborhood club in the Outer Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us." },
+      { property: "og:description", content: "A neighborhood club in the Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us." },
     ],
   }),
   component: Home,
@@ -26,12 +26,13 @@ function Home() {
       {/* Hero: logo + intro, no glow, lots of room. */}
       <section className="pt-12 pb-16 text-center sm:pt-16">
         <div className="flex flex-col items-center">
-          <Logo variant="wordmark" />
+          <Logo variant="hero" />
           <p className="mt-8 max-w-[34rem] text-ink/80">
-            A neighborhood club in the Outer Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us.
+            A neighborhood club in the Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us.
           </p>
         </div>
       </section>
+
 
 
       {/* July 22 kickoff banner */}
@@ -59,18 +60,19 @@ function Home() {
         <Schedule />
       </div>
 
-      {/* Waves photo, lower in the page */}
-      <div className="paper-card mb-20 overflow-hidden">
-        <img src={oceanBeach.url} alt="Ocean Beach, San Francisco" className="block h-48 w-full object-cover sm:h-64" />
-      </div>
-
       <div className="mb-20">
         <EmailSignupForm />
+      </div>
+
+      {/* Waves photo, between Stay in the loop and Got an idea */}
+      <div className="paper-card mb-20 overflow-hidden">
+        <img src={oceanBeach.url} alt="Ocean Beach, San Francisco" className="block h-48 w-full object-cover sm:h-64" />
       </div>
 
       <div>
         <IdeaBoard />
       </div>
+
     </main>
   );
 }

@@ -60,18 +60,19 @@ function Home() {
         <Schedule />
       </div>
 
-      {/* Waves photo, lower in the page */}
-      <div className="paper-card mb-20 overflow-hidden">
-        <img src={oceanBeach.url} alt="Ocean Beach, San Francisco" className="block h-48 w-full object-cover sm:h-64" />
-      </div>
-
       <div className="mb-20">
         <EmailSignupForm />
+      </div>
+
+      {/* Waves photo, between Stay in the loop and Got an idea */}
+      <div className="paper-card mb-20 overflow-hidden">
+        <img src={oceanBeach.url} alt="Ocean Beach, San Francisco" className="block h-48 w-full object-cover sm:h-64" />
       </div>
 
       <div>
         <IdeaBoard />
       </div>
+
     </main>
   );
 }

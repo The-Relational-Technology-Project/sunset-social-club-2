@@ -26,12 +26,13 @@ function Home() {
       {/* Hero: logo + intro, no glow, lots of room. */}
       <section className="pt-12 pb-16 text-center sm:pt-16">
         <div className="flex flex-col items-center">
-          <Logo variant="hero" />
+          <Logo variant="wordmark" />
           <p className="mt-8 max-w-[34rem] text-ink/80">
             A neighborhood club in the Outer Sunset that meets on Wednesday evenings to share a meal and get to know the people who live around us.
           </p>
         </div>
       </section>
+
 
       {/* July 22 kickoff banner */}
       <a
@@ -53,9 +54,6 @@ function Home() {
         <img src={coffee.url} alt="Sunset Social Club neighbors gathered on the sidewalk" className="block w-full object-cover" />
       </div>
 
-      <div className="mb-20">
-        <EventCard />
-      </div>
 
       <div className="mb-20">
         <Schedule />

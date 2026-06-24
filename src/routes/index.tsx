@@ -33,27 +33,11 @@ function Home() {
         </div>
       </section>
 
-
-
-      {/* July 22 kickoff banner */}
-      <a
-        href={EVENT_RSVP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mb-20 block rounded-2xl bg-sunset px-6 py-5 text-paper transition-transform hover:-translate-y-0.5"
-        style={{ boxShadow: "0 18px 40px -22px rgba(236, 106, 76, 0.7)" }}
-      >
-        <p className="eyebrow opacity-90">July 22 · Kickoff</p>
-        <p className="mt-1 text-[1.5rem] font-extrabold leading-tight tracking-tight">
-          Volunteer Day + Pizza Party
-        </p>
-        <p className="mt-1 text-sm opacity-90">Tap for details and to RSVP</p>
-      </a>
-
-      {/* Coffee + donuts photo on the landing page */}
+      {/* Coffee + donuts photo right under the description */}
       <div className="paper-card mb-20 overflow-hidden">
         <img src={coffee.url} alt="Sunset Social Club neighbors gathered on the sidewalk" className="block w-full object-cover" />
       </div>
+
 
 
       <div className="mb-20">

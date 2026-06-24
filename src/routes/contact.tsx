@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ContactForm } from "../components/ContactForm";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -14,10 +15,11 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
+  const { t } = useLanguage();
   return (
     <main className="view-enter mx-auto max-w-[640px] px-5 py-10">
-      <h1 className="text-[2.1rem] font-extrabold leading-tight tracking-tight">Say hello</h1>
-      <p className="mt-1 text-ink/70">Coming Wednesday, want to help, or just curious. We read everything.</p>
+      <h1 className="text-[2.1rem] font-extrabold leading-tight tracking-tight">{t("contact.title")}</h1>
+      <p className="mt-1 text-ink/70">{t("contact.subtitle")}</p>
       <ContactForm />
     </main>
   );

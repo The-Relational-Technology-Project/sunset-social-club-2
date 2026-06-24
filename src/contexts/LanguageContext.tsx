@@ -39,12 +39,12 @@ const translations: Record<Language, Dict> = {
 
     // Idea board
     "ideas.title": "Got an idea for the club?",
-    "ideas.subtitle": "A club bulletin board. Pin up something you'd want to happen here, or that you'd help make happen.",
+    "ideas.subtitle": "Our public club bulletin board",
     "ideas.ideaLabel": "Your idea",
     "ideas.ideaPlaceholder": "A Saturday repair cafe? A Cantonese cooking night? Say it here.",
     "ideas.nameLabel": "Your name",
     "ideas.namePlaceholder": "So we know who to thank",
-    "ideas.submit": "Pin it up",
+    "ideas.submit": "Share",
     "ideas.byline": "by",
     "ideas.note": "Ideas go up with a name, no votes and no ranking. We read every one.",
 
@@ -108,12 +108,12 @@ const translations: Record<Language, Dict> = {
 
     // Idea board
     "ideas.title": "对俱乐部有什么想法？",
-    "ideas.subtitle": "俱乐部的留言板。写下您希望发生的事，或您愿意帮忙促成的事。",
+    "ideas.subtitle": "我们的俱乐部公开留言板",
     "ideas.ideaLabel": "您的想法",
     "ideas.ideaPlaceholder": "周六维修咖啡馆？粤菜烹饪之夜？写下来吧。",
     "ideas.nameLabel": "您的名字",
     "ideas.namePlaceholder": "好让我们感谢您",
-    "ideas.submit": "贴上去",
+    "ideas.submit": "分享",
     "ideas.byline": "—",
     "ideas.note": "想法会署名贴出，没有投票也没有排名。我们会认真阅读每一条。",
 

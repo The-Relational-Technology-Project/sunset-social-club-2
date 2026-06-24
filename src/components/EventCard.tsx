@@ -8,7 +8,7 @@ export function EventCard() {
     >
       <span aria-hidden className="absolute left-0 top-0 h-full w-[5px] bg-sunset" />
       <p className="eyebrow text-sunset">Next Wednesday · July 22</p>
-      <h2 className="mt-2 font-hand text-[2.1rem] leading-tight">
+      <h2 className="mt-2 text-[1.85rem] font-extrabold leading-tight tracking-tight">
         Volunteer day + community pizza party
       </h2>
       <p className="mt-3 text-ink/80">

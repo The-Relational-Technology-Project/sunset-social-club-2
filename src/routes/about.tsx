@@ -16,7 +16,7 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <main className="view-enter mx-auto max-w-[640px] px-5 py-10">
-      <h1 className="font-hand text-[2.4rem] leading-tight">About the club</h1>
+      <h1 className="text-[2.1rem] font-extrabold leading-tight tracking-tight">About the club</h1>
       <p className="mt-1 text-ink/70">Who we are and how this started.</p>
 
       <p className="mt-7 text-lg text-ink/85">

@@ -27,7 +27,7 @@ export function IdeaBoard() {
 
   return (
     <section>
-      <h2 className="font-hand text-[2rem] leading-tight">Got an idea for the club?</h2>
+      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight">Got an idea for the club?</h2>
       <p className="mt-1 text-ink/70">A club bulletin board. Pin up something you'd want to happen here, or that you'd help make happen.</p>
       <form onSubmit={onSubmit} className="mt-5 space-y-4">
         <div>

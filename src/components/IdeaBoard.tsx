@@ -51,8 +51,8 @@ export function IdeaBoard() {
 
   return (
     <section>
-      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight">{t("ideas.title")}</h2>
-      <p className="mt-1 text-ink/70">{t("ideas.subtitle")}</p>
+      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">Have an idea for the club?</h2>
+      <p className="mt-1 text-ink/70">Share on our public board.</p>
       <form onSubmit={onSubmit} className="mt-5 space-y-4">
         <div>
           <label htmlFor="idea-text" className="field-label">{t("ideas.ideaLabel")}</label>

@@ -5,11 +5,11 @@ export function Schedule() {
   const { t } = useLanguage();
   return (
     <section>
-      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight">{t("schedule.title")}</h2>
+      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">{t("schedule.title")}</h2>
       <p className="mt-1 text-ink/70">{t("schedule.subtitle")}</p>
       <div
         className="paper-card mt-5 overflow-auto p-2"
-        style={{ minHeight: 420 }}
+        style={{ minHeight: 260, maxHeight: 320 }}
         // LUMA_CALENDAR_EMBED is a trusted iframe string pasted by the site owner.
         dangerouslySetInnerHTML={{ __html: LUMA_CALENDAR_EMBED }}
       />

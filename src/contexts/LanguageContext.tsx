@@ -20,6 +20,26 @@ const translations: Record<Language, Dict> = {
     "hero.tagline": "Neighbors coming together to strengthen our social fabric in the Sunset in San Francisco.",
     "hero.photoAlt": "Sunset Social Club neighbors gathered on the sidewalk",
 
+    // Home sections
+    "home.neighborhood.title": "A club for the neighborhood",
+    "home.neighborhood.p1": "Most clubs are built around exclusivity.",
+    "home.neighborhood.p2": "Sunset Social Club is built around proximity.",
+    "home.neighborhood.p3": "If you live in the Sunset — or are a friend of the Sunset — you already have something meaningful in common with everyone else here. We all have a stake in the places we pass every day and the people with whom we share our streets and sidewalks.",
+    "home.coffeeAlt": "Coffee and donuts",
+    "home.what.title": "What do we do together?",
+    "home.what.p1": "We're starting small with West Side Wednesdays.",
+    "home.what.p2": "Every Wednesday evening (~5:30–8 pm), we gather.",
+    "home.what.li1": "Sometimes we share a meal.",
+    "home.what.li2": "Sometimes we play games.",
+    "home.what.li3": "Sometimes someone teaches a skill.",
+    "home.what.li4": "Sometimes we have (lightly) curated activities.",
+    "home.what.p3": "Every hour is a social hour. The program changes. And it's up to us to shape it.",
+    "home.headed.title": "Where we're headed",
+    "home.headed.p1": "West Side Wednesday gatherings are just the beginning.",
+    "home.headed.p2": "Our hope is that over time, Sunset Social Club becomes a consistent place where neighbors know one another by name, share resources, support local businesses, organize projects, celebrate together, and collectively shape the future of the neighborhood.",
+    "home.headed.p3": "As our community evolves, what we do together will follow suit. We will create new traditions, rituals, and initiatives together.",
+
+
     // Schedule
     "schedule.title": "What's coming up",
     "schedule.subtitle": "We gather most Wednesdays!",

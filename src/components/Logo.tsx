@@ -1,4 +1,4 @@
-import logo from "../assets/ssc-logo-v2.png.asset.json";
+import logo from "../assets/ssc-logo-v3.png.asset.json";
 
 type Props = { variant?: "hero" | "nav"; className?: string };
 

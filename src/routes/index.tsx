@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">
+    <h2 className="text-center text-[1.75rem] font-extrabold leading-tight tracking-tight italic">
       {children}
     </h2>
   );
@@ -29,9 +29,9 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 function Home() {
   return (
-    <main className="view-enter mx-auto max-w-[640px] px-5 pb-24">
+    <main className="view-enter mx-auto max-w-[640px] px-5 pb-24 text-center">
       {/* Hero: logo only */}
-      <section className="pt-10 pb-10 text-center sm:pt-14">
+      <section className="pt-10 pb-16 text-center sm:pt-14 sm:pb-24">
         <div className="flex flex-col items-center">
           <Logo variant="hero" />
         </div>

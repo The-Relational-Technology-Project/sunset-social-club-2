@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Languages } from "lucide-react";
-import { Logo } from "./Logo";
 import { EVENT_RSVP_URL } from "../lib/site-config";
 import { useLanguage } from "../contexts/LanguageContext";
 
@@ -27,56 +26,55 @@ export function Header() {
           </span>
         </div>
       </a>
-      <div className="mx-auto grid max-w-[640px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-5 sm:py-4">
+      <nav className="mx-auto flex max-w-[640px] flex-wrap items-center justify-center gap-x-5 gap-y-2 px-4 py-3 text-sm sm:gap-x-7 sm:py-4 sm:text-[0.95rem]">
         <Link
           to="/"
-          aria-label="Sunset social club, home"
-          className="flex min-w-0 items-center"
+          activeProps={{ className: "text-ink" }}
+          activeOptions={{ exact: true }}
+          className="text-dusk hover:text-ink"
         >
-          <Logo variant="wordmark-nav" className="max-w-full" />
+          {t("nav.home")}
         </Link>
-        <nav className="flex shrink-0 items-center gap-3 text-sm sm:gap-5 sm:text-[0.95rem]">
-          <Link
-            to="/about"
-            activeProps={{ className: "text-ink" }}
-            className="text-dusk hover:text-ink"
+        <Link
+          to="/about"
+          activeProps={{ className: "text-ink" }}
+          className="text-dusk hover:text-ink"
+        >
+          {t("nav.about")}
+        </Link>
+        <div
+          role="group"
+          aria-label="Language"
+          className="inline-flex shrink-0 items-center gap-0.5 rounded-full border border-[rgba(29,28,26,0.18)] bg-paper p-0.5"
+        >
+          <Languages
+            className="ml-1.5 hidden h-3.5 w-3.5 text-dusk sm:block"
+            aria-hidden="true"
+          />
+          <button
+            type="button"
+            onClick={() => setLanguage("en")}
+            aria-pressed={language === "en"}
+            className={
+              "rounded-full px-2 py-1 text-xs font-semibold transition-colors " +
+              (language === "en" ? "bg-ink text-paper" : "text-dusk hover:text-ink")
+            }
           >
-            {t("nav.about")}
-          </Link>
-          <div
-            role="group"
-            aria-label="Language"
-            className="inline-flex shrink-0 items-center gap-0.5 rounded-full border border-[rgba(29,28,26,0.18)] bg-paper p-0.5"
+            EN
+          </button>
+          <button
+            type="button"
+            onClick={() => setLanguage("zh")}
+            aria-pressed={language === "zh"}
+            className={
+              "rounded-full px-2 py-1 text-xs font-semibold transition-colors " +
+              (language === "zh" ? "bg-ink text-paper" : "text-dusk hover:text-ink")
+            }
           >
-            <Languages
-              className="ml-1.5 hidden h-3.5 w-3.5 text-dusk sm:block"
-              aria-hidden="true"
-            />
-            <button
-              type="button"
-              onClick={() => setLanguage("en")}
-              aria-pressed={language === "en"}
-              className={
-                "rounded-full px-2 py-1 text-xs font-semibold transition-colors " +
-                (language === "en" ? "bg-ink text-paper" : "text-dusk hover:text-ink")
-              }
-            >
-              EN
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage("zh")}
-              aria-pressed={language === "zh"}
-              className={
-                "rounded-full px-2 py-1 text-xs font-semibold transition-colors " +
-                (language === "zh" ? "bg-ink text-paper" : "text-dusk hover:text-ink")
-              }
-            >
-              中文
-            </button>
-          </div>
-        </nav>
-      </div>
+            中文
+          </button>
+        </div>
+      </nav>
     </header>
   );
 }

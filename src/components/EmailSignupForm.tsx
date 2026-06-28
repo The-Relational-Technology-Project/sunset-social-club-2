@@ -18,7 +18,7 @@ export function EmailSignupForm() {
 
   return (
     <section>
-      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight">{t("signup.title")}</h2>
+      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">{t("signup.title")}</h2>
       <p className="mt-1 text-ink/70">{t("signup.subtitle")}</p>
       <form onSubmit={onSubmit} className="mt-5 space-y-4">
         <div>

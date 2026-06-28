@@ -36,11 +36,11 @@ export function Header() {
           {t("nav.home")}
         </Link>
         <Link
-          to="/about"
+          to="/contact"
           activeProps={{ className: "text-ink" }}
           className="text-dusk hover:text-ink"
         >
-          {t("nav.about")}
+          {t("nav.contact")}
         </Link>
         <div
           role="group"

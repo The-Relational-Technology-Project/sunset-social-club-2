@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Logo } from "../components/Logo";
+import { useLanguage } from "../contexts/LanguageContext";
+
 
 import { Schedule } from "../components/Schedule";
 import { EmailSignupForm } from "../components/EmailSignupForm";

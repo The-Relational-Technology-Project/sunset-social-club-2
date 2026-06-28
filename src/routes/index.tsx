@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Logo } from "../components/Logo";
+import { useLanguage } from "../contexts/LanguageContext";
+
 
 import { Schedule } from "../components/Schedule";
 import { EmailSignupForm } from "../components/EmailSignupForm";
@@ -28,6 +30,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 }
 
 function Home() {
+  const { t } = useLanguage();
   return (
     <main className="view-enter mx-auto max-w-[640px] px-5 pb-24 text-center">
       {/* Hero: logo only */}
@@ -39,35 +42,29 @@ function Home() {
 
       {/* A club for the neighborhood */}
       <section className="mb-16">
-        <SectionHeading>A club for the neighborhood</SectionHeading>
-        <p className="mt-5 text-lg text-ink/85">Most clubs are built around exclusivity.</p>
-        <p className="mt-4 text-lg text-ink/85">Sunset Social Club is built around proximity.</p>
-        <p className="mt-4 text-ink/80">
-          If you live in the Sunset — or are a friend of the Sunset — you already have something
-          meaningful in common with everyone else here. We all have a stake in the places we pass
-          every day and the people with whom we share our streets and sidewalks.
-        </p>
+        <SectionHeading>{t("home.neighborhood.title")}</SectionHeading>
+        <p className="mt-5 text-lg text-ink/85">{t("home.neighborhood.p1")}</p>
+        <p className="mt-4 text-lg text-ink/85">{t("home.neighborhood.p2")}</p>
+        <p className="mt-4 text-ink/80">{t("home.neighborhood.p3")}</p>
       </section>
 
       {/* Coffee photo */}
       <div className="paper-card mb-16 overflow-hidden">
-        <img src={coffee.url} alt="Coffee and donuts" className="block w-full object-cover" />
+        <img src={coffee.url} alt={t("home.coffeeAlt")} className="block w-full object-cover" />
       </div>
 
       {/* What do we do together */}
       <section className="mb-16">
-        <SectionHeading>What do we do together?</SectionHeading>
-        <p className="mt-5 text-ink/85">We're starting small with West Side Wednesdays.</p>
-        <p className="mt-4 text-ink/85">Every Wednesday evening (~5:30–8 pm), we gather.</p>
+        <SectionHeading>{t("home.what.title")}</SectionHeading>
+        <p className="mt-5 text-ink/85">{t("home.what.p1")}</p>
+        <p className="mt-4 text-ink/85">{t("home.what.p2")}</p>
         <ul className="mt-4 space-y-1.5 text-ink/80">
-          <li>Sometimes we share a meal.</li>
-          <li>Sometimes we play games.</li>
-          <li>Sometimes someone teaches a skill.</li>
-          <li>Sometimes we have (lightly) curated activities.</li>
+          <li>{t("home.what.li1")}</li>
+          <li>{t("home.what.li2")}</li>
+          <li>{t("home.what.li3")}</li>
+          <li>{t("home.what.li4")}</li>
         </ul>
-        <p className="mt-4 text-ink/80">
-          Every hour is a social hour. The program changes. And it's up to us to shape it.
-        </p>
+        <p className="mt-4 text-ink/80">{t("home.what.p3")}</p>
       </section>
 
       {/* What's coming up */}
@@ -77,24 +74,15 @@ function Home() {
 
       {/* Where we're headed */}
       <section className="mb-16">
-        <SectionHeading>Where we're headed</SectionHeading>
-        <p className="mt-5 text-ink/85">
-          West Side Wednesday gatherings are just the beginning.
-        </p>
-        <p className="mt-4 text-ink/80">
-          Our hope is that over time, Sunset Social Club becomes a consistent place where neighbors
-          know one another by name, share resources, support local businesses, organize projects,
-          celebrate together, and collectively shape the future of the neighborhood.
-        </p>
-        <p className="mt-4 text-ink/80">
-          As our community evolves, what we do together will follow suit. We will create new
-          traditions, rituals, and initiatives together.
-        </p>
+        <SectionHeading>{t("home.headed.title")}</SectionHeading>
+        <p className="mt-5 text-ink/85">{t("home.headed.p1")}</p>
+        <p className="mt-4 text-ink/80">{t("home.headed.p2")}</p>
+        <p className="mt-4 text-ink/80">{t("home.headed.p3")}</p>
       </section>
 
       {/* Ocean photo */}
       <div className="paper-card mb-16 overflow-hidden">
-        <img src={oceanBeach.url} alt="Ocean Beach, San Francisco" className="block h-48 w-full object-cover sm:h-64" />
+        <img src={oceanBeach.url} alt={t("photo.oceanAlt")} className="block h-48 w-full object-cover sm:h-64" />
       </div>
 
       {/* Stay in the loop */}
@@ -109,3 +97,4 @@ function Home() {
     </main>
   );
 }
+

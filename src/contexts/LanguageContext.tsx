@@ -83,7 +83,7 @@ const translations: Record<Language, Dict> = {
 
     // Contact
     "contact.title": "Say hello",
-    "contact.subtitle": "Coming Wednesday, want to help, or just curious. We read everything.",
+    "contact.subtitle": "Want to help or ask a question? Please reach out.",
     "contact.nameLabel": "Your name (required)",
     "contact.namePlaceholder": "Your name",
     "contact.emailLabel": "Email (required)",
@@ -172,7 +172,7 @@ const translations: Record<Language, Dict> = {
 
     // Contact
     "contact.title": "打个招呼",
-    "contact.subtitle": "想周三来、想帮忙，或只是好奇——我们都会认真阅读。",
+    "contact.subtitle": "想帮忙或有任何疑问？请联系我们。",
     "contact.nameLabel": "您的名字（必填）",
     "contact.namePlaceholder": "您的名字",
     "contact.emailLabel": "邮箱（必填）",

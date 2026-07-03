@@ -1,7 +1,8 @@
 // Site-wide constants. Edit values here, not in components.
 import { supabase } from "../integrations/supabase/client";
 
-export const CONTACT_EMAIL = "hello@sunsetsocialclub.org";
+export const CONTACT_EMAIL = "oursunsetsocialclub@gmail.com";
+export const NOTIFY_EMAILS = ["oursunsetsocialclub@gmail.com", "joshuanesbit@gmail.com"];
 export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
 
 // Paste the iframe embed code from Luma here (luma.com/sunsetsocialclub → Embed).

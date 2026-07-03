@@ -38,6 +38,7 @@ export function EmailSignupForm() {
           />
         </div>
         <button type="submit" className="btn-solid">{t("signup.submit")}</button>
+        <p className="text-xs text-ink/60 leading-relaxed">{t("signup.consent")}</p>
         {done && (
           <p role="status" className="text-sunset font-medium">{t("signup.done")}</p>
         )}

@@ -33,19 +33,24 @@ function Home() {
   const { t } = useLanguage();
   return (
     <main className="view-enter mx-auto max-w-[640px] px-5 pb-24 text-center">
-      {/* Hero: logo only */}
+      {/* Hero: logo + vision statement */}
       <section className="pt-10 pb-16 text-center sm:pt-14 sm:pb-24">
         <div className="flex flex-col items-center">
           <Logo variant="hero" />
+          <div className="mt-8 space-y-1 text-lg italic text-ink/85 sm:text-xl">
+            <p>{t("hero.vision.l1")}</p>
+            <p>{t("hero.vision.l2")}</p>
+            <p>{t("hero.vision.l3")}</p>
+          </div>
         </div>
       </section>
 
-      {/* A club for the neighborhood */}
+      {/* A club for our neighborhood */}
       <section className="mb-16">
-        <SectionHeading>{t("home.neighborhood.title")}</SectionHeading>
-        <p className="mt-5 text-lg text-ink/85">{t("home.neighborhood.p1")}</p>
-        <p className="mt-4 text-lg text-ink/85">{t("home.neighborhood.p2")}</p>
-        <p className="mt-4 text-ink/80">{t("home.neighborhood.p3")}</p>
+        <p className="text-lg text-ink/85">
+          <em className="font-semibold not-italic">{t("home.neighborhood.lead")}</em>{" "}
+          {t("home.neighborhood.body")}
+        </p>
       </section>
 
       {/* Coffee photo */}

@@ -6,10 +6,21 @@ export const NOTIFY_EMAILS = ["oursunsetsocialclub@gmail.com", "joshuanesbit@gma
 export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
 
 // Paste the iframe embed code from Luma here (luma.com/sunsetsocialclub → Embed).
-// If empty, the schedule card renders empty rather than inventing events.
 export const LUMA_CALENDAR_EMBED = `<iframe src="https://luma.com/embed/calendar/cal-EktVbYQFoGMjT6M/events?lt=light" width="100%" height="600" frameborder="0" style="border: 1px solid #bfcbda88; border-radius: 12px; display: block;" allowfullscreen aria-hidden="false" tabindex="0"></iframe>`;
 
 export type FormType = "signup" | "idea" | "contact";
+
+async function notifyAdmin(type: string, fields: Array<{ label: string; value: string }>) {
+  try {
+    await fetch("/api/public/notify-submission", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type, fields }),
+    });
+  } catch (err) {
+    console.warn("notifyAdmin failed", err);
+  }
+}
 
 export async function submitForm(type: FormType, payload: Record<string, string>) {
   try {
@@ -21,12 +32,20 @@ export async function submitForm(type: FormType, payload: Record<string, string>
         .from("email_signups")
         .insert({ email, first_name: firstName });
       if (error) throw error;
+      void notifyAdmin("email signup", [
+        { label: "Email", value: email },
+        { label: "First name", value: firstName ?? "" },
+      ]);
     } else if (type === "idea") {
       const idea = (payload.idea ?? "").trim().slice(0, 1000);
       const name = (payload.name ?? "").trim().slice(0, 100);
       if (!idea || !name) return { ok: false };
       const { error } = await supabase.from("ideas").insert({ idea, name });
       if (error) throw error;
+      void notifyAdmin("idea submission", [
+        { label: "Name", value: name },
+        { label: "Idea", value: idea },
+      ]);
     } else if (type === "contact") {
       const name = (payload.name ?? "").trim().slice(0, 100);
       const email = (payload.email ?? "").trim().slice(0, 255);
@@ -36,6 +55,11 @@ export async function submitForm(type: FormType, payload: Record<string, string>
         .from("contact_messages")
         .insert({ name, email, message });
       if (error) throw error;
+      void notifyAdmin("contact message", [
+        { label: "Name", value: name },
+        { label: "Email", value: email },
+        { label: "Message", value: message },
+      ]);
     }
     return { ok: true };
   } catch (err) {

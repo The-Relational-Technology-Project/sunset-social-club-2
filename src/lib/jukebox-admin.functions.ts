@@ -109,7 +109,9 @@ export const toggleSubmissions = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     assertSteward(context.claims.email);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const update: Record<string, unknown> = { submissions_open: data.open };
+    const update: { submissions_open: boolean; current_event_label?: string } = {
+      submissions_open: data.open,
+    };
     if (data.eventLabel !== undefined) update.current_event_label = data.eventLabel;
     const { error } = await supabaseAdmin
       .from("jukebox_settings")

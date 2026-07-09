@@ -110,12 +110,13 @@ const translations: Record<Language, Dict> = {
     // Hero
     "hero.tagline": "邻里相聚，凝聚旧金山日落区的社区情谊。",
     "hero.photoAlt": "日落社交俱乐部的邻居们聚在人行道上",
+    "hero.vision.l1": "我们期待一个这样的日落区：",
+    "hero.vision.l2": "每个街区上",
+    "hero.vision.l3": "人人都认识彼此。",
 
     // Home sections
-    "home.neighborhood.title": "属于街坊邻里的俱乐部",
-    "home.neighborhood.p1": "大多数俱乐部围绕「排他性」而建。",
-    "home.neighborhood.p2": "日落社交俱乐部则围绕「距离感」而建。",
-    "home.neighborhood.p3": "如果您住在日落区，或者是日落区的朋友，您就已经和这里的每个人拥有了一份有意义的共同点。我们都与这个地方息息相关，也关乎与我们共享街道和人行道的人们的福祉。",
+    "home.neighborhood.lead": "这是属于我们街坊邻里的俱乐部。",
+    "home.neighborhood.body": "如果您住在日落区，或者是日落区的朋友，您就已经和这里的每个人拥有了一份有意义的共同点。我们都与这个地方息息相关，也关乎与我们共享街道和人行道的人们的福祉。",
     "home.coffeeAlt": "咖啡与甜甜圈",
     "home.what.title": "我们一起做什么？",
     "home.what.p1": "我们从「西区周三」开始，规模虽小。",

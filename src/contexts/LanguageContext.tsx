@@ -19,12 +19,13 @@ const translations: Record<Language, Dict> = {
     // Hero
     "hero.tagline": "Neighbors coming together to strengthen our social fabric in the Sunset in San Francisco.",
     "hero.photoAlt": "Sunset Social Club neighbors gathered on the sidewalk",
+    "hero.vision.l1": "We envision a Sunset where",
+    "hero.vision.l2": "everyone knows someone",
+    "hero.vision.l3": "on every block.",
 
     // Home sections
-    "home.neighborhood.title": "A club for the neighborhood",
-    "home.neighborhood.p1": "Most clubs are built around exclusivity.",
-    "home.neighborhood.p2": "Sunset Social Club is built around proximity.",
-    "home.neighborhood.p3": "If you live in the Sunset — or are a friend of the Sunset — you already have something meaningful in common with everyone else here. We all have a stake in this place and the wellbeing of people with whom we share our streets and sidewalks.",
+    "home.neighborhood.lead": "This is a club for our neighborhood.",
+    "home.neighborhood.body": "If you live in the Sunset — or are a friend of the Sunset — you already have something meaningful in common with everyone else here. We all have a stake in this place and the wellbeing of people with whom we share our streets and sidewalks.",
     "home.coffeeAlt": "Coffee and donuts",
     "home.what.title": "What do we do together?",
     "home.what.p1": "We're starting small with West Side Wednesdays.",

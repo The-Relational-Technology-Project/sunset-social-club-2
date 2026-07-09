@@ -12,10 +12,10 @@ import oceanBeach from "../assets/ocean_beach_sf.jpeg.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sunset social club" },
-      { name: "description", content: "A club for the neighborhood. Neighbors in the Sunset coming together for West Side Wednesdays." },
-      { property: "og:title", content: "Sunset social club" },
-      { property: "og:description", content: "A club for the neighborhood. Neighbors in the Sunset coming together for West Side Wednesdays." },
+      { title: "Sunset Social Club" },
+      { name: "description", content: "A club for our neighborhood. Neighbors coming together to strengthen our social fabric." },
+      { property: "og:title", content: "Sunset Social Club" },
+      { property: "og:description", content: "A club for our neighborhood. Neighbors coming together to strengthen our social fabric." },
     ],
   }),
   component: Home,

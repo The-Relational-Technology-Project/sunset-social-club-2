@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -122,14 +123,16 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isStandalone = pathname.startsWith("/jukebox");
 
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <Header />
+        {!isStandalone && <Header />}
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
-        <Footer />
+        {!isStandalone && <Footer />}
       </LanguageProvider>
     </QueryClientProvider>
   );

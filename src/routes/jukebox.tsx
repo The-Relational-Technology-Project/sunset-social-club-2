@@ -51,7 +51,7 @@ function JukeboxPage() {
     <div className="jukebox-shell min-h-screen w-full flex flex-col items-center px-4 py-8 sm:py-12">
       {/* Logo */}
       <a href="/" className="mb-8 sm:mb-10 opacity-90 hover:opacity-100 transition-opacity">
-        <img src={wordmark} alt="Sunset Social Club" className="h-10 sm:h-12 w-auto" />
+        <img src={wordmark.url} alt="Sunset Social Club" className="h-10 sm:h-12 w-auto" />
       </a>
 
       <div className="w-full max-w-[440px] space-y-6">

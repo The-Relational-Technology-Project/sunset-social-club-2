@@ -13,7 +13,7 @@ const translations: Record<Language, Dict> = {
 
     // Banner
     "banner.eyebrow": "July 22 · Kickoff",
-    "banner.title": "Volunteer Day + Pizza Party",
+    "banner.title": "Welcome + Pizza Party",
     "banner.cta": "Tap to RSVP →",
 
     // Hero
@@ -104,7 +104,7 @@ const translations: Record<Language, Dict> = {
 
     // Banner
     "banner.eyebrow": "7月22日 · 启动日",
-    "banner.title": "志愿者日 + 披萨派对",
+    "banner.title": "欢迎会 + 披萨派对",
     "banner.cta": "点击报名 →",
 
     // Hero

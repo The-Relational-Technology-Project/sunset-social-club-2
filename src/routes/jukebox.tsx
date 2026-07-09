@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { listPublicQueue } from "@/lib/jukebox.functions";
 import { JukeboxForm } from "@/components/JukeboxForm";
 import { JukeboxQueue } from "@/components/JukeboxQueue";
-import wordmark from "@/assets/ssc-script-wordmark-cream.svg";
+import wordmark from "../assets/ssc-script-wordmark-cream.svg.asset.json";
 
 export const Route = createFileRoute("/jukebox")({
   head: () => ({

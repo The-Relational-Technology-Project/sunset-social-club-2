@@ -14,32 +14,55 @@ interface Props {
 
 export function JukeboxQueue({ queue, total }: Props) {
   const upNext = queue.filter((q) => q.status === "approved");
+
+  if (upNext.length === 0) {
+    return (
+      <div className="py-2">
+        <p className="text-xs text-neutral-500">
+          {total === 0
+            ? "No songs yet. Yours could be first."
+            : `${total} submitted. Waiting on approvals.`}
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-4">
-      <p className="text-sm text-ink/60">
-        {total} {total === 1 ? "song submitted so far" : "songs submitted so far"}.
-      </p>
-      {upNext.length === 0 ? (
-        <p className="text-ink/70">No songs approved yet. Yours could be first.</p>
-      ) : (
-        <ul className="space-y-2">
-          {upNext.map((row, i) => (
-            <li key={row.id} className="paper-card flex items-center gap-3 px-4 py-3">
-              <span className="w-7 flex-none text-center font-bold text-sunset">{i + 1}</span>
-              {row.album_art_url ? (
-                <img src={row.album_art_url} alt="" className="h-12 w-12 flex-none rounded" />
-              ) : (
-                <div className="h-12 w-12 flex-none rounded bg-ink/10" />
-              )}
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-semibold text-ink">{row.track_name}</p>
-                <p className="truncate text-sm text-ink/60">{row.artist_name}</p>
-              </div>
-              <span className="hidden text-sm text-ink/55 sm:inline">from {row.requester_name}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <ul className="space-y-4">
+      {upNext.map((row, i) => (
+        <li key={row.id} className="flex items-center gap-3">
+          <div
+            className={
+              "h-7 w-7 flex-none rounded-full border flex items-center justify-center text-[10px] font-black " +
+              (i === 0
+                ? "bg-[#ec6a4c] border-[#ec6a4c] text-white"
+                : "bg-neutral-800 border-neutral-700 text-neutral-500")
+            }
+          >
+            {String(i + 1).padStart(2, "0")}
+          </div>
+          {row.album_art_url ? (
+            <img
+              src={row.album_art_url}
+              alt=""
+              className="h-10 w-10 flex-none rounded"
+            />
+          ) : (
+            <div className="h-10 w-10 flex-none rounded bg-neutral-800" />
+          )}
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-xs font-bold text-white">{row.track_name}</p>
+            <p className="truncate text-[10px] uppercase tracking-tight text-neutral-500">
+              {row.artist_name} — <span className="text-neutral-300">{row.requester_name}</span>
+            </p>
+          </div>
+          {i === 0 && (
+            <span className="text-[9px] font-black uppercase tracking-widest text-[#ec6a4c]">
+              Next
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -10,8 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticated/stewards'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicNotifySubmissionRouteImport } from './routes/api/public/notify-submission'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -23,6 +26,15 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -32,6 +44,11 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedStewardsRoute = AuthenticatedStewardsRouteImport.update({
+  id: '/stewards',
+  path: '/stewards',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
@@ -65,7 +82,9 @@ const LovableEmailQueueProcessRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -75,7 +94,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -86,7 +107,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/_authenticated/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -98,7 +122,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/contact'
+    | '/stewards'
     | '/email/unsubscribe'
     | '/api/public/notify-submission'
     | '/lovable/email/suppression'
@@ -108,7 +134,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/contact'
+    | '/stewards'
     | '/email/unsubscribe'
     | '/api/public/notify-submission'
     | '/lovable/email/suppression'
@@ -118,7 +146,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/contact'
+    | '/_authenticated/stewards'
     | '/email/unsubscribe'
     | '/api/public/notify-submission'
     | '/lovable/email/suppression'
@@ -129,6 +160,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ApiPublicNotifySubmissionRoute: typeof ApiPublicNotifySubmissionRoute
@@ -147,6 +180,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -160,6 +207,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/email/unsubscribe'
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/stewards': {
+      id: '/_authenticated/stewards'
+      path: '/stewards'
+      fullPath: '/stewards'
+      preLoaderRoute: typeof AuthenticatedStewardsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
@@ -199,8 +253,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedStewardsRoute: typeof AuthenticatedStewardsRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedStewardsRoute: AuthenticatedStewardsRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ApiPublicNotifySubmissionRoute: ApiPublicNotifySubmissionRoute,

@@ -167,6 +167,84 @@ export type Database = {
         }
         Relationships: []
       }
+      jukebox_settings: {
+        Row: {
+          current_event_label: string | null
+          id: number
+          submissions_open: boolean
+          updated_at: string
+        }
+        Insert: {
+          current_event_label?: string | null
+          id?: number
+          submissions_open?: boolean
+          updated_at?: string
+        }
+        Update: {
+          current_event_label?: string | null
+          id?: number
+          submissions_open?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      jukebox_submissions: {
+        Row: {
+          added_to_playlist_at: string | null
+          album_art_url: string | null
+          approve_error: string | null
+          approved_at: string | null
+          artist_name: string
+          created_at: string
+          duration_ms: number | null
+          id: string
+          requester_name: string
+          spotify_playlist_snapshot_id: string | null
+          spotify_track_id: string
+          spotify_uri: string
+          status: string
+          submitter_fingerprint: string | null
+          track_name: string
+          updated_at: string
+        }
+        Insert: {
+          added_to_playlist_at?: string | null
+          album_art_url?: string | null
+          approve_error?: string | null
+          approved_at?: string | null
+          artist_name: string
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          requester_name: string
+          spotify_playlist_snapshot_id?: string | null
+          spotify_track_id: string
+          spotify_uri: string
+          status?: string
+          submitter_fingerprint?: string | null
+          track_name: string
+          updated_at?: string
+        }
+        Update: {
+          added_to_playlist_at?: string | null
+          album_art_url?: string | null
+          approve_error?: string | null
+          approved_at?: string | null
+          artist_name?: string
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          requester_name?: string
+          spotify_playlist_snapshot_id?: string | null
+          spotify_track_id?: string
+          spotify_uri?: string
+          status?: string
+          submitter_fingerprint?: string | null
+          track_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string

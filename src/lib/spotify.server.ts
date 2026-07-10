@@ -66,12 +66,18 @@ async function getUserToken(): Promise<string> {
   if (!res.ok) {
     throw new Error(`Spotify refresh failed [${res.status}]: ${await res.text()}`);
   }
-  const data = (await res.json()) as { access_token: string; expires_in: number };
+  const data = (await res.json()) as { access_token: string; expires_in: number; scope?: string };
+  lastUserScope = data.scope ?? null;
   userTokenCache = {
     token: data.access_token,
     expiresAt: Date.now() + data.expires_in * 1000,
   };
   return userTokenCache.token;
+}
+
+let lastUserScope: string | null = null;
+export function getLastUserScope() {
+  return lastUserScope;
 }
 
 export interface SpotifyTrack {

@@ -10,7 +10,7 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
           return new Response("Unauthorized", { status: 401 });
         }
         try {
-          const { getUserTokenForDiag, getPlaylistOwnerForDiag } = await import(
+          const { getUserTokenForDiag, getPlaylistOwnerForDiag, getLastUserScope } = await import(
             "@/lib/spotify.server"
           );
           const { accessToken, me } = await getUserTokenForDiag();
@@ -39,6 +39,7 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
             },
             match: me.id === playlist.owner.id,
             testAppend: { status: appendRes.status, body: appendBody },
+            grantedScope: getLastUserScope(),
           });
 
         } catch (e: any) {

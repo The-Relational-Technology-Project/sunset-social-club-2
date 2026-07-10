@@ -33,41 +33,18 @@ export const approveSubmission = createServerFn({ method: "POST" })
     assertSteward(context.claims.email);
     if (!data.id) return { ok: false, error: "Missing id" };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
-    const { data: row, error: fetchErr } = await supabaseAdmin
+    const now = new Date().toISOString();
+    const { error } = await supabaseAdmin
       .from("jukebox_submissions")
-      .select("id, spotify_uri, status")
-      .eq("id", data.id)
-      .single();
-    if (fetchErr || !row) return { ok: false, error: "Not found" };
-    if (row.status === "approved" || row.status === "played") {
-      return { ok: false, error: "Already approved" };
-    }
-
-    try {
-      const { appendTrackToPlaylist } = await import("./spotify.server");
-      const { snapshotId } = await appendTrackToPlaylist(row.spotify_uri);
-      const now = new Date().toISOString();
-      const { error: updErr } = await supabaseAdmin
-        .from("jukebox_submissions")
-        .update({
-          status: "approved",
-          approved_at: now,
-          added_to_playlist_at: now,
-          spotify_playlist_snapshot_id: snapshotId,
-          approve_error: null,
-        })
-        .eq("id", data.id);
-      if (updErr) return { ok: false, error: updErr.message };
-      return { ok: true };
-    } catch (err: any) {
-      const msg = err?.message ?? String(err);
-      await supabaseAdmin
-        .from("jukebox_submissions")
-        .update({ approve_error: msg.slice(0, 500) })
-        .eq("id", data.id);
-      return { ok: false, error: msg };
-    }
+      .update({
+        status: "approved",
+        approved_at: now,
+        added_to_playlist_at: now,
+        approve_error: null,
+      })
+      .eq("id", data.id);
+    if (error) return { ok: false, error: error.message };
+    return { ok: true };
   });
 
 export const removeFromPlaylist = createServerFn({ method: "POST" })

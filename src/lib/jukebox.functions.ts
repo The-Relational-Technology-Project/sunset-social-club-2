@@ -79,7 +79,7 @@ export const submitSong = createServerFn({ method: "POST" })
     }
     if (!track) return { ok: false, error: "That song wasn't found." };
 
-    // Insert as pending; we'll flip to approved after Spotify append succeeds.
+    // Insert as pending; we'll flip to approved either way so Spotify issues do not block the room.
     const { data: inserted, error } = await supabaseAdmin
       .from("jukebox_submissions")
       .insert({
@@ -103,7 +103,9 @@ export const submitSong = createServerFn({ method: "POST" })
       return { ok: false, error: "Something went wrong. Try again." };
     }
 
-    // Auto-append to Spotify playlist
+    let spotifyAppendWarning: string | null = null;
+
+    // Auto-append to Spotify playlist, but keep the club queue working if Spotify blocks writes.
     try {
       const { appendTrackToPlaylist } = await import("./spotify.server");
       const { snapshotId } = await appendTrackToPlaylist(track.uri);
@@ -121,11 +123,17 @@ export const submitSong = createServerFn({ method: "POST" })
     } catch (err: any) {
       const msg = err?.message ?? String(err);
       console.error("auto-append failed", msg);
+      spotifyAppendWarning = msg.slice(0, 500);
+      const now = new Date().toISOString();
       await supabaseAdmin
         .from("jukebox_submissions")
-        .update({ status: "rejected", approve_error: msg.slice(0, 500) })
+        .update({
+          status: "approved",
+          approved_at: now,
+          added_to_playlist_at: null,
+          approve_error: spotifyAppendWarning,
+        })
         .eq("id", inserted.id);
-      return { ok: false, error: "Couldn't add that one to the playlist. Try another?" };
     }
 
     // Position in the live playlist
@@ -139,6 +147,7 @@ export const submitSong = createServerFn({ method: "POST" })
       id: inserted.id,
       position: ahead ?? 1,
       track: { name: track.name, artists: track.artists, albumArt: track.albumArt },
+      spotifyAppendWarning,
     };
   });
 

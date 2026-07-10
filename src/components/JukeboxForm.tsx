@@ -63,7 +63,9 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
       if (res.ok) {
         setMessage({
           kind: "ok",
-          text: `Added! You're up #${res.position ?? "?"} in the playlist.`,
+          text: res.spotifyAppendWarning
+            ? `Added to the club queue! You're up #${res.position ?? "?"}.`
+            : `Added! You're up #${res.position ?? "?"} in the playlist.`,
         });
         setSelected(null);
         setQuery("");
@@ -112,7 +114,7 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
         <input
           id="jb-song"
           type="text"
-          value={selected ? `${selected.name} — ${selected.artists}` : query}
+          value={selected ? `${selected.name} - ${selected.artists}` : query}
           onChange={(e) => {
             setSelected(null);
             setQuery(e.target.value);

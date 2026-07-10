@@ -3,7 +3,12 @@ import { useServerFn } from "@tanstack/react-start";
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { getStewardsData } from "@/lib/stewards.functions";
-import { listAllSubmissions, toggleSubmissions } from "@/lib/jukebox-admin.functions";
+import {
+  listAllSubmissions,
+  toggleSubmissions,
+  approveSubmission,
+  rejectSubmission,
+} from "@/lib/jukebox-admin.functions";
 
 export const Route = createFileRoute("/_authenticated/stewards")({
   head: () => ({ meta: [{ title: "Stewards dashboard" }] }),

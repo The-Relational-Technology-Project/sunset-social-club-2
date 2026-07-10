@@ -21,7 +21,7 @@ export function JukeboxQueue({ queue, total }: Props) {
         <p className="text-xs text-neutral-500">
           {total === 0
             ? "No songs yet. Yours could be first."
-            : `${total} submitted. Waiting on approvals.`}
+            : "Loading the playlist…"}
         </p>
       </div>
     );

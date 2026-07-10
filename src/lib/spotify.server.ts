@@ -184,6 +184,31 @@ export async function appendTrackToPlaylist(trackUri: string): Promise<{ snapsho
   return { snapshotId: data.snapshot_id };
 }
 
+export async function removeTrackFromPlaylist(trackUri: string): Promise<{ snapshotId: string }> {
+  const playlistId = requireEnv("SPOTIFY_PLAYLIST_ID");
+  const doRequest = async (token: string) =>
+    fetch(`https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}/tracks`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ tracks: [{ uri: trackUri }] }),
+    });
+  let token = await getUserToken();
+  let res = await doRequest(token);
+  if (res.status === 401) {
+    userTokenCache = null;
+    token = await getUserToken();
+    res = await doRequest(token);
+  }
+  if (!res.ok) {
+    throw new Error(`Spotify remove failed [${res.status}]: ${await res.text()}`);
+  }
+  const data = (await res.json()) as { snapshot_id: string };
+  return { snapshotId: data.snapshot_id };
+}
+
 // One-time OAuth setup helpers
 export const SPOTIFY_SCOPES = "playlist-modify-public playlist-modify-private";
 

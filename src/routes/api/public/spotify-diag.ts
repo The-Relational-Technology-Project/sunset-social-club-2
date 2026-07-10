@@ -15,8 +15,21 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
           );
           const { accessToken, me } = await getUserTokenForDiag();
           const playlist = await getPlaylistOwnerForDiag(accessToken);
+
+          // Try a real append with a known track (Rick Astley - Never Gonna Give You Up)
+          const testUri = "spotify:track:4cOdK2wGLETKBW3PvgPWqT";
+          const appendRes = await fetch(
+            `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
+            {
+              method: "POST",
+              headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+              body: JSON.stringify({ uris: [testUri] }),
+            },
+          );
+          const appendBody = await appendRes.text();
+
           return Response.json({
-            authorizedAs: { id: me.id, display_name: me.display_name, product: me.product },
+            authorizedAs: me,
             playlist: {
               id: playlist.id,
               name: playlist.name,
@@ -25,7 +38,9 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
               public: playlist.public,
             },
             match: me.id === playlist.owner.id,
+            testAppend: { status: appendRes.status, body: appendBody },
           });
+
         } catch (e: any) {
           return new Response(`Diag failed: ${e?.message ?? String(e)}`, { status: 500 });
         }

@@ -42,8 +42,7 @@ function Stewards() {
   const navigate = useNavigate();
   const fetchData = useServerFn(getStewardsData);
   const fetchJukebox = useServerFn(listAllSubmissions);
-  const approve = useServerFn(approveSubmission);
-  const reject = useServerFn(rejectSubmission);
+  const remove = useServerFn(removeFromPlaylist);
   const played = useServerFn(markPlayed);
   const toggle = useServerFn(toggleSubmissions);
 
@@ -66,17 +65,12 @@ function Stewards() {
     navigate({ to: "/auth", replace: true });
   }
 
-  async function onApprove(id: string) {
+  async function onRemove(id: string) {
+    if (!confirm("Remove this song from the Spotify playlist?")) return;
     setBusy(id);
-    const res = await approve({ data: { id } });
+    const res = await remove({ data: { id } });
     setBusy(null);
-    if (!res.ok) alert(res.error ?? "Failed to approve");
-    refreshJukebox();
-  }
-  async function onReject(id: string) {
-    setBusy(id);
-    await reject({ data: { id } });
-    setBusy(null);
+    if (!res.ok) alert(res.error ?? "Failed to remove");
     refreshJukebox();
   }
   async function onPlayed(id: string) {

@@ -250,3 +250,34 @@ export async function exchangeCodeForRefreshToken(
   const data = (await res.json()) as { access_token: string; refresh_token: string };
   return { refreshToken: data.refresh_token, accessToken: data.access_token };
 }
+
+export async function getUserTokenForDiag(): Promise<{
+  accessToken: string;
+  me: { id: string; display_name: string | null; product: string };
+}> {
+  userTokenCache = null;
+  const accessToken = await getUserToken();
+  const res = await fetch("https://api.spotify.com/v1/me", {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  if (!res.ok) throw new Error(`/me failed [${res.status}]: ${await res.text()}`);
+  const me = (await res.json()) as { id: string; display_name: string | null; product: string };
+  return { accessToken, me };
+}
+
+export async function getPlaylistOwnerForDiag(accessToken: string): Promise<{
+  id: string;
+  name: string;
+  collaborative: boolean;
+  public: boolean;
+  owner: { id: string; display_name: string | null };
+}> {
+  const playlistId = requireEnv("SPOTIFY_PLAYLIST_ID");
+  const res = await fetch(
+    `https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}?fields=id,name,collaborative,public,owner(id,display_name)`,
+    { headers: { Authorization: `Bearer ${accessToken}` } },
+  );
+  if (!res.ok) throw new Error(`playlist fetch failed [${res.status}]: ${await res.text()}`);
+  return (await res.json()) as any;
+}
+

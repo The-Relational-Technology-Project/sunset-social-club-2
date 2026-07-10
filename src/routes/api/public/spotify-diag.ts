@@ -61,6 +61,63 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
             cleanup = { status: cleanupRes.status, body: await cleanupRes.text() };
           }
 
+          let temporaryPlaylistTest: {
+            create: { status: number; body: string };
+            append: { status: number; body: string } | null;
+            cleanup: { status: number; body: string } | null;
+          } | null = null;
+          const createTempRes = await fetch(`https://api.spotify.com/v1/users/${me.id}/playlists`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: "SSC API diagnostic temp playlist",
+              public: false,
+              description: "Temporary diagnostic playlist. Safe to remove.",
+            }),
+          });
+          const createTempBody = await createTempRes.text();
+          temporaryPlaylistTest = {
+            create: { status: createTempRes.status, body: createTempBody },
+            append: null,
+            cleanup: null,
+          };
+
+          if (createTempRes.ok) {
+            const tempPlaylist = JSON.parse(createTempBody) as { id: string };
+            const appendTempRes = await fetch(
+              `https://api.spotify.com/v1/playlists/${tempPlaylist.id}/tracks`,
+              {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ uris: [testUri] }),
+              },
+            );
+            temporaryPlaylistTest.append = {
+              status: appendTempRes.status,
+              body: await appendTempRes.text(),
+            };
+
+            const cleanupTempRes = await fetch(
+              `https://api.spotify.com/v1/playlists/${tempPlaylist.id}/followers`,
+              {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${accessToken}`, Accept: "application/json" },
+              },
+            );
+            temporaryPlaylistTest.cleanup = {
+              status: cleanupTempRes.status,
+              body: await cleanupTempRes.text(),
+            };
+          }
+
           return Response.json({
             authorizedAs: me,
             playlist: {
@@ -72,6 +129,7 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
             },
             match: me.id === playlist.owner.id,
             testAppend: { json: { status: jsonAppendRes.status, body: jsonAppendBody }, query: queryAppend, cleanup },
+            temporaryPlaylistTest,
             grantedScope: getLastUserScope(),
           });
 

@@ -114,7 +114,7 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
         <input
           id="jb-song"
           type="text"
-          value={selected ? `${selected.name} — ${selected.artists}` : query}
+          value={selected ? `${selected.name} - ${selected.artists}` : query}
           onChange={(e) => {
             setSelected(null);
             setQuery(e.target.value);

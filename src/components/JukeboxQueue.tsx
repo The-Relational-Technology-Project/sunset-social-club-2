@@ -53,7 +53,7 @@ export function JukeboxQueue({ queue, total }: Props) {
           <div className="min-w-0 flex-1">
             <p className="truncate text-xs font-bold text-white">{row.track_name}</p>
             <p className="truncate text-[10px] uppercase tracking-tight text-neutral-500">
-              {row.artist_name} — <span className="text-neutral-300">{row.requester_name}</span>
+              {row.artist_name} - <span className="text-neutral-300">{row.requester_name}</span>
             </p>
           </div>
           {i === 0 && (

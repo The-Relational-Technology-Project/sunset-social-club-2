@@ -135,7 +135,7 @@ function Stewards() {
             <ul className="space-y-2">
               {stuck.map((s) => (
                 <li key={s.id} className="paper-card px-4 py-3">
-                  <p className="font-semibold truncate">{s.track_name} — {s.artist_name}</p>
+                  <p className="font-semibold truncate">{s.track_name} - {s.artist_name}</p>
                   <p className="text-xs text-ink/50">by {s.requester_name}</p>
                   {s.approve_error && <p className="text-xs text-red-600 mt-1">{s.approve_error}</p>}
                 </li>

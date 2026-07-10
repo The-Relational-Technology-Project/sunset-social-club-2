@@ -3,7 +3,12 @@ import { useServerFn } from "@tanstack/react-start";
 import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { getStewardsData } from "@/lib/stewards.functions";
-import { listAllSubmissions, toggleSubmissions } from "@/lib/jukebox-admin.functions";
+import {
+  listAllSubmissions,
+  toggleSubmissions,
+  approveSubmission,
+  rejectSubmission,
+} from "@/lib/jukebox-admin.functions";
 
 export const Route = createFileRoute("/_authenticated/stewards")({
   head: () => ({ meta: [{ title: "Stewards dashboard" }] }),
@@ -33,19 +38,20 @@ function download(name: string, content: string) {
   URL.revokeObjectURL(url);
 }
 
-function copySong(trackName: string, artistName: string) {
-  void navigator.clipboard?.writeText(`${trackName} - ${artistName}`);
-}
 
 function Stewards() {
   const navigate = useNavigate();
   const fetchData = useServerFn(getStewardsData);
   const fetchJukebox = useServerFn(listAllSubmissions);
   const toggle = useServerFn(toggleSubmissions);
+  const approve = useServerFn(approveSubmission);
+  const reject = useServerFn(rejectSubmission);
 
   const [data, setData] = useState<Data | null>(null);
   const [jukebox, setJukebox] = useState<Jukebox | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [busyId, setBusyId] = useState<string | null>(null);
 
   const refreshJukebox = useCallback(() => {
     fetchJukebox().then(setJukebox).catch((e) => setError(e?.message ?? "Failed to load jukebox"));
@@ -67,12 +73,36 @@ function Stewards() {
     refreshJukebox();
   }
 
+  async function onCopy(id: string, trackName: string, artistName: string) {
+    try {
+      await navigator.clipboard?.writeText(`${trackName} ${artistName}`);
+      setCopiedId(id);
+      setTimeout(() => setCopiedId((c) => (c === id ? null : c)), 2000);
+    } catch {
+      // no-op
+    }
+  }
+
+  async function onApprove(id: string) {
+    setBusyId(id);
+    await approve({ data: { id } });
+    setBusyId(null);
+    refreshJukebox();
+  }
+
+  async function onReject(id: string) {
+    setBusyId(id);
+    await reject({ data: { id } });
+    setBusyId(null);
+    refreshJukebox();
+  }
+
   if (error) return <main className="mx-auto max-w-3xl px-5 py-10"><p className="text-red-600">{error}</p></main>;
   if (!data) return <main className="mx-auto max-w-3xl px-5 py-10">Loading…</main>;
 
-  const inPlaylist = jukebox?.submissions.filter((s) => s.status === "approved" || s.status === "played") ?? [];
-  const needsManualAdd = inPlaylist.filter((s) => s.approve_error && !s.added_to_playlist_at);
-  const stuck = jukebox?.submissions.filter((s) => s.status === "pending") ?? [];
+  const pending = jukebox?.submissions.filter((s) => s.status === "pending") ?? [];
+  const approved = jukebox?.submissions.filter((s) => s.status === "approved" || s.status === "played") ?? [];
+  const rejected = jukebox?.submissions.filter((s) => s.status === "rejected") ?? [];
 
   return (
     <main className="mx-auto max-w-4xl px-5 py-10 space-y-10">
@@ -83,7 +113,7 @@ function Stewards() {
 
       <section>
         <div className="flex items-center justify-between mb-3 flex-wrap gap-3">
-          <h2 className="text-xl font-bold">Jukebox ({inPlaylist.length} submitted)</h2>
+          <h2 className="text-xl font-bold">Jukebox review</h2>
           {jukebox?.settings && (
             <button onClick={onToggle} className="btn-ghost">
               {jukebox.settings.submissions_open ? "Pause submissions" : "Open submissions"}
@@ -92,56 +122,88 @@ function Stewards() {
         </div>
 
         <p className="text-sm text-ink/60 mb-4">
-          Songs are saved here as soon as they're submitted. If Spotify blocks the automatic add, copy the song from here and add it in Spotify.
+          Tap Copy, paste into Spotify search on your phone, add the track to the playlist, then tap Approve. Approved songs show up on the public queue.
         </p>
 
-        {needsManualAdd.length > 0 && (
-          <div className="paper-card mb-5 border-[#ec6a4c] px-4 py-3">
-            <h3 className="font-semibold">Needs manual Spotify add ({needsManualAdd.length})</h3>
-            <ul className="mt-3 space-y-2">
-              {needsManualAdd.map((s) => (
-                <li key={s.id} className="flex flex-wrap items-center justify-between gap-2 text-sm">
-                  <span className="min-w-0 truncate font-semibold">
-                    {s.track_name} <span className="text-ink/50 font-normal">- {s.artist_name}</span>
-                  </span>
-                  <button onClick={() => copySong(s.track_name, s.artist_name)} className="btn-ghost text-xs">
-                    Copy
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {inPlaylist.length === 0 ? (
-          <p className="text-ink/60">No submissions yet.</p>
+        <h3 className="font-semibold mb-2">Waiting for review ({pending.length})</h3>
+        {pending.length === 0 ? (
+          <p className="text-ink/60 mb-6">Nothing waiting.</p>
         ) : (
-          <ul className="space-y-3">
-            {inPlaylist.map((s) => (
+          <ul className="space-y-3 mb-8">
+            {pending.map((s) => (
               <li key={s.id} className="paper-card flex flex-wrap items-center gap-3 px-4 py-3">
                 {s.album_art_url && <img src={s.album_art_url} alt="" className="h-14 w-14 rounded flex-none" />}
                 <div className="min-w-0 flex-1">
-                  <p className="font-semibold truncate">{s.track_name} <span className="text-ink/50 font-normal">- {s.artist_name}</span></p>
-                  <p className="text-xs text-ink/50">by {s.requester_name} · {new Date(s.created_at).toLocaleTimeString()}</p>
+                  <p className="font-semibold truncate">
+                    {s.track_name} <span className="text-ink/50 font-normal">- {s.artist_name}</span>
+                  </p>
+                  <p className="text-xs text-ink/50">
+                    by {s.requester_name} · {new Date(s.created_at).toLocaleTimeString()}
+                  </p>
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  <button
+                    onClick={() => onCopy(s.id, s.track_name, s.artist_name)}
+                    className="btn-ghost text-xs"
+                  >
+                    {copiedId === s.id ? "Copied!" : "Copy"}
+                  </button>
+                  <button
+                    onClick={() => onApprove(s.id)}
+                    disabled={busyId === s.id}
+                    className="btn-solid text-xs disabled:opacity-50"
+                  >
+                    Approve
+                  </button>
+                  <button
+                    onClick={() => onReject(s.id)}
+                    disabled={busyId === s.id}
+                    className="btn-ghost text-xs text-red-600"
+                  >
+                    Reject
+                  </button>
                 </div>
               </li>
             ))}
           </ul>
         )}
 
-        {stuck.length > 0 && (
-          <>
-            <h3 className="font-semibold mt-6 mb-2">Didn't reach Spotify ({stuck.length})</h3>
-            <ul className="space-y-2">
-              {stuck.map((s) => (
-                <li key={s.id} className="paper-card px-4 py-3">
-                  <p className="font-semibold truncate">{s.track_name} - {s.artist_name}</p>
+        <h3 className="font-semibold mb-2">In the playlist ({approved.length})</h3>
+        {approved.length === 0 ? (
+          <p className="text-ink/60 mb-6">Nothing approved yet.</p>
+        ) : (
+          <ul className="space-y-2 mb-8">
+            {approved.map((s) => (
+              <li key={s.id} className="paper-card flex flex-wrap items-center gap-3 px-4 py-2 text-sm">
+                {s.album_art_url && <img src={s.album_art_url} alt="" className="h-10 w-10 rounded flex-none" />}
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold truncate">
+                    {s.track_name} <span className="text-ink/50 font-normal">- {s.artist_name}</span>
+                  </p>
                   <p className="text-xs text-ink/50">by {s.requester_name}</p>
-                  {s.approve_error && <p className="text-xs text-red-600 mt-1">{s.approve_error}</p>}
+                </div>
+                <button
+                  onClick={() => onCopy(s.id, s.track_name, s.artist_name)}
+                  className="btn-ghost text-xs"
+                >
+                  {copiedId === s.id ? "Copied!" : "Copy"}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {rejected.length > 0 && (
+          <details className="mb-4">
+            <summary className="cursor-pointer text-sm text-ink/60">Rejected ({rejected.length})</summary>
+            <ul className="mt-2 space-y-1 text-sm">
+              {rejected.map((s) => (
+                <li key={s.id} className="text-ink/50">
+                  {s.track_name} - {s.artist_name} <span className="text-ink/40">(by {s.requester_name})</span>
                 </li>
               ))}
             </ul>
-          </>
+          </details>
         )}
       </section>
 

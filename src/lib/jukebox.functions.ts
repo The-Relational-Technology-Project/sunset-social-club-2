@@ -46,7 +46,6 @@ export const submitSong = createServerFn({ method: "POST" })
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    // Check submissions open
     const { data: settings } = await supabaseAdmin
       .from("jukebox_settings")
       .select("submissions_open")
@@ -56,19 +55,8 @@ export const submitSong = createServerFn({ method: "POST" })
       return { ok: false, error: "Submissions are paused right now." };
     }
 
-    // Rate limit
     const fp = fingerprint();
-    const since = new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString();
-    const { count } = await supabaseAdmin
-      .from("jukebox_submissions")
-      .select("id", { count: "exact", head: true })
-      .eq("submitter_fingerprint", fp)
-      .gte("created_at", since);
-    if ((count ?? 0) >= 5) {
-      return { ok: false, error: "You've submitted a few already. Give others a turn." };
-    }
 
-    // Look up track
     const { getTrack } = await import("./spotify.server");
     let track;
     try {
@@ -79,7 +67,6 @@ export const submitSong = createServerFn({ method: "POST" })
     }
     if (!track) return { ok: false, error: "That song wasn't found." };
 
-    // Insert as pending; we'll flip to approved either way so Spotify issues do not block the room.
     const { data: inserted, error } = await supabaseAdmin
       .from("jukebox_submissions")
       .insert({
@@ -103,51 +90,16 @@ export const submitSong = createServerFn({ method: "POST" })
       return { ok: false, error: "Something went wrong. Try again." };
     }
 
-    let spotifyAppendWarning: string | null = null;
-
-    // Auto-append to Spotify playlist, but keep the club queue working if Spotify blocks writes.
-    try {
-      const { appendTrackToPlaylist } = await import("./spotify.server");
-      const { snapshotId } = await appendTrackToPlaylist(track.uri);
-      const now = new Date().toISOString();
-      await supabaseAdmin
-        .from("jukebox_submissions")
-        .update({
-          status: "approved",
-          approved_at: now,
-          added_to_playlist_at: now,
-          spotify_playlist_snapshot_id: snapshotId,
-          approve_error: null,
-        })
-        .eq("id", inserted.id);
-    } catch (err: any) {
-      const msg = err?.message ?? String(err);
-      console.error("auto-append failed", msg);
-      spotifyAppendWarning = msg.slice(0, 500);
-      const now = new Date().toISOString();
-      await supabaseAdmin
-        .from("jukebox_submissions")
-        .update({
-          status: "approved",
-          approved_at: now,
-          added_to_playlist_at: null,
-          approve_error: spotifyAppendWarning,
-        })
-        .eq("id", inserted.id);
-    }
-
-    // Position in the live playlist
-    const { count: ahead } = await supabaseAdmin
+    const { count: pendingCount } = await supabaseAdmin
       .from("jukebox_submissions")
       .select("id", { count: "exact", head: true })
-      .eq("status", "approved");
+      .eq("status", "pending");
 
     return {
       ok: true,
       id: inserted.id,
-      position: ahead ?? 1,
+      position: pendingCount ?? 1,
       track: { name: track.name, artists: track.artists, albumArt: track.albumArt },
-      spotifyAppendWarning,
     };
   });
 

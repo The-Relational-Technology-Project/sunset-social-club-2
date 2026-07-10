@@ -63,9 +63,7 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
       if (res.ok) {
         setMessage({
           kind: "ok",
-          text: res.spotifyAppendWarning
-            ? `Added to the club queue! You're up #${res.position ?? "?"}.`
-            : `Added! You're up #${res.position ?? "?"} in the playlist.`,
+          text: `Sent to the DJ! You're #${res.position ?? "?"} in the request line.`,
         });
         setSelected(null);
         setQuery("");

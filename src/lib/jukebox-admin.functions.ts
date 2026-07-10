@@ -70,6 +70,36 @@ export const approveSubmission = createServerFn({ method: "POST" })
     }
   });
 
+export const removeFromPlaylist = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id: string }) => ({ id: String(data?.id ?? "").slice(0, 60) }))
+  .handler(async ({ data, context }) => {
+    assertSteward(context.claims.email);
+    if (!data.id) return { ok: false, error: "Missing id" };
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row } = await supabaseAdmin
+      .from("jukebox_submissions")
+      .select("id, spotify_uri, status")
+      .eq("id", data.id)
+      .single();
+    if (!row) return { ok: false, error: "Not found" };
+    try {
+      if (row.status === "approved" || row.status === "played") {
+        const { removeTrackFromPlaylist } = await import("./spotify.server");
+        await removeTrackFromPlaylist(row.spotify_uri);
+      }
+    } catch (err: any) {
+      // Log but still mark rejected so it disappears from the queue
+      console.error("removeTrackFromPlaylist failed", err?.message ?? err);
+    }
+    const { error } = await supabaseAdmin
+      .from("jukebox_submissions")
+      .update({ status: "rejected" })
+      .eq("id", data.id);
+    if (error) return { ok: false, error: error.message };
+    return { ok: true };
+  });
+
 export const rejectSubmission = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => ({ id: String(data?.id ?? "").slice(0, 60) }))

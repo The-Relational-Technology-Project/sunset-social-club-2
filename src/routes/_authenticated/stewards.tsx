@@ -5,8 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { getStewardsData } from "@/lib/stewards.functions";
 import {
   listAllSubmissions,
-  approveSubmission,
-  rejectSubmission,
+  removeFromPlaylist,
   markPlayed,
   toggleSubmissions,
 } from "@/lib/jukebox-admin.functions";

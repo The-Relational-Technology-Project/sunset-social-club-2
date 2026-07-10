@@ -79,7 +79,7 @@ export const submitSong = createServerFn({ method: "POST" })
     }
     if (!track) return { ok: false, error: "That song wasn't found." };
 
-    // Insert (unique index handles duplicates)
+    // Insert as pending; we'll flip to approved after Spotify append succeeds.
     const { data: inserted, error } = await supabaseAdmin
       .from("jukebox_submissions")
       .insert({
@@ -103,12 +103,36 @@ export const submitSong = createServerFn({ method: "POST" })
       return { ok: false, error: "Something went wrong. Try again." };
     }
 
-    // Position: count of pending + approved created before/at this row
+    // Auto-append to Spotify playlist
+    try {
+      const { appendTrackToPlaylist } = await import("./spotify.server");
+      const { snapshotId } = await appendTrackToPlaylist(track.uri);
+      const now = new Date().toISOString();
+      await supabaseAdmin
+        .from("jukebox_submissions")
+        .update({
+          status: "approved",
+          approved_at: now,
+          added_to_playlist_at: now,
+          spotify_playlist_snapshot_id: snapshotId,
+          approve_error: null,
+        })
+        .eq("id", inserted.id);
+    } catch (err: any) {
+      const msg = err?.message ?? String(err);
+      console.error("auto-append failed", msg);
+      await supabaseAdmin
+        .from("jukebox_submissions")
+        .update({ status: "rejected", approve_error: msg.slice(0, 500) })
+        .eq("id", inserted.id);
+      return { ok: false, error: "Couldn't add that one to the playlist. Try another?" };
+    }
+
+    // Position in the live playlist
     const { count: ahead } = await supabaseAdmin
       .from("jukebox_submissions")
       .select("id", { count: "exact", head: true })
-      .in("status", ["pending", "approved"])
-      .lte("created_at", new Date().toISOString());
+      .eq("status", "approved");
 
     return {
       ok: true,

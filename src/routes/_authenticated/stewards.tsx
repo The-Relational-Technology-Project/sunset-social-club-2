@@ -104,7 +104,7 @@ function Stewards() {
 
       <section>
         <div className="flex items-center justify-between mb-3 flex-wrap gap-3">
-          <h2 className="text-xl font-bold">Jukebox ({pending.length} pending)</h2>
+          <h2 className="text-xl font-bold">Jukebox ({approved.length} in playlist)</h2>
           {jukebox?.settings && (
             <button onClick={onToggle} className="btn-ghost">
               {jukebox.settings.submissions_open ? "Pause submissions" : "Open submissions"}
@@ -112,25 +112,35 @@ function Stewards() {
           )}
         </div>
 
-        <h3 className="font-semibold mt-2 mb-2">Pending</h3>
-        {pending.length === 0 ? (
-          <p className="text-ink/60 mb-4">Nothing pending.</p>
+        <p className="text-sm text-ink/60 mb-4">
+          Songs are added to the Spotify playlist as soon as they're submitted. Remove anything that doesn't belong.
+        </p>
+
+        <h3 className="font-semibold mt-2 mb-2">In playlist</h3>
+        {approved.length === 0 ? (
+          <p className="text-ink/60 mb-4">Nothing in the playlist yet.</p>
         ) : (
           <ul className="space-y-3 mb-6">
-            {pending.map((s) => (
+            {approved.map((s) => (
               <li key={s.id} className="paper-card flex flex-wrap items-center gap-3 px-4 py-3">
                 {s.album_art_url && <img src={s.album_art_url} alt="" className="h-14 w-14 rounded flex-none" />}
                 <div className="min-w-0 flex-1">
-                  <p className="font-semibold truncate">{s.track_name}</p>
-                  <p className="text-sm text-ink/60 truncate">{s.artist_name}</p>
-                  <p className="text-xs text-ink/50">by {s.requester_name} · {new Date(s.created_at).toLocaleTimeString()}</p>
-                  {s.approve_error && <p className="text-xs text-red-600 mt-1">{s.approve_error}</p>}
+                  <p className="font-semibold truncate">{s.track_name} <span className="text-ink/50 font-normal">— {s.artist_name}</span></p>
+                  <p className="text-xs text-ink/50">
+                    by {s.requester_name} · {new Date(s.created_at).toLocaleTimeString()}
+                    {s.status === "played" && " · played"}
+                  </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <button className="btn-ghost text-sm" onClick={() => copyText(`${s.track_name} — ${s.artist_name}`)}>Copy</button>
-                  <button className="btn-ghost text-sm" onClick={() => onReject(s.id)} disabled={busy === s.id}>Reject</button>
-                  <button className="btn-solid text-sm" onClick={() => onApprove(s.id)} disabled={busy === s.id}>
-                    {busy === s.id ? "…" : "Approve + add to playlist"}
+                  {s.status === "approved" && (
+                    <button className="btn-ghost text-sm" onClick={() => onPlayed(s.id)}>Mark played</button>
+                  )}
+                  <button
+                    className="btn-ghost text-sm text-red-600"
+                    onClick={() => onRemove(s.id)}
+                    disabled={busy === s.id}
+                  >
+                    {busy === s.id ? "…" : "Remove"}
                   </button>
                 </div>
               </li>
@@ -138,28 +148,33 @@ function Stewards() {
           </ul>
         )}
 
-        <h3 className="font-semibold mt-4 mb-2">Approved ({approved.length})</h3>
-        <ul className="space-y-2 mb-6">
-          {approved.map((s) => (
-            <li key={s.id} className="paper-card flex items-center gap-3 px-4 py-3">
-              {s.album_art_url && <img src={s.album_art_url} alt="" className="h-10 w-10 rounded flex-none" />}
-              <div className="min-w-0 flex-1">
-                <p className="font-semibold truncate">{s.track_name} <span className="text-ink/50 font-normal">— {s.artist_name}</span></p>
-                <p className="text-xs text-ink/50">by {s.requester_name} · {s.status === "played" ? "played" : "in playlist"}</p>
-              </div>
-              {s.status === "approved" && (
-                <button className="btn-ghost text-sm" onClick={() => onPlayed(s.id)}>Mark played</button>
-              )}
-            </li>
-          ))}
-        </ul>
+        {pending.length > 0 && (
+          <>
+            <h3 className="font-semibold mt-4 mb-2">Stuck ({pending.length})</h3>
+            <ul className="space-y-2 mb-6">
+              {pending.map((s) => (
+                <li key={s.id} className="paper-card flex items-center gap-3 px-4 py-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold truncate">{s.track_name} — {s.artist_name}</p>
+                    <p className="text-xs text-ink/50">by {s.requester_name}</p>
+                    {s.approve_error && <p className="text-xs text-red-600 mt-1">{s.approve_error}</p>}
+                  </div>
+                  <button className="btn-ghost text-sm" onClick={() => onRemove(s.id)}>Dismiss</button>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
 
         {rejected.length > 0 && (
           <>
-            <h3 className="font-semibold mt-4 mb-2">Rejected ({rejected.length})</h3>
+            <h3 className="font-semibold mt-4 mb-2">Removed ({rejected.length})</h3>
             <ul className="space-y-1 text-sm text-ink/60">
               {rejected.map((s) => (
-                <li key={s.id}>{s.track_name} — {s.artist_name} (from {s.requester_name})</li>
+                <li key={s.id}>
+                  {s.track_name} — {s.artist_name} (from {s.requester_name})
+                  {s.approve_error && <span className="text-red-600"> · {s.approve_error}</span>}
+                </li>
               ))}
             </ul>
           </>

@@ -165,22 +165,42 @@ export async function getTrack(trackId: string): Promise<SpotifyTrack | null> {
 
 export async function appendTrackToPlaylist(trackUri: string): Promise<{ snapshotId: string }> {
   const playlistId = requireEnv("SPOTIFY_PLAYLIST_ID");
-  const doRequest = async (token: string) =>
+  const doJsonRequest = async (token: string) =>
     fetch(`https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}/tracks`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ uris: [trackUri] }),
     });
+  const doQueryRequest = async (token: string) =>
+    fetch(
+      `https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}/tracks?uris=${encodeURIComponent(trackUri)}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      },
+    );
 
   let token = await getUserToken();
-  let res = await doRequest(token);
+  let res = await doJsonRequest(token);
   if (res.status === 401) {
     userTokenCache = null;
     token = await getUserToken();
-    res = await doRequest(token);
+    res = await doJsonRequest(token);
+  }
+  if (res.status === 403) {
+    res = await doQueryRequest(token);
+    if (res.status === 401) {
+      userTokenCache = null;
+      token = await getUserToken();
+      res = await doQueryRequest(token);
+    }
   }
   if (!res.ok) {
     const body = await res.text();

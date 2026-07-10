@@ -16,17 +16,50 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
           const { accessToken, me } = await getUserTokenForDiag();
           const playlist = await getPlaylistOwnerForDiag(accessToken);
 
-          // Try a real append with a known track (Rick Astley - Never Gonna Give You Up)
+          // Try both Spotify-supported append formats with a known track, then clean it up if either works.
           const testUri = "spotify:track:4cOdK2wGLETKBW3PvgPWqT";
-          const appendRes = await fetch(
+          const jsonAppendRes = await fetch(
             `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
             {
               method: "POST",
-              headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify({ uris: [testUri] }),
             },
           );
-          const appendBody = await appendRes.text();
+          const jsonAppendBody = await jsonAppendRes.text();
+
+          let queryAppend: { status: number; body: string } | null = null;
+          if (!jsonAppendRes.ok) {
+            const queryAppendRes = await fetch(
+              `https://api.spotify.com/v1/playlists/${playlist.id}/tracks?uris=${encodeURIComponent(testUri)}`,
+              {
+                method: "POST",
+                headers: { Authorization: `Bearer ${accessToken}`, Accept: "application/json" },
+              },
+            );
+            queryAppend = { status: queryAppendRes.status, body: await queryAppendRes.text() };
+          }
+
+          let cleanup: { status: number; body: string } | null = null;
+          if (jsonAppendRes.ok || queryAppend?.status === 201) {
+            const cleanupRes = await fetch(
+              `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ tracks: [{ uri: testUri }] }),
+              },
+            );
+            cleanup = { status: cleanupRes.status, body: await cleanupRes.text() };
+          }
 
           return Response.json({
             authorizedAs: me,
@@ -38,7 +71,7 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
               public: playlist.public,
             },
             match: me.id === playlist.owner.id,
-            testAppend: { status: appendRes.status, body: appendBody },
+            testAppend: { json: { status: jsonAppendRes.status, body: jsonAppendBody }, query: queryAppend, cleanup },
             grantedScope: getLastUserScope(),
           });
 

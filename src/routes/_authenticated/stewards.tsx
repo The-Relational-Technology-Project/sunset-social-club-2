@@ -33,6 +33,10 @@ function download(name: string, content: string) {
   URL.revokeObjectURL(url);
 }
 
+function copySong(trackName: string, artistName: string) {
+  void navigator.clipboard?.writeText(`${trackName} - ${artistName}`);
+}
+
 function Stewards() {
   const navigate = useNavigate();
   const fetchData = useServerFn(getStewardsData);
@@ -67,6 +71,7 @@ function Stewards() {
   if (!data) return <main className="mx-auto max-w-3xl px-5 py-10">Loading…</main>;
 
   const inPlaylist = jukebox?.submissions.filter((s) => s.status === "approved" || s.status === "played") ?? [];
+  const needsManualAdd = inPlaylist.filter((s) => s.approve_error && !s.added_to_playlist_at);
   const stuck = jukebox?.submissions.filter((s) => s.status === "pending") ?? [];
 
   return (
@@ -87,8 +92,26 @@ function Stewards() {
         </div>
 
         <p className="text-sm text-ink/60 mb-4">
-          Songs are added to the Spotify playlist as soon as they're submitted. Remove anything you don't want directly from Spotify.
+          Songs are saved here as soon as they're submitted. If Spotify blocks the automatic add, copy the song from here and add it in Spotify.
         </p>
+
+        {needsManualAdd.length > 0 && (
+          <div className="paper-card mb-5 border-[#ec6a4c] px-4 py-3">
+            <h3 className="font-semibold">Needs manual Spotify add ({needsManualAdd.length})</h3>
+            <ul className="mt-3 space-y-2">
+              {needsManualAdd.map((s) => (
+                <li key={s.id} className="flex flex-wrap items-center justify-between gap-2 text-sm">
+                  <span className="min-w-0 truncate font-semibold">
+                    {s.track_name} <span className="text-ink/50 font-normal">- {s.artist_name}</span>
+                  </span>
+                  <button onClick={() => copySong(s.track_name, s.artist_name)} className="btn-ghost text-xs">
+                    Copy
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {inPlaylist.length === 0 ? (
           <p className="text-ink/60">No submissions yet.</p>
@@ -98,7 +121,7 @@ function Stewards() {
               <li key={s.id} className="paper-card flex flex-wrap items-center gap-3 px-4 py-3">
                 {s.album_art_url && <img src={s.album_art_url} alt="" className="h-14 w-14 rounded flex-none" />}
                 <div className="min-w-0 flex-1">
-                  <p className="font-semibold truncate">{s.track_name} <span className="text-ink/50 font-normal">— {s.artist_name}</span></p>
+                  <p className="font-semibold truncate">{s.track_name} <span className="text-ink/50 font-normal">- {s.artist_name}</span></p>
                   <p className="text-xs text-ink/50">by {s.requester_name} · {new Date(s.created_at).toLocaleTimeString()}</p>
                 </div>
               </li>

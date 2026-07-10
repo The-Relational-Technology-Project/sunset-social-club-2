@@ -63,7 +63,7 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
       if (res.ok) {
         setMessage({
           kind: "ok",
-          text: `You're #${res.position ?? "?"} in line. Thanks, ${name.trim()}.`,
+          text: `Added! You're up #${res.position ?? "?"} in the playlist.`,
         });
         setSelected(null);
         setQuery("");

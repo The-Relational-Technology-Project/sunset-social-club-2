@@ -38,9 +38,6 @@ function download(name: string, content: string) {
   URL.revokeObjectURL(url);
 }
 
-function copySong(trackName: string, artistName: string) {
-  void navigator.clipboard?.writeText(`${trackName} - ${artistName}`);
-}
 
 function Stewards() {
   const navigate = useNavigate();

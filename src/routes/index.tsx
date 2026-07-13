@@ -37,7 +37,7 @@ function Home() {
       <section className="pt-10 pb-16 text-center sm:pt-14 sm:pb-24">
         <div className="flex flex-col items-center">
           <Logo variant="hero" />
-          <div className="mt-8 space-y-1 text-lg italic text-ink/85 sm:text-xl">
+          <div className="mt-10 space-y-1 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl md:text-5xl">
             <p>{t("hero.vision.l1")}</p>
             <p>{t("hero.vision.l2")}</p>
             <p>{t("hero.vision.l3")}</p>
@@ -67,7 +67,6 @@ function Home() {
           <li>{t("home.what.li1")}</li>
           <li>{t("home.what.li2")}</li>
           <li>{t("home.what.li3")}</li>
-          <li>{t("home.what.li4")}</li>
         </ul>
         <p className="mt-4 text-ink/80">{t("home.what.p3")}</p>
       </section>

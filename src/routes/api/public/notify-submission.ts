@@ -46,6 +46,45 @@ export const Route = createFileRoute('/api/public/notify-submission')({
         const recipient = template.to!
         const messageId = crypto.randomUUID()
 
+        // Get or create unsubscribe token for this recipient (required by Lovable email API)
+        const normalizedEmail = recipient.toLowerCase()
+        let unsubscribeToken: string
+        const { data: existingToken, error: tokenLookupError } = await supabase
+          .from('email_unsubscribe_tokens')
+          .select('token, used_at')
+          .eq('email', normalizedEmail)
+          .maybeSingle()
+
+        if (tokenLookupError) {
+          console.error('Token lookup failed', tokenLookupError)
+          return Response.json({ error: 'Failed to prepare email' }, { status: 500 })
+        }
+
+        if (existingToken && !existingToken.used_at) {
+          unsubscribeToken = existingToken.token
+        } else {
+          const bytes = new Uint8Array(32)
+          crypto.getRandomValues(bytes)
+          const newToken = Array.from(bytes).map((b) => b.toString(16).padStart(2, '0')).join('')
+          const { error: upsertError } = await supabase
+            .from('email_unsubscribe_tokens')
+            .upsert({ token: newToken, email: normalizedEmail }, { onConflict: 'email', ignoreDuplicates: true })
+          if (upsertError) {
+            console.error('Failed to create unsubscribe token', upsertError)
+            return Response.json({ error: 'Failed to prepare email' }, { status: 500 })
+          }
+          const { data: storedToken, error: reReadError } = await supabase
+            .from('email_unsubscribe_tokens')
+            .select('token')
+            .eq('email', normalizedEmail)
+            .maybeSingle()
+          if (reReadError || !storedToken) {
+            console.error('Failed to read back unsubscribe token', reReadError)
+            return Response.json({ error: 'Failed to prepare email' }, { status: 500 })
+          }
+          unsubscribeToken = storedToken.token
+        }
+
         const templateData = { type, fields }
         const element = React.createElement(template.component, templateData)
         const html = await render(element)
@@ -75,9 +114,11 @@ export const Route = createFileRoute('/api/public/notify-submission')({
             purpose: 'transactional',
             label: 'admin-notification',
             idempotency_key: messageId,
+            unsubscribe_token: unsubscribeToken,
             queued_at: new Date().toISOString(),
           },
         })
+
 
         if (enqueueError) {
           console.error('Failed to enqueue notification', enqueueError)

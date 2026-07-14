@@ -53,7 +53,9 @@ const translations: Record<Language, Dict> = {
     "signup.emailPlaceholder": "you@example.com",
     "signup.nameLabel": "First name (optional)",
     "signup.namePlaceholder": "What we'll call you",
-    "signup.submit": "Keep me posted",
+    "signup.submit": "Join",
+    "signup.crossStreetsLabel": "Cross streets (optional)",
+    "signup.crossStreetsPlaceholder": "e.g. 44th & Judah",
     "signup.done": "You're on the list. See you Wednesday.",
     "signup.consent": "By signing up, you'll get occasional email updates about Sunset Social Club — gatherings, plans, and ways to get involved. No spam, and no sharing your info. Unsubscribe anytime by emailing oursunsetsocialclub@gmail.com.",
 

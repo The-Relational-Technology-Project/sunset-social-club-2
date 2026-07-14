@@ -10,6 +10,7 @@ const translations: Record<Language, Dict> = {
     "nav.home": "Home",
     "nav.about": "About",
     "nav.contact": "Contact",
+    "nav.join": "Join the Club",
 
     // Banner
     "banner.eyebrow": "July 22 · Kickoff",

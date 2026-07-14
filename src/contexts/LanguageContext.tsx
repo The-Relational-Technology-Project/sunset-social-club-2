@@ -57,6 +57,15 @@ const translations: Record<Language, Dict> = {
     "signup.done": "You're on the list. See you Wednesday.",
     "signup.consent": "By signing up, you'll get occasional email updates about Sunset Social Club — gatherings, plans, and ways to get involved. No spam, and no sharing your info. Unsubscribe anytime by emailing oursunsetsocialclub@gmail.com.",
 
+    // Join CTA (landing)
+    "joinCta.title": "Join the Club",
+    "joinCta.body": "Become a member and get notes and updates by email.",
+    "joinCta.button": "Join the Club",
+
+    // Join page
+    "join.title": "Join the Club",
+    "join.subtitle": "Add your name to the club and we'll keep you in the loop.",
+
     // Ocean photo
     "photo.oceanAlt": "Ocean Beach, San Francisco",
 

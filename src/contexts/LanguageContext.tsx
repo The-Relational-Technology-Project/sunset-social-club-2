@@ -165,7 +165,7 @@ const translations: Record<Language, Dict> = {
 
     // Join page
     "join.title": "加入俱乐部",
-    "join.subtitle": "留下您的名字，我们会随时与您保持联系。",
+    "join.subtitle": "我们才刚刚起步！加入我们并共同塑造它。",
 
     // Ocean photo
     "photo.oceanAlt": "旧金山海洋海滩",

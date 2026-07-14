@@ -27,14 +27,16 @@ export async function submitForm(type: FormType, payload: Record<string, string>
     if (type === "signup") {
       const email = (payload.email ?? "").trim().slice(0, 255);
       const firstName = (payload.firstName ?? "").trim().slice(0, 100) || null;
+      const crossStreets = (payload.crossStreets ?? "").trim().slice(0, 200) || null;
       if (!email) return { ok: false };
       const { error } = await supabase
         .from("email_signups")
-        .insert({ email, first_name: firstName });
+        .insert({ email, first_name: firstName, cross_streets: crossStreets });
       if (error) throw error;
       void notifyAdmin("club member signup", [
         { label: "Email", value: email },
         { label: "First name", value: firstName ?? "" },
+        { label: "Cross streets", value: crossStreets ?? "" },
       ]);
       // Send welcome email to the new member (fire and forget)
       void fetch("/api/public/send-welcome", {

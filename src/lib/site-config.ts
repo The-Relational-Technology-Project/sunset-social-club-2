@@ -32,10 +32,16 @@ export async function submitForm(type: FormType, payload: Record<string, string>
         .from("email_signups")
         .insert({ email, first_name: firstName });
       if (error) throw error;
-      void notifyAdmin("email signup", [
+      void notifyAdmin("club member signup", [
         { label: "Email", value: email },
         { label: "First name", value: firstName ?? "" },
       ]);
+      // Send welcome email to the new member (fire and forget)
+      void fetch("/api/public/send-welcome", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, firstName }),
+      }).catch((err) => console.warn("send-welcome failed", err));
     } else if (type === "idea") {
       const idea = (payload.idea ?? "").trim().slice(0, 1000);
       const name = (payload.name ?? "").trim().slice(0, 100);

@@ -10,6 +10,7 @@ const translations: Record<Language, Dict> = {
     "nav.home": "Home",
     "nav.about": "About",
     "nav.contact": "Contact",
+    "nav.join": "Join the Club",
 
     // Banner
     "banner.eyebrow": "July 22 · Kickoff",
@@ -56,6 +57,15 @@ const translations: Record<Language, Dict> = {
     "signup.done": "You're on the list. See you Wednesday.",
     "signup.consent": "By signing up, you'll get occasional email updates about Sunset Social Club — gatherings, plans, and ways to get involved. No spam, and no sharing your info. Unsubscribe anytime by emailing oursunsetsocialclub@gmail.com.",
 
+    // Join CTA (landing)
+    "joinCta.title": "Join the Club",
+    "joinCta.body": "Become a member and get notes and updates by email.",
+    "joinCta.button": "Join the Club",
+
+    // Join page
+    "join.title": "Join the Club",
+    "join.subtitle": "Add your name to the club and we'll keep you in the loop.",
+
     // Ocean photo
     "photo.oceanAlt": "Ocean Beach, San Francisco",
 
@@ -101,6 +111,7 @@ const translations: Record<Language, Dict> = {
     "nav.home": "首页",
     "nav.about": "关于",
     "nav.contact": "联系",
+    "nav.join": "加入俱乐部",
 
     // Banner
     "banner.eyebrow": "7月22日 · 启动日",
@@ -146,6 +157,15 @@ const translations: Record<Language, Dict> = {
     "signup.submit": "通知我",
     "signup.done": "已加入名单。周三见！",
     "signup.consent": "注册后，您将不定期收到关于日落社交俱乐部的邮件更新——聚会、计划以及参与方式。我们不会发送垃圾邮件，也不会分享您的信息。如需退订，请随时发送邮件至 oursunsetsocialclub@gmail.com。",
+
+    // Join CTA (landing)
+    "joinCta.title": "加入俱乐部",
+    "joinCta.body": "成为会员，通过邮件收到活动通知与更新。",
+    "joinCta.button": "加入俱乐部",
+
+    // Join page
+    "join.title": "加入俱乐部",
+    "join.subtitle": "留下您的名字，我们会随时与您保持联系。",
 
     // Ocean photo
     "photo.oceanAlt": "旧金山海洋海滩",

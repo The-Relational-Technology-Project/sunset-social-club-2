@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as JukeboxRouteImport } from './routes/jukebox'
+import { Route as JoinRouteImport } from './routes/join'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -20,6 +21,7 @@ import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticat
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicSpotifyDiagRouteImport } from './routes/api/public/spotify-diag'
 import { Route as ApiPublicSpotifyConnectRouteImport } from './routes/api/public/spotify-connect'
+import { Route as ApiPublicSendWelcomeRouteImport } from './routes/api/public/send-welcome'
 import { Route as ApiPublicNotifySubmissionRouteImport } from './routes/api/public/notify-submission'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -33,6 +35,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const JukeboxRoute = JukeboxRouteImport.update({
   id: '/jukebox',
   path: '/jukebox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinRoute = JoinRouteImport.update({
+  id: '/join',
+  path: '/join',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -79,6 +86,11 @@ const ApiPublicSpotifyConnectRoute = ApiPublicSpotifyConnectRouteImport.update({
   path: '/api/public/spotify-connect',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicSendWelcomeRoute = ApiPublicSendWelcomeRouteImport.update({
+  id: '/api/public/send-welcome',
+  path: '/api/public/send-welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicNotifySubmissionRoute =
   ApiPublicNotifySubmissionRouteImport.update({
     id: '/api/public/notify-submission',
@@ -108,11 +120,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
   '/reset-password': typeof ResetPasswordRoute
   '/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
+  '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -124,11 +138,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
   '/reset-password': typeof ResetPasswordRoute
   '/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
+  '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -142,11 +158,13 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
+  '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -160,11 +178,13 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contact'
+    | '/join'
     | '/jukebox'
     | '/reset-password'
     | '/stewards'
     | '/email/unsubscribe'
     | '/api/public/notify-submission'
+    | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/suppression'
@@ -176,11 +196,13 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contact'
+    | '/join'
     | '/jukebox'
     | '/reset-password'
     | '/stewards'
     | '/email/unsubscribe'
     | '/api/public/notify-submission'
+    | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/suppression'
@@ -193,11 +215,13 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/contact'
+    | '/join'
     | '/jukebox'
     | '/reset-password'
     | '/_authenticated/stewards'
     | '/email/unsubscribe'
     | '/api/public/notify-submission'
+    | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/suppression'
@@ -211,10 +235,12 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  JoinRoute: typeof JoinRoute
   JukeboxRoute: typeof JukeboxRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ApiPublicNotifySubmissionRoute: typeof ApiPublicNotifySubmissionRoute
+  ApiPublicSendWelcomeRoute: typeof ApiPublicSendWelcomeRoute
   ApiPublicSpotifyConnectRoute: typeof ApiPublicSpotifyConnectRoute
   ApiPublicSpotifyDiagRoute: typeof ApiPublicSpotifyDiagRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -237,6 +263,13 @@ declare module '@tanstack/react-router' {
       path: '/jukebox'
       fullPath: '/jukebox'
       preLoaderRoute: typeof JukeboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join': {
+      id: '/join'
+      path: '/join'
+      fullPath: '/join'
+      preLoaderRoute: typeof JoinRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -302,6 +335,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSpotifyConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/send-welcome': {
+      id: '/api/public/send-welcome'
+      path: '/api/public/send-welcome'
+      fullPath: '/api/public/send-welcome'
+      preLoaderRoute: typeof ApiPublicSendWelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/notify-submission': {
       id: '/api/public/notify-submission'
       path: '/api/public/notify-submission'
@@ -349,10 +389,12 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  JoinRoute: JoinRoute,
   JukeboxRoute: JukeboxRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ApiPublicNotifySubmissionRoute: ApiPublicNotifySubmissionRoute,
+  ApiPublicSendWelcomeRoute: ApiPublicSendWelcomeRoute,
   ApiPublicSpotifyConnectRoute: ApiPublicSpotifyConnectRoute,
   ApiPublicSpotifyDiagRoute: ApiPublicSpotifyDiagRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,

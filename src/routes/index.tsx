@@ -1,10 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Logo } from "../components/Logo";
 import { useLanguage } from "../contexts/LanguageContext";
 
 
 import { Schedule } from "../components/Schedule";
-import { EmailSignupForm } from "../components/EmailSignupForm";
 import { IdeaBoard } from "../components/IdeaBoard";
 import coffee from "../assets/coffee_and_donuts.jpg.asset.json";
 import oceanBeach from "../assets/ocean_beach_sf.jpeg.asset.json";
@@ -89,10 +88,21 @@ function Home() {
         <img src={oceanBeach.url} alt={t("photo.oceanAlt")} className="block h-48 w-full object-cover sm:h-64" />
       </div>
 
-      {/* Stay in the loop */}
-      <div className="mb-16">
-        <EmailSignupForm />
-      </div>
+      {/* Join the Club CTA */}
+      <section className="mb-16">
+        <div className="paper-card px-6 py-10 text-center">
+          <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">
+            {t("joinCta.title")}
+          </h2>
+          <p className="mt-3 text-ink/80">{t("joinCta.body")}</p>
+          <Link
+            to="/join"
+            className="btn-solid mt-6 inline-block"
+          >
+            {t("joinCta.button")}
+          </Link>
+        </div>
+      </section>
 
       {/* Idea board */}
       <div>

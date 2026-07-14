@@ -1,0 +1,1 @@
+ALTER TABLE public.email_signups ADD COLUMN IF NOT EXISTS cross_streets TEXT;

@@ -6,21 +6,21 @@ export function EmailSignupForm() {
   const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [crossStreets, setCrossStreets] = useState("");
   const [done, setDone] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await submitForm("signup", { email, firstName: name });
+    await submitForm("signup", { email, firstName: name, crossStreets });
     setEmail("");
     setName("");
+    setCrossStreets("");
     setDone(true);
   }
 
   return (
     <section>
-      <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">{t("signup.title")}</h2>
-      <p className="mt-1 text-ink/70">{t("signup.subtitle")}</p>
-      <form onSubmit={onSubmit} className="mt-5 space-y-4">
+      <form onSubmit={onSubmit} className="space-y-4">
         <div>
           <label htmlFor="signup-email" className="field-label">{t("signup.emailLabel")}</label>
           <input
@@ -35,6 +35,14 @@ export function EmailSignupForm() {
             id="signup-name" type="text" value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={t("signup.namePlaceholder")} className="field-input"
+          />
+        </div>
+        <div>
+          <label htmlFor="signup-cross" className="field-label">{t("signup.crossStreetsLabel")}</label>
+          <input
+            id="signup-cross" type="text" value={crossStreets}
+            onChange={(e) => setCrossStreets(e.target.value)}
+            placeholder={t("signup.crossStreetsPlaceholder")} className="field-input"
           />
         </div>
         <button type="submit" className="btn-solid">{t("signup.submit")}</button>

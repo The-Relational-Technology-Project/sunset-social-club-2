@@ -53,7 +53,9 @@ const translations: Record<Language, Dict> = {
     "signup.emailPlaceholder": "you@example.com",
     "signup.nameLabel": "First name (optional)",
     "signup.namePlaceholder": "What we'll call you",
-    "signup.submit": "Keep me posted",
+    "signup.submit": "Join",
+    "signup.crossStreetsLabel": "Cross streets (optional)",
+    "signup.crossStreetsPlaceholder": "e.g. 44th & Judah",
     "signup.done": "You're on the list. See you Wednesday.",
     "signup.consent": "By signing up, you'll get occasional email updates about Sunset Social Club — gatherings, plans, and ways to get involved. No spam, and no sharing your info. Unsubscribe anytime by emailing oursunsetsocialclub@gmail.com.",
 
@@ -154,7 +156,9 @@ const translations: Record<Language, Dict> = {
     "signup.emailPlaceholder": "you@example.com",
     "signup.nameLabel": "名字（选填）",
     "signup.namePlaceholder": "我们怎么称呼您",
-    "signup.submit": "通知我",
+    "signup.submit": "加入",
+    "signup.crossStreetsLabel": "十字路口（选填）",
+    "signup.crossStreetsPlaceholder": "例如：44街与 Judah",
     "signup.done": "已加入名单。周三见！",
     "signup.consent": "注册后，您将不定期收到关于日落社交俱乐部的邮件更新——聚会、计划以及参与方式。我们不会发送垃圾邮件，也不会分享您的信息。如需退订，请随时发送邮件至 oursunsetsocialclub@gmail.com。",
 

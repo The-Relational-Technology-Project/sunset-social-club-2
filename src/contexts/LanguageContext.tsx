@@ -64,7 +64,7 @@ const translations: Record<Language, Dict> = {
 
     // Join page
     "join.title": "Join the Club",
-    "join.subtitle": "Add your name to the club and we'll keep you in the loop.",
+    "join.subtitle": "We're just getting started! Join us and help shape it.",
 
     // Ocean photo
     "photo.oceanAlt": "Ocean Beach, San Francisco",

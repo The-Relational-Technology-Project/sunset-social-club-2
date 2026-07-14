@@ -102,6 +102,7 @@ const translations: Record<Language, Dict> = {
     "nav.home": "首页",
     "nav.about": "关于",
     "nav.contact": "联系",
+    "nav.join": "加入俱乐部",
 
     // Banner
     "banner.eyebrow": "7月22日 · 启动日",

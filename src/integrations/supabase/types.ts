@@ -104,18 +104,21 @@ export type Database = {
       email_signups: {
         Row: {
           created_at: string
+          cross_streets: string | null
           email: string
           first_name: string | null
           id: string
         }
         Insert: {
           created_at?: string
+          cross_streets?: string | null
           email: string
           first_name?: string | null
           id?: string
         }
         Update: {
           created_at?: string
+          cross_streets?: string | null
           email?: string
           first_name?: string | null
           id?: string

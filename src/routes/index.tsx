@@ -1,10 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Logo } from "../components/Logo";
 import { useLanguage } from "../contexts/LanguageContext";
 
 
 import { Schedule } from "../components/Schedule";
-import { EmailSignupForm } from "../components/EmailSignupForm";
 import { IdeaBoard } from "../components/IdeaBoard";
 import coffee from "../assets/coffee_and_donuts.jpg.asset.json";
 import oceanBeach from "../assets/ocean_beach_sf.jpeg.asset.json";

@@ -20,6 +20,7 @@ import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticat
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicSpotifyDiagRouteImport } from './routes/api/public/spotify-diag'
 import { Route as ApiPublicSpotifyConnectRouteImport } from './routes/api/public/spotify-connect'
+import { Route as ApiPublicSendWelcomeRouteImport } from './routes/api/public/send-welcome'
 import { Route as ApiPublicNotifySubmissionRouteImport } from './routes/api/public/notify-submission'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -79,6 +80,11 @@ const ApiPublicSpotifyConnectRoute = ApiPublicSpotifyConnectRouteImport.update({
   path: '/api/public/spotify-connect',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicSendWelcomeRoute = ApiPublicSendWelcomeRouteImport.update({
+  id: '/api/public/send-welcome',
+  path: '/api/public/send-welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicNotifySubmissionRoute =
   ApiPublicNotifySubmissionRouteImport.update({
     id: '/api/public/notify-submission',
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
+  '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
+  '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   '/_authenticated/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
+  '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -165,6 +174,7 @@ export interface FileRouteTypes {
     | '/stewards'
     | '/email/unsubscribe'
     | '/api/public/notify-submission'
+    | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/suppression'
@@ -181,6 +191,7 @@ export interface FileRouteTypes {
     | '/stewards'
     | '/email/unsubscribe'
     | '/api/public/notify-submission'
+    | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/suppression'
@@ -198,6 +209,7 @@ export interface FileRouteTypes {
     | '/_authenticated/stewards'
     | '/email/unsubscribe'
     | '/api/public/notify-submission'
+    | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/suppression'
@@ -215,6 +227,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ApiPublicNotifySubmissionRoute: typeof ApiPublicNotifySubmissionRoute
+  ApiPublicSendWelcomeRoute: typeof ApiPublicSendWelcomeRoute
   ApiPublicSpotifyConnectRoute: typeof ApiPublicSpotifyConnectRoute
   ApiPublicSpotifyDiagRoute: typeof ApiPublicSpotifyDiagRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -302,6 +315,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSpotifyConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/send-welcome': {
+      id: '/api/public/send-welcome'
+      path: '/api/public/send-welcome'
+      fullPath: '/api/public/send-welcome'
+      preLoaderRoute: typeof ApiPublicSendWelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/notify-submission': {
       id: '/api/public/notify-submission'
       path: '/api/public/notify-submission'
@@ -353,6 +373,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ApiPublicNotifySubmissionRoute: ApiPublicNotifySubmissionRoute,
+  ApiPublicSendWelcomeRoute: ApiPublicSendWelcomeRoute,
   ApiPublicSpotifyConnectRoute: ApiPublicSpotifyConnectRoute,
   ApiPublicSpotifyDiagRoute: ApiPublicSpotifyDiagRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,

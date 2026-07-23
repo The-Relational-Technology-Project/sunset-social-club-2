@@ -495,3 +495,85 @@ function InsightEditor({
     </div>
   );
 }
+
+interface EmailEditorPayload {
+  slug: string;
+  subject: string;
+  heading: string;
+  body_markdown: string;
+  cta_label: string | null;
+  cta_url: string | null;
+}
+
+function EmailEditor({
+  tpl,
+  onSave,
+}: {
+  tpl: any;
+  onSave: (payload: EmailEditorPayload) => Promise<void>;
+}) {
+  const [subject, setSubject] = useState(tpl.subject ?? "");
+  const [heading, setHeading] = useState(tpl.heading ?? "");
+  const [body, setBody] = useState(tpl.body_markdown ?? "");
+  const [ctaLabel, setCtaLabel] = useState(tpl.cta_label ?? "");
+  const [ctaUrl, setCtaUrl] = useState(tpl.cta_url ?? "");
+  const [saving, setSaving] = useState(false);
+  const [savedAt, setSavedAt] = useState<string | null>(null);
+
+  async function save() {
+    setSaving(true);
+    try {
+      await onSave({
+        slug: tpl.slug,
+        subject,
+        heading,
+        body_markdown: body,
+        cta_label: ctaLabel.trim() || null,
+        cta_url: ctaUrl.trim() || null,
+      });
+      setSavedAt(new Date().toLocaleTimeString());
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="paper-card px-5 py-4 mb-4">
+      <p className="text-xs uppercase tracking-wider text-ink/50">
+        {tpl.slug}
+      </p>
+      <div className="mt-3">
+        <label className="field-label">Subject</label>
+        <input value={subject} onChange={(e) => setSubject(e.target.value)} className="field-input" />
+      </div>
+      <div className="mt-3">
+        <label className="field-label">Heading</label>
+        <input value={heading} onChange={(e) => setHeading(e.target.value)} className="field-input" />
+      </div>
+      <div className="mt-3">
+        <label className="field-label">Body (blank lines separate paragraphs)</label>
+        <textarea value={body} onChange={(e) => setBody(e.target.value)} rows={8} className="field-input resize-y" />
+      </div>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <div>
+          <label className="field-label">Button label</label>
+          <input value={ctaLabel} onChange={(e) => setCtaLabel(e.target.value)} className="field-input" />
+        </div>
+        <div>
+          <label className="field-label">Button URL</label>
+          <input value={ctaUrl} onChange={(e) => setCtaUrl(e.target.value)} className="field-input" />
+        </div>
+      </div>
+      <div className="mt-3 flex items-center gap-3">
+        <button onClick={save} disabled={saving} className="btn-solid">
+          {saving ? "Saving…" : "Save"}
+        </button>
+        {tpl.updated_by && (
+          <span className="text-xs text-ink/50">Last edited by {tpl.updated_by}</span>
+        )}
+        {savedAt && <span className="text-sm text-green-700">Saved at {savedAt}</span>}
+      </div>
+    </div>
+  );
+}
+

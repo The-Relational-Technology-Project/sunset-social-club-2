@@ -31,7 +31,7 @@ const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
 }
 
 // Configuration
-const SITE_NAME = "sunset-social-club-2"
+const SITE_NAME = "Sunset Social Club"
 const SENDER_DOMAIN = "notify.sunsetsocialclub.org"
 const ROOT_DOMAIN = "sunsetsocialclub.org"
 const FROM_DOMAIN = "notify.sunsetsocialclub.org"

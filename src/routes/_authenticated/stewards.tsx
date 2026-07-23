@@ -16,6 +16,7 @@ import {
   upsertInsight,
   updateFeedbackForm,
 } from "@/lib/moderation.functions";
+import { listEmailTemplates, updateEmailTemplate } from "@/lib/email-templates.functions";
 
 export const Route = createFileRoute("/_authenticated/stewards")({
   head: () => ({ meta: [{ title: "Stewards dashboard" }] }),
@@ -25,6 +26,7 @@ export const Route = createFileRoute("/_authenticated/stewards")({
 type Data = Awaited<ReturnType<typeof getStewardsData>>;
 type Jukebox = Awaited<ReturnType<typeof listAllSubmissions>>;
 type Moderation = Awaited<ReturnType<typeof listModeration>>;
+type EmailTemplates = Awaited<ReturnType<typeof listEmailTemplates>>;
 
 function toCsv(rows: Array<Record<string, unknown>>): string {
   if (!rows.length) return "";
@@ -58,13 +60,20 @@ function Stewards() {
   const removePhoto = useServerFn(deletePhoto);
   const saveInsight = useServerFn(upsertInsight);
   const saveForm = useServerFn(updateFeedbackForm);
+  const fetchEmails = useServerFn(listEmailTemplates);
+  const saveEmail = useServerFn(updateEmailTemplate);
 
   const [data, setData] = useState<Data | null>(null);
   const [jukebox, setJukebox] = useState<Jukebox | null>(null);
   const [moderation, setModeration] = useState<Moderation | null>(null);
+  const [emails, setEmails] = useState<EmailTemplates | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+
+  const refreshEmails = useCallback(() => {
+    fetchEmails().then(setEmails).catch((e) => setError(e?.message ?? "Failed to load emails"));
+  }, [fetchEmails]);
 
   const refreshJukebox = useCallback(() => {
     fetchJukebox().then(setJukebox).catch((e) => setError(e?.message ?? "Failed to load jukebox"));
@@ -78,7 +87,8 @@ function Stewards() {
     fetchData().then(setData).catch((e) => setError(e?.message ?? "Failed to load"));
     refreshJukebox();
     refreshModeration();
-  }, [fetchData, refreshJukebox, refreshModeration]);
+    refreshEmails();
+  }, [fetchData, refreshJukebox, refreshModeration, refreshEmails]);
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -228,6 +238,27 @@ function Stewards() {
           }}
         />
       </section>
+
+      {/* Automated email content */}
+      <section>
+        <h2 className="text-xl font-bold mb-3">Automated emails</h2>
+        <p className="text-sm text-ink/60 mb-3">
+          Sent from <code>notifications@sunsetsocialclub.org</code>, reply-to <code>oursunsetsocialclub@gmail.com</code>.
+          Use <code>{"{{firstName}}"}</code> for the member's first name, or <code>{"{{firstNameComma}}"}</code> for a leading &ldquo;, Jane&rdquo; that disappears when no name is given.
+        </p>
+        {(emails ?? []).length === 0 ? (
+          <p className="text-ink/60">Loading templates…</p>
+        ) : (
+          (emails ?? []).map((t: any) => (
+            <EmailEditor
+              key={t.slug}
+              tpl={t}
+              onSave={async (payload) => { await saveEmail({ data: payload }); refreshEmails(); }}
+            />
+          ))
+        )}
+      </section>
+
 
       {/* Jukebox */}
       <section>
@@ -464,3 +495,85 @@ function InsightEditor({
     </div>
   );
 }
+
+interface EmailEditorPayload {
+  slug: string;
+  subject: string;
+  heading: string;
+  body_markdown: string;
+  cta_label: string | null;
+  cta_url: string | null;
+}
+
+function EmailEditor({
+  tpl,
+  onSave,
+}: {
+  tpl: any;
+  onSave: (payload: EmailEditorPayload) => Promise<void>;
+}) {
+  const [subject, setSubject] = useState(tpl.subject ?? "");
+  const [heading, setHeading] = useState(tpl.heading ?? "");
+  const [body, setBody] = useState(tpl.body_markdown ?? "");
+  const [ctaLabel, setCtaLabel] = useState(tpl.cta_label ?? "");
+  const [ctaUrl, setCtaUrl] = useState(tpl.cta_url ?? "");
+  const [saving, setSaving] = useState(false);
+  const [savedAt, setSavedAt] = useState<string | null>(null);
+
+  async function save() {
+    setSaving(true);
+    try {
+      await onSave({
+        slug: tpl.slug,
+        subject,
+        heading,
+        body_markdown: body,
+        cta_label: ctaLabel.trim() || null,
+        cta_url: ctaUrl.trim() || null,
+      });
+      setSavedAt(new Date().toLocaleTimeString());
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="paper-card px-5 py-4 mb-4">
+      <p className="text-xs uppercase tracking-wider text-ink/50">
+        {tpl.slug}
+      </p>
+      <div className="mt-3">
+        <label className="field-label">Subject</label>
+        <input value={subject} onChange={(e) => setSubject(e.target.value)} className="field-input" />
+      </div>
+      <div className="mt-3">
+        <label className="field-label">Heading</label>
+        <input value={heading} onChange={(e) => setHeading(e.target.value)} className="field-input" />
+      </div>
+      <div className="mt-3">
+        <label className="field-label">Body (blank lines separate paragraphs)</label>
+        <textarea value={body} onChange={(e) => setBody(e.target.value)} rows={8} className="field-input resize-y" />
+      </div>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <div>
+          <label className="field-label">Button label</label>
+          <input value={ctaLabel} onChange={(e) => setCtaLabel(e.target.value)} className="field-input" />
+        </div>
+        <div>
+          <label className="field-label">Button URL</label>
+          <input value={ctaUrl} onChange={(e) => setCtaUrl(e.target.value)} className="field-input" />
+        </div>
+      </div>
+      <div className="mt-3 flex items-center gap-3">
+        <button onClick={save} disabled={saving} className="btn-solid">
+          {saving ? "Saving…" : "Save"}
+        </button>
+        {tpl.updated_by && (
+          <span className="text-xs text-ink/50">Last edited by {tpl.updated_by}</span>
+        )}
+        {savedAt && <span className="text-sm text-green-700">Saved at {savedAt}</span>}
+      </div>
+    </div>
+  );
+}
+

@@ -14,38 +14,67 @@ import type { TemplateEntry } from './registry'
 
 interface Props {
   firstName?: string | null
+  heading?: string
+  bodyText?: string
+  ctaLabel?: string | null
+  ctaUrl?: string | null
+  preview?: string
 }
 
-const MEMBER_URL = 'https://sunsetsocialclub.org/member/signin'
+const DEFAULT_HEADING = 'Welcome{{firstNameComma}}.'
+const DEFAULT_BODY =
+  "You're now a member of Sunset Social Club. Sign in to your Member Home for feedback forms, photos, insights, and the community jukebox."
+const DEFAULT_CTA_LABEL = 'Go to Member Home'
+const DEFAULT_CTA_URL = 'https://sunsetsocialclub.org/member/signin'
 
-const MemberWelcome = ({ firstName }: Props) => (
-  <Html lang="en" dir="ltr">
-    <Head />
-    <Preview>You're now a member of Sunset Social Club</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Section style={crest}>
-          <Text style={crestLabel}>Sunset Social Club</Text>
-        </Section>
-        <Heading style={h1}>
-          {firstName ? `Welcome, ${firstName}.` : 'Welcome.'}
-        </Heading>
-        <Text style={lede}>
-          You're now a member of Sunset Social Club. Sign in to your Member Home for feedback forms, photos, insights, and the community jukebox.
-        </Text>
-        <Section style={{ textAlign: 'center', margin: '0 0 28px' }}>
-          <Button href={MEMBER_URL} style={btn}>
-            Go to Member Home
-          </Button>
-        </Section>
-        <Text style={fallback}>
-          Or open this link: <a href={MEMBER_URL} style={link}>{MEMBER_URL}</a>
-        </Text>
-        <Text style={sig}>Sunset, San Francisco</Text>
-      </Container>
-    </Body>
-  </Html>
-)
+export function renderTokens(input: string, firstName?: string | null): string {
+  const name = (firstName ?? '').trim()
+  return input
+    .replace(/\{\{\s*firstNameComma\s*\}\}/g, name ? `, ${name}` : '')
+    .replace(/\{\{\s*firstName\s*\}\}/g, name)
+}
+
+const MemberWelcome = ({
+  firstName,
+  heading = DEFAULT_HEADING,
+  bodyText = DEFAULT_BODY,
+  ctaLabel = DEFAULT_CTA_LABEL,
+  ctaUrl = DEFAULT_CTA_URL,
+  preview = "You're now a member of Sunset Social Club",
+}: Props) => {
+  const finalHeading = renderTokens(heading, firstName)
+  const finalBody = renderTokens(bodyText, firstName)
+  const finalCtaLabel = ctaLabel ? renderTokens(ctaLabel, firstName) : ''
+  const finalCtaUrl = ctaUrl ?? ''
+  return (
+    <Html lang="en" dir="ltr">
+      <Head />
+      <Preview>{preview}</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Section style={crest}>
+            <Text style={crestLabel}>Sunset Social Club</Text>
+          </Section>
+          <Heading style={h1}>{finalHeading}</Heading>
+          {finalBody.split(/\n\n+/).map((para, i) => (
+            <Text key={i} style={lede}>{para}</Text>
+          ))}
+          {finalCtaLabel && finalCtaUrl && (
+            <Section style={{ textAlign: 'center', margin: '20px 0 28px' }}>
+              <Button href={finalCtaUrl} style={btn}>{finalCtaLabel}</Button>
+            </Section>
+          )}
+          {finalCtaUrl && (
+            <Text style={fallback}>
+              Or open this link: <a href={finalCtaUrl} style={link}>{finalCtaUrl}</a>
+            </Text>
+          )}
+          <Text style={sig}>Sunset, San Francisco</Text>
+        </Container>
+      </Body>
+    </Html>
+  )
+}
 
 export const template = {
   component: MemberWelcome,
@@ -90,7 +119,8 @@ const lede = {
   fontSize: '16px',
   lineHeight: 1.55,
   color: '#1d1c1a',
-  margin: '0 0 24px',
+  margin: '0 0 14px',
+  textAlign: 'left' as const,
 }
 const btn = {
   backgroundColor: '#1d1c1a',

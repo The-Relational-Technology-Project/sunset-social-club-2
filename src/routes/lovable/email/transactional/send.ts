@@ -59,7 +59,15 @@ export const Route = createFileRoute("/lovable/email/transactional/send")({
           return Response.json({ error: 'Unauthorized' }, { status: 401 })
         }
 
-        // Parse request body
+        // Only stewards may trigger transactional sends. Anyone signed-in could
+        // otherwise use this route to send fully-branded emails to any address.
+        const STEWARD_EMAILS = ['joshuanesbit@gmail.com', 'sandi.lamharder@gmail.com']
+        const callerEmail = String(user.email ?? '').toLowerCase()
+        if (!STEWARD_EMAILS.includes(callerEmail)) {
+          return Response.json({ error: 'Forbidden' }, { status: 403 })
+        }
+
+
         let templateName: string
         let recipientEmail: string
         let idempotencyKey: string

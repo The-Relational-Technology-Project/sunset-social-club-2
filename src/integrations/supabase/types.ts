@@ -155,6 +155,45 @@ export type Database = {
         }
         Relationships: []
       }
+      email_templates: {
+        Row: {
+          body_markdown: string
+          created_at: string
+          cta_label: string | null
+          cta_url: string | null
+          heading: string
+          id: string
+          slug: string
+          subject: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          body_markdown: string
+          created_at?: string
+          cta_label?: string | null
+          cta_url?: string | null
+          heading: string
+          id?: string
+          slug: string
+          subject: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          body_markdown?: string
+          created_at?: string
+          cta_label?: string | null
+          cta_url?: string | null
+          heading?: string
+          id?: string
+          slug?: string
+          subject?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       email_unsubscribe_tokens: {
         Row: {
           created_at: string

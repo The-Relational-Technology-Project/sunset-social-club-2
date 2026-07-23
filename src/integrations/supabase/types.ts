@@ -380,6 +380,7 @@ export type Database = {
           caption: string | null
           created_at: string
           id: string
+          instagram_ok: boolean
           storage_path: string
           uploaded_by_email: string | null
           user_id: string
@@ -389,6 +390,7 @@ export type Database = {
           caption?: string | null
           created_at?: string
           id?: string
+          instagram_ok?: boolean
           storage_path: string
           uploaded_by_email?: string | null
           user_id: string
@@ -398,6 +400,7 @@ export type Database = {
           caption?: string | null
           created_at?: string
           id?: string
+          instagram_ok?: boolean
           storage_path?: string
           uploaded_by_email?: string | null
           user_id?: string

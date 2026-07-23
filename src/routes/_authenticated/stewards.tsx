@@ -16,6 +16,7 @@ import {
   upsertInsight,
   updateFeedbackForm,
 } from "@/lib/moderation.functions";
+import { listEmailTemplates, updateEmailTemplate } from "@/lib/email-templates.functions";
 
 export const Route = createFileRoute("/_authenticated/stewards")({
   head: () => ({ meta: [{ title: "Stewards dashboard" }] }),
@@ -25,6 +26,7 @@ export const Route = createFileRoute("/_authenticated/stewards")({
 type Data = Awaited<ReturnType<typeof getStewardsData>>;
 type Jukebox = Awaited<ReturnType<typeof listAllSubmissions>>;
 type Moderation = Awaited<ReturnType<typeof listModeration>>;
+type EmailTemplates = Awaited<ReturnType<typeof listEmailTemplates>>;
 
 function toCsv(rows: Array<Record<string, unknown>>): string {
   if (!rows.length) return "";
@@ -58,13 +60,20 @@ function Stewards() {
   const removePhoto = useServerFn(deletePhoto);
   const saveInsight = useServerFn(upsertInsight);
   const saveForm = useServerFn(updateFeedbackForm);
+  const fetchEmails = useServerFn(listEmailTemplates);
+  const saveEmail = useServerFn(updateEmailTemplate);
 
   const [data, setData] = useState<Data | null>(null);
   const [jukebox, setJukebox] = useState<Jukebox | null>(null);
   const [moderation, setModeration] = useState<Moderation | null>(null);
+  const [emails, setEmails] = useState<EmailTemplates | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+
+  const refreshEmails = useCallback(() => {
+    fetchEmails().then(setEmails).catch((e) => setError(e?.message ?? "Failed to load emails"));
+  }, [fetchEmails]);
 
   const refreshJukebox = useCallback(() => {
     fetchJukebox().then(setJukebox).catch((e) => setError(e?.message ?? "Failed to load jukebox"));
@@ -78,7 +87,8 @@ function Stewards() {
     fetchData().then(setData).catch((e) => setError(e?.message ?? "Failed to load"));
     refreshJukebox();
     refreshModeration();
-  }, [fetchData, refreshJukebox, refreshModeration]);
+    refreshEmails();
+  }, [fetchData, refreshJukebox, refreshModeration, refreshEmails]);
 
   async function signOut() {
     await supabase.auth.signOut();

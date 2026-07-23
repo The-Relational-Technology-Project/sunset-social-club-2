@@ -16,6 +16,10 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MemberIndexRouteImport } from './routes/member/index'
+import { Route as MemberSigninRouteImport } from './routes/member/signin'
+import { Route as InsightsSlugRouteImport } from './routes/insights/$slug'
+import { Route as FeedbackSlugRouteImport } from './routes/feedback/$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticated/stewards'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
@@ -59,6 +63,26 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemberIndexRoute = MemberIndexRouteImport.update({
+  id: '/member/',
+  path: '/member/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemberSigninRoute = MemberSigninRouteImport.update({
+  id: '/member/signin',
+  path: '/member/signin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsSlugRoute = InsightsSlugRouteImport.update({
+  id: '/insights/$slug',
+  path: '/insights/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedbackSlugRoute = FeedbackSlugRouteImport.update({
+  id: '/feedback/$slug',
+  path: '/feedback/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
@@ -125,6 +149,10 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/feedback/$slug': typeof FeedbackSlugRoute
+  '/insights/$slug': typeof InsightsSlugRoute
+  '/member/signin': typeof MemberSigninRoute
+  '/member/': typeof MemberIndexRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
   '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
@@ -143,6 +171,10 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/feedback/$slug': typeof FeedbackSlugRoute
+  '/insights/$slug': typeof InsightsSlugRoute
+  '/member/signin': typeof MemberSigninRoute
+  '/member': typeof MemberIndexRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
   '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
@@ -163,6 +195,10 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/stewards': typeof AuthenticatedStewardsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/feedback/$slug': typeof FeedbackSlugRoute
+  '/insights/$slug': typeof InsightsSlugRoute
+  '/member/signin': typeof MemberSigninRoute
+  '/member/': typeof MemberIndexRoute
   '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
   '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
@@ -183,6 +219,10 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/stewards'
     | '/email/unsubscribe'
+    | '/feedback/$slug'
+    | '/insights/$slug'
+    | '/member/signin'
+    | '/member/'
     | '/api/public/notify-submission'
     | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
@@ -201,6 +241,10 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/stewards'
     | '/email/unsubscribe'
+    | '/feedback/$slug'
+    | '/insights/$slug'
+    | '/member/signin'
+    | '/member'
     | '/api/public/notify-submission'
     | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
@@ -220,6 +264,10 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_authenticated/stewards'
     | '/email/unsubscribe'
+    | '/feedback/$slug'
+    | '/insights/$slug'
+    | '/member/signin'
+    | '/member/'
     | '/api/public/notify-submission'
     | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
@@ -239,6 +287,10 @@ export interface RootRouteChildren {
   JukeboxRoute: typeof JukeboxRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
+  FeedbackSlugRoute: typeof FeedbackSlugRoute
+  InsightsSlugRoute: typeof InsightsSlugRoute
+  MemberSigninRoute: typeof MemberSigninRoute
+  MemberIndexRoute: typeof MemberIndexRoute
   ApiPublicNotifySubmissionRoute: typeof ApiPublicNotifySubmissionRoute
   ApiPublicSendWelcomeRoute: typeof ApiPublicSendWelcomeRoute
   ApiPublicSpotifyConnectRoute: typeof ApiPublicSpotifyConnectRoute
@@ -298,6 +350,34 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/member/': {
+      id: '/member/'
+      path: '/member'
+      fullPath: '/member/'
+      preLoaderRoute: typeof MemberIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/member/signin': {
+      id: '/member/signin'
+      path: '/member/signin'
+      fullPath: '/member/signin'
+      preLoaderRoute: typeof MemberSigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/$slug': {
+      id: '/insights/$slug'
+      path: '/insights/$slug'
+      fullPath: '/insights/$slug'
+      preLoaderRoute: typeof InsightsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feedback/$slug': {
+      id: '/feedback/$slug'
+      path: '/feedback/$slug'
+      fullPath: '/feedback/$slug'
+      preLoaderRoute: typeof FeedbackSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/email/unsubscribe': {
@@ -393,6 +473,10 @@ const rootRouteChildren: RootRouteChildren = {
   JukeboxRoute: JukeboxRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
+  FeedbackSlugRoute: FeedbackSlugRoute,
+  InsightsSlugRoute: InsightsSlugRoute,
+  MemberSigninRoute: MemberSigninRoute,
+  MemberIndexRoute: MemberIndexRoute,
   ApiPublicNotifySubmissionRoute: ApiPublicNotifySubmissionRoute,
   ApiPublicSendWelcomeRoute: ApiPublicSendWelcomeRoute,
   ApiPublicSpotifyConnectRoute: ApiPublicSpotifyConnectRoute,

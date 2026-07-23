@@ -121,6 +121,7 @@ const translations: Record<Language, Dict> = {
     "nav.contact": "联系",
     "nav.join": "加入俱乐部",
     "nav.memberSignIn": "会员登录",
+    "nav.memberHome": "会员主页",
     "memberCta.title": "已是会员？",
     "memberCta.body": "登录后可提交活动反馈、分享照片，查看邻里心声。",
     "memberCta.button": "会员登录",

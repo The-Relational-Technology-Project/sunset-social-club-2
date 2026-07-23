@@ -8,11 +8,10 @@ export interface MemberSessionState {
   isMember: boolean;
 }
 
-async function checkIsMember(email: string | undefined | null): Promise<boolean> {
-  if (!email) return false;
-  const { data, error } = await supabase.rpc("is_member_email", { _email: email });
+async function checkCurrentUserIsMember(): Promise<boolean> {
+  const { data, error } = await supabase.rpc("is_current_user_member");
   if (error) {
-    console.warn("is_member_email rpc failed", error);
+    console.warn("is_current_user_member rpc failed", error);
     return false;
   }
   return Boolean(data);
@@ -27,7 +26,7 @@ export function useMemberSession(): MemberSessionState {
     async function refresh() {
       const { data } = await supabase.auth.getUser();
       const user = data.user ?? null;
-      const isMember = user ? await checkIsMember(user.email) : false;
+      const isMember = user ? await checkCurrentUserIsMember() : false;
       if (!cancelled) setState({ loading: false, user, isMember });
     }
 
@@ -48,6 +47,10 @@ export function useMemberSession(): MemberSessionState {
   return state;
 }
 
-export async function isMemberEmail(email: string): Promise<boolean> {
-  return checkIsMember(email);
+/**
+ * Checks whether the currently signed-in user is a member.
+ * Cannot be used to probe arbitrary email addresses.
+ */
+export async function isCurrentUserMember(): Promise<boolean> {
+  return checkCurrentUserIsMember();
 }

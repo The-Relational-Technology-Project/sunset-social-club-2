@@ -24,7 +24,7 @@ function PrivacyPage() {
         <section>
           <h2 className="text-xl font-semibold text-ink">Who we are</h2>
           <p className="mt-2">
-            Sunset Social Club is a neighborhood club run by people who live in the Sunset in San Francisco.
+            Sunset Social Club is a nonprofit, neighborhood club run by people who live in the Sunset in San Francisco.
           </p>
         </section>
 

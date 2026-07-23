@@ -6,7 +6,6 @@ export function Schedule() {
   return (
     <section>
       <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">{t("schedule.title")}</h2>
-      <p className="mt-1 text-ink/70">{t("schedule.subtitle")}</p>
       <div
         className="paper-card mt-5 overflow-auto p-2"
         style={{ minHeight: 260, maxHeight: 320 }}

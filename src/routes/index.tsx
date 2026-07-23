@@ -89,17 +89,27 @@ function Home() {
       </div>
 
       {/* Join the Club CTA */}
-      <section className="mb-16">
+      <section className="mb-8">
         <div className="paper-card px-6 py-10 text-center">
           <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">
             {t("joinCta.title")}
           </h2>
           <p className="mt-3 text-ink/80">{t("joinCta.body")}</p>
-          <Link
-            to="/join"
-            className="btn-solid mt-6 inline-block"
-          >
+          <Link to="/join" className="btn-solid mt-6 inline-block">
             {t("joinCta.button")}
+          </Link>
+        </div>
+      </section>
+
+      {/* Member Sign In CTA */}
+      <section className="mb-16">
+        <div className="paper-card px-6 py-10 text-center">
+          <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">
+            {t("memberCta.title")}
+          </h2>
+          <p className="mt-3 text-ink/80">{t("memberCta.body")}</p>
+          <Link to="/member" className="btn-ghost mt-6 inline-block">
+            {t("memberCta.button")}
           </Link>
         </div>
       </section>

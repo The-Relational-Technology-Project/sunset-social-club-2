@@ -11,6 +11,10 @@ const translations: Record<Language, Dict> = {
     "nav.about": "About",
     "nav.contact": "Contact",
     "nav.join": "Join the Club",
+    "nav.memberSignIn": "Member Sign In",
+    "memberCta.title": "Already a member?",
+    "memberCta.body": "Sign in to submit event feedback, share photos, and read what neighbors are saying.",
+    "memberCta.button": "Member Sign In",
 
     // Banner
     "banner.eyebrow": "July 22 · Kickoff",
@@ -114,6 +118,10 @@ const translations: Record<Language, Dict> = {
     "nav.about": "关于",
     "nav.contact": "联系",
     "nav.join": "加入俱乐部",
+    "nav.memberSignIn": "会员登录",
+    "memberCta.title": "已是会员？",
+    "memberCta.body": "登录后可提交活动反馈、分享照片，查看邻里心声。",
+    "memberCta.button": "会员登录",
 
     // Banner
     "banner.eyebrow": "7月22日 · 启动日",

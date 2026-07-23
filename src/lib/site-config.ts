@@ -4,6 +4,9 @@ import { supabase } from "../integrations/supabase/client";
 export const CONTACT_EMAIL = "oursunsetsocialclub@gmail.com";
 export const NOTIFY_EMAILS = ["oursunsetsocialclub@gmail.com", "joshuanesbit@gmail.com"];
 export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
+export const COMMUNITY_PLAYLIST_URL = "https://open.spotify.com/playlist/1saGchZ6JVWKmFnianOtJM?si=IPO4mE9kSaCxOvqOTCUVEw";
+export const PIZZA_PARTY_FEEDBACK_SLUG = "pizza-party-2026-07-22";
+export const JULY_22_INSIGHTS_SLUG = "july-22-kickoff";
 
 // Paste the iframe embed code from Luma here (luma.com/sunsetsocialclub → Embed).
 export const LUMA_CALENDAR_EMBED = `<iframe src="https://luma.com/embed/calendar/cal-EktVbYQFoGMjT6M/events?lt=light" width="100%" height="600" frameborder="0" style="border: 1px solid #bfcbda88; border-radius: 12px; display: block;" allowfullscreen aria-hidden="false" tabindex="0"></iframe>`;

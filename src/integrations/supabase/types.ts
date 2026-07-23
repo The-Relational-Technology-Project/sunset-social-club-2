@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      community_insights: {
+        Row: {
+          created_at: string
+          id: string
+          markdown: string
+          published: boolean
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          markdown?: string
+          published?: boolean
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          markdown?: string
+          published?: boolean
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -149,6 +179,63 @@ export type Database = {
         }
         Relationships: []
       }
+      event_feedback: {
+        Row: {
+          answers: Json
+          created_at: string
+          form_slug: string
+          id: string
+          member_email: string | null
+          user_id: string | null
+        }
+        Insert: {
+          answers?: Json
+          created_at?: string
+          form_slug: string
+          id?: string
+          member_email?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          answers?: Json
+          created_at?: string
+          form_slug?: string
+          id?: string
+          member_email?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      event_feedback_forms: {
+        Row: {
+          created_at: string
+          id: string
+          intro: string
+          questions: Json
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          intro?: string
+          questions?: Json
+          slug: string
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          intro?: string
+          questions?: Json
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       ideas: {
         Row: {
           created_at: string
@@ -248,6 +335,36 @@ export type Database = {
         }
         Relationships: []
       }
+      photos: {
+        Row: {
+          approved: boolean
+          caption: string | null
+          created_at: string
+          id: string
+          storage_path: string
+          uploaded_by_email: string | null
+          user_id: string
+        }
+        Insert: {
+          approved?: boolean
+          caption?: string | null
+          created_at?: string
+          id?: string
+          storage_path: string
+          uploaded_by_email?: string | null
+          user_id: string
+        }
+        Update: {
+          approved?: boolean
+          caption?: string | null
+          created_at?: string
+          id?: string
+          storage_path?: string
+          uploaded_by_email?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
@@ -286,6 +403,7 @@ export type Database = {
         Args: { payload: Json; queue_name: string }
         Returns: number
       }
+      is_member_email: { Args: { _email: string }; Returns: boolean }
       move_to_dlq: {
         Args: {
           dlq_name: string

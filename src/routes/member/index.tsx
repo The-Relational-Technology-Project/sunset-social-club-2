@@ -1,8 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { useMemberSession } from "@/lib/member-session";
 import { PhotoGallery } from "@/components/PhotoGallery";
+import { deleteMyAccount } from "@/lib/account.functions";
 import {
   COMMUNITY_PLAYLIST_URL,
   PIZZA_PARTY_FEEDBACK_SLUG,

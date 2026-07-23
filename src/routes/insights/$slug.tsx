@@ -55,8 +55,43 @@ function InsightPage() {
   return (
     <main className="view-enter mx-auto max-w-2xl px-5 py-12">
       <h1 className="text-3xl font-extrabold italic">{insight.title}</h1>
-      <article className="prose prose-neutral mt-6 max-w-none prose-headings:italic prose-headings:font-extrabold prose-h2:text-2xl prose-p:text-ink/85 prose-li:text-ink/85 prose-a:text-sunset">
-        <ReactMarkdown>{insight.markdown}</ReactMarkdown>
+      <article className="mt-6 max-w-none text-ink/85 leading-relaxed">
+        <ReactMarkdown
+          components={{
+            h1: ({ node, ...props }) => (
+              <h1 className="mt-10 mb-4 text-3xl font-extrabold italic text-ink" {...props} />
+            ),
+            h2: ({ node, ...props }) => (
+              <h2 className="mt-10 mb-4 text-2xl font-extrabold italic text-ink" {...props} />
+            ),
+            h3: ({ node, ...props }) => (
+              <h3 className="mt-8 mb-3 text-xl font-bold italic text-ink" {...props} />
+            ),
+            p: ({ node, ...props }) => (
+              <p className="my-4 text-base leading-relaxed" {...props} />
+            ),
+            ul: ({ node, ...props }) => (
+              <ul className="my-4 list-disc space-y-1.5 pl-6 marker:text-ink/40" {...props} />
+            ),
+            ol: ({ node, ...props }) => (
+              <ol className="my-4 list-decimal space-y-1.5 pl-6 marker:text-ink/40" {...props} />
+            ),
+            li: ({ node, ...props }) => <li className="leading-relaxed" {...props} />,
+            a: ({ node, ...props }) => (
+              <a className="text-sunset underline hover:opacity-80" {...props} />
+            ),
+            blockquote: ({ node, ...props }) => (
+              <blockquote className="my-6 border-l-4 border-sunset/40 pl-4 italic text-ink/70" {...props} />
+            ),
+            hr: () => <hr className="my-8 border-ink/10" />,
+            strong: ({ node, ...props }) => <strong className="font-bold text-ink" {...props} />,
+            code: ({ node, ...props }) => (
+              <code className="rounded bg-ink/5 px-1.5 py-0.5 text-sm" {...props} />
+            ),
+          }}
+        >
+          {insight.markdown}
+        </ReactMarkdown>
       </article>
       <div className="mt-10">
         <Link to="/member" className="text-sm text-ink/60 underline">Back to member home</Link>

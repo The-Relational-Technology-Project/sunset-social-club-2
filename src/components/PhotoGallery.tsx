@@ -116,8 +116,20 @@ export function PhotoGallery({ user }: { user: User }) {
             placeholder="A note about this photo"
           />
         </div>
+        <div className="mt-3">
+          <label className="flex items-start gap-2 text-sm text-ink/80">
+            <input
+              type="checkbox"
+              checked={instagramOk}
+              onChange={(e) => setInstagramOk(e.target.checked)}
+              className="mt-1 h-4 w-4"
+            />
+            <span>Okay to share this on our club's Instagram?</span>
+          </label>
+        </div>
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
         {notice && <p className="mt-3 text-sm text-green-700">{notice}</p>}
+
         <button type="submit" disabled={uploading || !file} className="btn-solid btn-block-mobile mt-4 disabled:opacity-50">
           {uploading ? "Uploading…" : "Upload photo"}
         </button>

@@ -78,25 +78,25 @@ function FeedbackPage() {
 
   if (notFound) {
     return (
-      <main className="mx-auto max-w-xl px-5 py-14">
+      <main className="mx-auto max-w-xl px-4 py-10 sm:px-5 sm:py-14">
         <h1 className="text-2xl font-extrabold">Feedback form not found</h1>
         <p className="mt-2 text-ink/70">This form may have been removed.</p>
-        <Link to="/" className="btn-ghost mt-6 inline-block">Back home</Link>
+        <Link to="/" className="btn-ghost btn-block-mobile mt-6">Back home</Link>
       </main>
     );
   }
-  if (!form) return <main className="mx-auto max-w-xl px-5 py-14">Loading…</main>;
+  if (!form) return <main className="mx-auto max-w-xl px-4 py-10 sm:px-5 sm:py-14">Loading…</main>;
 
   if (submitted) {
     return (
-      <main className="view-enter mx-auto max-w-xl px-5 py-14 text-center">
+      <main className="view-enter mx-auto max-w-xl px-4 py-10 text-center sm:px-5 sm:py-14">
         <h1 className="text-3xl font-extrabold italic">Thank you.</h1>
         <p className="mt-3 text-ink/80">Your feedback helps shape what we do next.</p>
         {showInsightsLink && (
           <Link
             to="/insights/$slug"
             params={{ slug: JULY_22_INSIGHTS_SLUG }}
-            className="btn-solid mt-8 inline-block"
+            className="btn-solid btn-block-mobile mt-8"
           >
             See what neighbors shared on the walls →
           </Link>
@@ -109,21 +109,23 @@ function FeedbackPage() {
   }
 
   return (
-    <main className="view-enter mx-auto max-w-2xl px-5 py-12">
-      <h1 className="text-3xl font-extrabold italic">{form.title}</h1>
+    <main className="view-enter mx-auto max-w-2xl px-4 py-8 sm:px-5 sm:py-12">
+      <h1 className="text-2xl font-extrabold italic sm:text-3xl">{form.title}</h1>
       {form.intro && (
-        <div className="mt-4 space-y-3 text-ink/80 whitespace-pre-wrap">{form.intro}</div>
+        <div className="mt-4 space-y-3 whitespace-pre-wrap text-sm text-ink/80 sm:text-base">{form.intro}</div>
       )}
 
-      <form onSubmit={onSubmit} className="mt-8 space-y-6">
+      <form onSubmit={onSubmit} className="mt-6 space-y-5 sm:mt-8 sm:space-y-6">
         {!user && (
-          <div className="paper-card px-5 py-4">
+          <div className="paper-card px-4 py-4 sm:px-5">
             <label className="field-label" htmlFor="guest-email">
               Your email (optional — so we know who you are)
             </label>
             <input
               id="guest-email"
               type="email"
+              inputMode="email"
+              autoComplete="email"
               value={guestEmail}
               onChange={(e) => setGuestEmail(e.target.value)}
               placeholder="you@example.com"
@@ -145,7 +147,7 @@ function FeedbackPage() {
             {q.type === "textarea" ? (
               <textarea
                 id={`q-${q.key}`}
-                rows={4}
+                rows={5}
                 value={answers[q.key] ?? ""}
                 onChange={(e) => setAnswers((a) => ({ ...a, [q.key]: e.target.value }))}
                 className="field-input resize-y"
@@ -154,6 +156,7 @@ function FeedbackPage() {
               <input
                 id={`q-${q.key}`}
                 type={q.type === "number" ? "number" : "text"}
+                inputMode={q.type === "number" ? "numeric" : undefined}
                 value={answers[q.key] ?? ""}
                 onChange={(e) => setAnswers((a) => ({ ...a, [q.key]: e.target.value }))}
                 className="field-input"
@@ -163,7 +166,7 @@ function FeedbackPage() {
         ))}
 
         {error && <p className="text-sm text-red-600">{error}</p>}
-        <button type="submit" disabled={submitting} className="btn-solid">
+        <button type="submit" disabled={submitting} className="btn-solid btn-block-mobile">
           {submitting ? "Sending…" : "Submit feedback"}
         </button>
       </form>

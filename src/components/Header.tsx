@@ -1,9 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { Languages } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import { useMemberSession } from "@/lib/member-session";
 
 export function Header() {
   const { language, setLanguage, t } = useLanguage();
+  const { user } = useMemberSession();
+  const isSignedIn = Boolean(user);
+
 
   return (
     <header className="w-full border-b border-[rgba(29,28,26,0.10)]">

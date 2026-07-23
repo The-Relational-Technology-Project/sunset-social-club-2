@@ -239,6 +239,27 @@ function Stewards() {
         />
       </section>
 
+      {/* Automated email content */}
+      <section>
+        <h2 className="text-xl font-bold mb-3">Automated emails</h2>
+        <p className="text-sm text-ink/60 mb-3">
+          Sent from <code>notifications@sunsetsocialclub.org</code>, reply-to <code>oursunsetsocialclub@gmail.com</code>.
+          Use <code>{"{{firstName}}"}</code> for the member's first name, or <code>{"{{firstNameComma}}"}</code> for a leading &ldquo;, Jane&rdquo; that disappears when no name is given.
+        </p>
+        {(emails ?? []).length === 0 ? (
+          <p className="text-ink/60">Loading templates…</p>
+        ) : (
+          (emails ?? []).map((t: any) => (
+            <EmailEditor
+              key={t.slug}
+              tpl={t}
+              onSave={async (payload) => { await saveEmail({ data: payload }); refreshEmails(); }}
+            />
+          ))
+        )}
+      </section>
+
+
       {/* Jukebox */}
       <section>
         <div className="flex items-center justify-between mb-3 flex-wrap gap-3">

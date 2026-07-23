@@ -66,13 +66,13 @@ function FeedbackPage() {
     setSubmitting(true);
     // If authenticated: attach the caller's own user_id + email (RLS enforces this).
     // If not authenticated: submit anonymously with an optional guest email; user_id must be NULL.
-    const payload = user
-      ? {
-          form_slug: form.slug,
-          member_email: user.email ?? null,
-          user_id: user.id,
-          answers,
-        }
+    const payload: {
+      form_slug: string;
+      member_email: string | null;
+      user_id: string | null;
+      answers: Record<string, string>;
+    } = user
+      ? { form_slug: form.slug, member_email: user.email ?? null, user_id: user.id, answers }
       : {
           form_slug: form.slug,
           member_email: guestEmail.trim().toLowerCase() || null,

@@ -74,14 +74,17 @@ export function PhotoGallery({ user }: { user: User }) {
       uploaded_by_email: user.email ?? null,
       storage_path: path,
       caption: caption.trim() || null,
+      instagram_ok: instagramOk,
     });
     setUploading(false);
     if (rowErr) return setError(rowErr.message);
     setCaption("");
     setFile(null);
+    setInstagramOk(false);
     setNotice("Photo uploaded. Stewards will review it before it appears in the shared gallery.");
     void load();
   }
+
 
   const approved = photos.filter((p) => p.approved);
   const mineUnapproved = photos.filter((p) => p.mine && !p.approved);

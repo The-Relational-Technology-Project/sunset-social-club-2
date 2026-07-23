@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
+import { getMemberStatus } from "@/lib/member-status.functions";
 
 export interface MemberSessionState {
   loading: boolean;
@@ -9,13 +10,15 @@ export interface MemberSessionState {
 }
 
 async function checkCurrentUserIsMember(): Promise<boolean> {
-  const { data, error } = await supabase.rpc("is_current_user_member");
-  if (error) {
-    console.warn("is_current_user_member rpc failed", error);
+  try {
+    const res = await getMemberStatus();
+    return Boolean(res?.isMember);
+  } catch (err) {
+    console.warn("getMemberStatus failed", err);
     return false;
   }
-  return Boolean(data);
 }
+
 
 export function useMemberSession(): MemberSessionState {
   const [state, setState] = useState<MemberSessionState>({ loading: true, user: null, isMember: false });

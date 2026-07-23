@@ -12,6 +12,7 @@ const translations: Record<Language, Dict> = {
     "nav.contact": "Contact",
     "nav.join": "Join the Club",
     "nav.memberSignIn": "Member Sign In",
+    "nav.memberHome": "Member Home",
     "memberCta.title": "Already a member?",
     "memberCta.body": "Sign in to submit event feedback, share photos, and read what neighbors are saying.",
     "memberCta.button": "Member Sign In",

@@ -26,6 +26,9 @@ export const Route = createFileRoute("/member/")({
 function MemberHome() {
   const navigate = useNavigate();
   const { loading, user, isMember } = useMemberSession();
+  const runDeleteAccount = useServerFn(deleteMyAccount);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
     if (loading) return;
@@ -35,6 +38,23 @@ function MemberHome() {
   async function signOut() {
     await supabase.auth.signOut();
     navigate({ to: "/member/signin" });
+  }
+
+  async function onDeleteAccount() {
+    const confirmed = window.confirm(
+      "Delete your account? This removes your sign-in, your uploaded photos, and your spot on the member list. This cannot be undone.",
+    );
+    if (!confirmed) return;
+    setDeleting(true);
+    setDeleteError(null);
+    try {
+      await runDeleteAccount();
+      await supabase.auth.signOut();
+      navigate({ to: "/" });
+    } catch (err) {
+      setDeleting(false);
+      setDeleteError(err instanceof Error ? err.message : "Could not delete account.");
+    }
   }
 
   if (loading) {

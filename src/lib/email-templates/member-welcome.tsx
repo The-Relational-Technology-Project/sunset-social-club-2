@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   Body,
+  Button,
   Container,
   Head,
   Heading,
@@ -15,6 +16,8 @@ interface Props {
   firstName?: string | null
 }
 
+const MEMBER_URL = 'https://sunsetsocialclub.org/member/signin'
+
 const MemberWelcome = ({ firstName }: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
@@ -28,7 +31,15 @@ const MemberWelcome = ({ firstName }: Props) => (
           {firstName ? `Welcome, ${firstName}.` : 'Welcome.'}
         </Heading>
         <Text style={lede}>
-          You're now a member of Sunset Social Club! Stay tuned for updates.
+          You're now a member of Sunset Social Club. Sign in to your Member Home for feedback forms, photos, insights, and the community jukebox.
+        </Text>
+        <Section style={{ textAlign: 'center', margin: '0 0 28px' }}>
+          <Button href={MEMBER_URL} style={btn}>
+            Go to Member Home
+          </Button>
+        </Section>
+        <Text style={fallback}>
+          Or open this link: <a href={MEMBER_URL} style={link}>{MEMBER_URL}</a>
         </Text>
         <Text style={sig}>Sunset, San Francisco</Text>
       </Container>
@@ -79,7 +90,29 @@ const lede = {
   fontSize: '16px',
   lineHeight: 1.55,
   color: '#1d1c1a',
+  margin: '0 0 24px',
+}
+const btn = {
+  backgroundColor: '#1d1c1a',
+  color: '#ffffff',
+  padding: '14px 24px',
+  borderRadius: '9999px',
+  fontSize: '15px',
+  fontWeight: 700,
+  textDecoration: 'none',
+  display: 'inline-block',
+}
+const fallback = {
+  fontSize: '13px',
+  lineHeight: 1.5,
+  color: '#1d1c1a',
+  opacity: 0.7,
   margin: '0 0 28px',
+  wordBreak: 'break-all' as const,
+}
+const link = {
+  color: '#1d1c1a',
+  textDecoration: 'underline',
 }
 const sig = {
   fontSize: '12px',

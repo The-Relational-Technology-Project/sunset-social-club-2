@@ -433,6 +433,16 @@ function InsightEditor({
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (!slug && existing[0]) {
+      setSlug(existing[0].slug);
+      setTitle(existing[0].title);
+      setMarkdown(existing[0].markdown);
+      setPublished(existing[0].published);
+    }
+  }, [existing, slug]);
+
+
   function loadExisting(s: string) {
     const row = existing.find((r) => r.slug === s);
     if (row) {

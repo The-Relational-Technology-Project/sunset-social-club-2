@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { isMemberEmail } from "@/lib/member-session";
+import { isCurrentUserMember } from "@/lib/member-session";
 
 export const Route = createFileRoute("/member/signin")({
   head: () => ({
@@ -33,7 +33,7 @@ function MemberSignInPage() {
   useEffect(() => {
     supabase.auth.getUser().then(async ({ data }) => {
       if (!data.user) return;
-      const member = await isMemberEmail(data.user.email ?? "");
+      const member = await isCurrentUserMember();
       if (member) navigate({ to: search.redirect ?? "/member" });
     });
   }, [navigate, search.redirect]);
@@ -48,16 +48,14 @@ function MemberSignInPage() {
       setLoading(false);
       return setError("Please enter your email.");
     }
-    const isMember = await isMemberEmail(normalized);
-    if (!isMember) {
-      setLoading(false);
-      return setError("That email isn't on our member list yet. Join the Club first, then come back to sign in.");
-    }
+    // Membership is verified server-side after sign-in (see useMemberSession).
+    // We don't reveal here whether the email is on the member list.
     const { error } = await supabase.auth.signInWithOtp({
       email: normalized,
       options: {
         shouldCreateUser: true,
         emailRedirectTo: `${window.location.origin}/member`,
+
       },
     });
     setLoading(false);

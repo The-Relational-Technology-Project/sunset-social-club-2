@@ -1,5 +1,5 @@
 // Site-wide constants. Edit values here, not in components.
-import { supabase } from "../integrations/supabase/client";
+import { submitPublicForm } from "./submissions.functions";
 
 export const CONTACT_EMAIL = "oursunsetsocialclub@gmail.com";
 export const NOTIFY_EMAILS = ["oursunsetsocialclub@gmail.com", "joshuanesbit@gmail.com"];
@@ -13,64 +13,25 @@ export const LUMA_CALENDAR_EMBED = `<iframe src="https://luma.com/embed/calendar
 
 export type FormType = "signup" | "idea" | "contact";
 
-async function notifyAdmin(type: string, fields: Array<{ label: string; value: string }>) {
-  try {
-    await fetch("/api/public/notify-submission", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type, fields }),
-    });
-  } catch (err) {
-    console.warn("notifyAdmin failed", err);
-  }
-}
-
 export async function submitForm(type: FormType, payload: Record<string, string>) {
   try {
     if (type === "signup") {
-      const email = (payload.email ?? "").trim().slice(0, 255);
-      const firstName = (payload.firstName ?? "").trim().slice(0, 100) || null;
-      const crossStreets = (payload.crossStreets ?? "").trim().slice(0, 200) || null;
+      const email = (payload.email ?? "").trim();
+      const firstName = (payload.firstName ?? "").trim() || null;
+      const crossStreets = (payload.crossStreets ?? "").trim() || null;
       if (!email) return { ok: false };
-      const { error } = await supabase
-        .from("email_signups")
-        .insert({ email, first_name: firstName, cross_streets: crossStreets });
-      if (error) throw error;
-      void notifyAdmin("club member signup", [
-        { label: "Email", value: email },
-        { label: "First name", value: firstName ?? "" },
-        { label: "Cross streets", value: crossStreets ?? "" },
-      ]);
-      // Send welcome email to the new member (fire and forget)
-      void fetch("/api/public/send-welcome", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, firstName }),
-      }).catch((err) => console.warn("send-welcome failed", err));
+      await submitPublicForm({ data: { type: "signup", email, firstName, crossStreets } });
     } else if (type === "idea") {
-      const idea = (payload.idea ?? "").trim().slice(0, 1000);
-      const name = (payload.name ?? "").trim().slice(0, 100);
+      const idea = (payload.idea ?? "").trim();
+      const name = (payload.name ?? "").trim();
       if (!idea || !name) return { ok: false };
-      const { error } = await supabase.from("ideas").insert({ idea, name });
-      if (error) throw error;
-      void notifyAdmin("idea submission", [
-        { label: "Name", value: name },
-        { label: "Idea", value: idea },
-      ]);
+      await submitPublicForm({ data: { type: "idea", idea, name } });
     } else if (type === "contact") {
-      const name = (payload.name ?? "").trim().slice(0, 100);
-      const email = (payload.email ?? "").trim().slice(0, 255);
-      const message = (payload.message ?? "").trim().slice(0, 2000);
+      const name = (payload.name ?? "").trim();
+      const email = (payload.email ?? "").trim();
+      const message = (payload.message ?? "").trim();
       if (!name || !email || !message) return { ok: false };
-      const { error } = await supabase
-        .from("contact_messages")
-        .insert({ name, email, message });
-      if (error) throw error;
-      void notifyAdmin("contact message", [
-        { label: "Name", value: name },
-        { label: "Email", value: email },
-        { label: "Message", value: message },
-      ]);
+      await submitPublicForm({ data: { type: "contact", name, email, message } });
     }
     return { ok: true };
   } catch (err) {

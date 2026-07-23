@@ -64,17 +64,27 @@ function FeedbackPage() {
     if (!form) return;
     setError(null);
     setSubmitting(true);
-    const memberEmail = user?.email ?? (guestEmail.trim().toLowerCase() || null);
-    const { error } = await supabase.from("event_feedback").insert({
-      form_slug: form.slug,
-      member_email: memberEmail,
-      user_id: user?.id ?? null,
-      answers,
-    });
+    // If authenticated: attach the caller's own user_id + email (RLS enforces this).
+    // If not authenticated: submit anonymously with an optional guest email; user_id must be NULL.
+    const payload: {
+      form_slug: string;
+      member_email: string | null;
+      user_id: string | null;
+      answers: Record<string, string>;
+    } = user
+      ? { form_slug: form.slug, member_email: user.email ?? null, user_id: user.id, answers }
+      : {
+          form_slug: form.slug,
+          member_email: guestEmail.trim().toLowerCase() || null,
+          user_id: null,
+          answers,
+        };
+    const { error } = await supabase.from("event_feedback").insert(payload);
     setSubmitting(false);
     if (error) return setError(error.message);
     setSubmitted(true);
   }
+
 
   if (notFound) {
     return (

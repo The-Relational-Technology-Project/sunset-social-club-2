@@ -26,8 +26,6 @@ import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticat
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicSpotifyDiagRouteImport } from './routes/api/public/spotify-diag'
 import { Route as ApiPublicSpotifyConnectRouteImport } from './routes/api/public/spotify-connect'
-import { Route as ApiPublicSendWelcomeRouteImport } from './routes/api/public/send-welcome'
-import { Route as ApiPublicNotifySubmissionRouteImport } from './routes/api/public/notify-submission'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -116,17 +114,6 @@ const ApiPublicSpotifyConnectRoute = ApiPublicSpotifyConnectRouteImport.update({
   path: '/api/public/spotify-connect',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicSendWelcomeRoute = ApiPublicSendWelcomeRouteImport.update({
-  id: '/api/public/send-welcome',
-  path: '/api/public/send-welcome',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicNotifySubmissionRoute =
-  ApiPublicNotifySubmissionRouteImport.update({
-    id: '/api/public/notify-submission',
-    path: '/api/public/notify-submission',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -160,8 +147,6 @@ export interface FileRoutesByFullPath {
   '/insights/$slug': typeof InsightsSlugRoute
   '/member/signin': typeof MemberSigninRoute
   '/member/': typeof MemberIndexRoute
-  '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
-  '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -183,8 +168,6 @@ export interface FileRoutesByTo {
   '/insights/$slug': typeof InsightsSlugRoute
   '/member/signin': typeof MemberSigninRoute
   '/member': typeof MemberIndexRoute
-  '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
-  '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -208,8 +191,6 @@ export interface FileRoutesById {
   '/insights/$slug': typeof InsightsSlugRoute
   '/member/signin': typeof MemberSigninRoute
   '/member/': typeof MemberIndexRoute
-  '/api/public/notify-submission': typeof ApiPublicNotifySubmissionRoute
-  '/api/public/send-welcome': typeof ApiPublicSendWelcomeRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -233,8 +214,6 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/member/signin'
     | '/member/'
-    | '/api/public/notify-submission'
-    | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/suppression'
@@ -256,8 +235,6 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/member/signin'
     | '/member'
-    | '/api/public/notify-submission'
-    | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/suppression'
@@ -280,8 +257,6 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/member/signin'
     | '/member/'
-    | '/api/public/notify-submission'
-    | '/api/public/send-welcome'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/suppression'
@@ -304,8 +279,6 @@ export interface RootRouteChildren {
   InsightsSlugRoute: typeof InsightsSlugRoute
   MemberSigninRoute: typeof MemberSigninRoute
   MemberIndexRoute: typeof MemberIndexRoute
-  ApiPublicNotifySubmissionRoute: typeof ApiPublicNotifySubmissionRoute
-  ApiPublicSendWelcomeRoute: typeof ApiPublicSendWelcomeRoute
   ApiPublicSpotifyConnectRoute: typeof ApiPublicSpotifyConnectRoute
   ApiPublicSpotifyDiagRoute: typeof ApiPublicSpotifyDiagRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -435,20 +408,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSpotifyConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/send-welcome': {
-      id: '/api/public/send-welcome'
-      path: '/api/public/send-welcome'
-      fullPath: '/api/public/send-welcome'
-      preLoaderRoute: typeof ApiPublicSendWelcomeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/notify-submission': {
-      id: '/api/public/notify-submission'
-      path: '/api/public/notify-submission'
-      fullPath: '/api/public/notify-submission'
-      preLoaderRoute: typeof ApiPublicNotifySubmissionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
       path: '/lovable/email/transactional/send'
@@ -498,8 +457,6 @@ const rootRouteChildren: RootRouteChildren = {
   InsightsSlugRoute: InsightsSlugRoute,
   MemberSigninRoute: MemberSigninRoute,
   MemberIndexRoute: MemberIndexRoute,
-  ApiPublicNotifySubmissionRoute: ApiPublicNotifySubmissionRoute,
-  ApiPublicSendWelcomeRoute: ApiPublicSendWelcomeRoute,
   ApiPublicSpotifyConnectRoute: ApiPublicSpotifyConnectRoute,
   ApiPublicSpotifyDiagRoute: ApiPublicSpotifyDiagRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,

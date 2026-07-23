@@ -32,8 +32,9 @@ export function Header() {
           activeProps={{ className: "text-ink" }}
           className="text-dusk hover:text-ink"
         >
-          {t("nav.memberSignIn")}
+          {isSignedIn ? t("nav.memberHome") : t("nav.memberSignIn")}
         </Link>
+
         <Link
           to="/join"
           activeProps={{ className: "bg-ink text-paper" }}

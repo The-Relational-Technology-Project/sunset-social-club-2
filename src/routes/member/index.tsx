@@ -142,6 +142,24 @@ function MemberHome() {
           </li>
         </ul>
       </section>
+
+      {/* Account */}
+      <section className="paper-card mt-10 px-6 py-6">
+        <h2 className="text-xl font-extrabold italic">Your account</h2>
+        <p className="mt-2 text-ink/75">
+          You can delete your account at any time. This removes your sign-in, your uploaded photos,
+          and takes you off the member list. This cannot be undone.
+        </p>
+        {deleteError && <p className="mt-3 text-sm text-red-600">{deleteError}</p>}
+        <button
+          type="button"
+          onClick={onDeleteAccount}
+          disabled={deleting}
+          className="btn-ghost mt-4 border border-red-300 text-red-700 hover:bg-red-50 disabled:opacity-50"
+        >
+          {deleting ? "Deleting…" : "Delete my account"}
+        </button>
+      </section>
     </main>
   );
 }

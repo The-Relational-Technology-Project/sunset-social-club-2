@@ -12,44 +12,17 @@ const SITE_NAME = "Sunset Social Club";
 const SENDER_DOMAIN = "notify.sunsetsocialclub.org";
 const FROM_DOMAIN = "notify.sunsetsocialclub.org";
 
-async function enqueueAdminNotification(
+const ADMIN_RECIPIENTS = ["joshuanesbit@gmail.com", "sandi.lamharder@gmail.com"];
+const CONTACT_INBOX = "oursunsetsocialclub@gmail.com";
+
+async function sendAdminNotification(
   type: string,
   fields: Array<{ label: string; value: string }>,
+  recipients: string[],
 ) {
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey) throw new Error("RESEND_API_KEY missing");
   const template = TEMPLATES["admin-notification"];
-  const recipient = template.to;
-  if (!recipient) return;
-  const messageId = crypto.randomUUID();
-  const normalizedEmail = recipient.toLowerCase();
-
-  let unsubscribeToken: string;
-  const { data: existingToken } = await supabaseAdmin
-    .from("email_unsubscribe_tokens")
-    .select("token, used_at")
-    .eq("email", normalizedEmail)
-    .maybeSingle();
-  if (existingToken && !existingToken.used_at) {
-    unsubscribeToken = existingToken.token;
-  } else {
-    const bytes = new Uint8Array(32);
-    crypto.getRandomValues(bytes);
-    unsubscribeToken = Array.from(bytes)
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("");
-    await supabaseAdmin
-      .from("email_unsubscribe_tokens")
-      .upsert(
-        { token: unsubscribeToken, email: normalizedEmail },
-        { onConflict: "email", ignoreDuplicates: true },
-      );
-    const { data: stored } = await supabaseAdmin
-      .from("email_unsubscribe_tokens")
-      .select("token")
-      .eq("email", normalizedEmail)
-      .maybeSingle();
-    if (stored) unsubscribeToken = stored.token;
-  }
-
   const templateData = { type, fields };
   const element = React.createElement(template.component, templateData);
   const html = await render(element);
@@ -58,31 +31,28 @@ async function enqueueAdminNotification(
     typeof template.subject === "function"
       ? template.subject(templateData)
       : template.subject;
-
-  await supabaseAdmin.from("email_send_log").insert({
-    message_id: messageId,
-    template_name: "admin-notification",
-    recipient_email: recipient,
-    status: "pending",
-  });
-  await supabaseAdmin.rpc("enqueue_email", {
-    queue_name: "transactional_emails",
-    payload: {
-      message_id: messageId,
-      to: recipient,
-      from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
-      sender_domain: SENDER_DOMAIN,
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${resendKey}`,
+    },
+    body: JSON.stringify({
+      from: FROM,
+      to: recipients,
+      reply_to: REPLY_TO,
       subject,
       html,
       text,
-      purpose: "transactional",
-      label: "admin-notification",
-      idempotency_key: messageId,
-      unsubscribe_token: unsubscribeToken,
-      queued_at: new Date().toISOString(),
-    },
+      tags: [{ name: "template", value: "admin-notification" }],
+    }),
   });
+  if (!res.ok) {
+    const errBody = await res.text();
+    throw new Error(`Resend ${res.status}: ${errBody}`);
+  }
 }
+
 
 async function sendWelcomeEmail(email: string, firstName: string | null) {
   const resendKey = process.env.RESEND_API_KEY;
@@ -172,11 +142,16 @@ export async function processSubmission(input: SubmissionInput): Promise<{ ok: t
     notifyType = "contact message";
   }
 
+  const recipients =
+    input.type === "contact"
+      ? [...ADMIN_RECIPIENTS, CONTACT_INBOX]
+      : ADMIN_RECIPIENTS;
   try {
-    await enqueueAdminNotification(notifyType, fields);
+    await sendAdminNotification(notifyType, fields, recipients);
   } catch (e) {
     console.warn("admin notification failed", e);
   }
+
   if (welcome) {
     try {
       await sendWelcomeEmail(welcome.email, welcome.firstName);

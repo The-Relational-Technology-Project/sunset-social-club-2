@@ -1,8 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { useMemberSession } from "@/lib/member-session";
 import { PhotoGallery } from "@/components/PhotoGallery";
+import { deleteMyAccount } from "@/lib/account.functions";
 import {
   COMMUNITY_PLAYLIST_URL,
   PIZZA_PARTY_FEEDBACK_SLUG,
@@ -24,6 +26,9 @@ export const Route = createFileRoute("/member/")({
 function MemberHome() {
   const navigate = useNavigate();
   const { loading, user, isMember } = useMemberSession();
+  const runDeleteAccount = useServerFn(deleteMyAccount);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
     if (loading) return;
@@ -33,6 +38,23 @@ function MemberHome() {
   async function signOut() {
     await supabase.auth.signOut();
     navigate({ to: "/member/signin" });
+  }
+
+  async function onDeleteAccount() {
+    const confirmed = window.confirm(
+      "Delete your account? This removes your sign-in, your uploaded photos, and your spot on the member list. This cannot be undone.",
+    );
+    if (!confirmed) return;
+    setDeleting(true);
+    setDeleteError(null);
+    try {
+      await runDeleteAccount();
+      await supabase.auth.signOut();
+      navigate({ to: "/" });
+    } catch (err) {
+      setDeleting(false);
+      setDeleteError(err instanceof Error ? err.message : "Could not delete account.");
+    }
   }
 
   if (loading) {
@@ -119,6 +141,24 @@ function MemberHome() {
             </Link>
           </li>
         </ul>
+      </section>
+
+      {/* Account */}
+      <section className="paper-card mt-10 px-6 py-6">
+        <h2 className="text-xl font-extrabold italic">Your account</h2>
+        <p className="mt-2 text-ink/75">
+          You can delete your account at any time. This removes your sign-in, your uploaded photos,
+          and takes you off the member list. This cannot be undone.
+        </p>
+        {deleteError && <p className="mt-3 text-sm text-red-600">{deleteError}</p>}
+        <button
+          type="button"
+          onClick={onDeleteAccount}
+          disabled={deleting}
+          className="btn-ghost mt-4 border border-red-300 text-red-700 hover:bg-red-50 disabled:opacity-50"
+        >
+          {deleting ? "Deleting…" : "Delete my account"}
+        </button>
       </section>
     </main>
   );

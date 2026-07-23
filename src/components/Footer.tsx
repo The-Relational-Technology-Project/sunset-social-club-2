@@ -10,6 +10,7 @@ export function Footer() {
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <Link to="/about" className="hover:text-ink">{t("nav.about")}</Link>
           <Link to="/contact" className="hover:text-ink">{t("nav.contact")}</Link>
+          <Link to="/privacy" className="hover:text-ink">Privacy & Terms</Link>
           <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-ink">{CONTACT_EMAIL}</a>
         </div>
         <p className="sm:text-right">{t("footer.tagline")}</p>

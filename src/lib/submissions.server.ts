@@ -142,11 +142,16 @@ export async function processSubmission(input: SubmissionInput): Promise<{ ok: t
     notifyType = "contact message";
   }
 
+  const recipients =
+    input.type === "contact"
+      ? [...ADMIN_RECIPIENTS, CONTACT_INBOX]
+      : ADMIN_RECIPIENTS;
   try {
-    await enqueueAdminNotification(notifyType, fields);
+    await sendAdminNotification(notifyType, fields, recipients);
   } catch (e) {
     console.warn("admin notification failed", e);
   }
+
   if (welcome) {
     try {
       await sendWelcomeEmail(welcome.email, welcome.firstName);

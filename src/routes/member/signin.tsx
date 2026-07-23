@@ -31,8 +31,10 @@ function MemberSignInPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: search.redirect ?? "/member" });
+    supabase.auth.getUser().then(async ({ data }) => {
+      if (!data.user) return;
+      const member = await isMemberEmail(data.user.email ?? "");
+      if (member) navigate({ to: search.redirect ?? "/member" });
     });
   }, [navigate, search.redirect]);
 

@@ -48,7 +48,12 @@ export function EmailSignupForm() {
         <button type="submit" className="btn-solid">{t("signup.submit")}</button>
         <p className="text-xs text-ink/60 leading-relaxed">{t("signup.consent")}</p>
         {done && (
-          <p role="status" className="text-sunset font-medium">{t("signup.done")}</p>
+          <div role="status" className="space-y-3">
+            <p className="text-sunset font-medium">{t("signup.done")}</p>
+            <a href="/member/signin" className="btn-solid inline-block">
+              {t("signup.goToMember")}
+            </a>
+          </div>
         )}
       </form>
     </section>

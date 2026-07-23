@@ -44,46 +44,46 @@ function InsightPage() {
 
   if (notFound) {
     return (
-      <main className="mx-auto max-w-xl px-5 py-14">
+      <main className="mx-auto max-w-xl px-4 py-10 sm:px-5 sm:py-14">
         <h1 className="text-2xl font-extrabold">Not found</h1>
-        <Link to="/" className="btn-ghost mt-6 inline-block">Back home</Link>
+        <Link to="/" className="btn-ghost btn-block-mobile mt-6">Back home</Link>
       </main>
     );
   }
-  if (!insight) return <main className="mx-auto max-w-2xl px-5 py-14">Loading…</main>;
+  if (!insight) return <main className="mx-auto max-w-2xl px-4 py-10 sm:px-5 sm:py-14">Loading…</main>;
 
   return (
-    <main className="view-enter mx-auto max-w-2xl px-5 py-12">
-      <h1 className="text-3xl font-extrabold italic">{insight.title}</h1>
+    <main className="view-enter mx-auto max-w-2xl px-4 py-8 sm:px-5 sm:py-12">
+      <h1 className="text-2xl font-extrabold italic sm:text-3xl">{insight.title}</h1>
       <article className="mt-6 max-w-none text-ink/85 leading-relaxed">
         <ReactMarkdown
           components={{
             h1: ({ node, ...props }) => (
-              <h1 className="mt-10 mb-4 text-3xl font-extrabold italic text-ink" {...props} />
+              <h1 className="mt-8 mb-3 text-2xl font-extrabold italic text-ink sm:mt-10 sm:mb-4 sm:text-3xl" {...props} />
             ),
             h2: ({ node, ...props }) => (
-              <h2 className="mt-10 mb-4 text-2xl font-extrabold italic text-ink" {...props} />
+              <h2 className="mt-8 mb-3 text-xl font-extrabold italic text-ink sm:mt-10 sm:mb-4 sm:text-2xl" {...props} />
             ),
             h3: ({ node, ...props }) => (
-              <h3 className="mt-8 mb-3 text-xl font-bold italic text-ink" {...props} />
+              <h3 className="mt-6 mb-2 text-lg font-bold italic text-ink sm:mt-8 sm:mb-3 sm:text-xl" {...props} />
             ),
             p: ({ node, ...props }) => (
-              <p className="my-4 text-base leading-relaxed" {...props} />
+              <p className="my-3 text-[15px] leading-relaxed sm:my-4 sm:text-base" {...props} />
             ),
             ul: ({ node, ...props }) => (
-              <ul className="my-4 list-disc space-y-1.5 pl-6 marker:text-ink/40" {...props} />
+              <ul className="my-3 list-disc space-y-1.5 pl-5 text-[15px] marker:text-ink/40 sm:my-4 sm:pl-6 sm:text-base" {...props} />
             ),
             ol: ({ node, ...props }) => (
-              <ol className="my-4 list-decimal space-y-1.5 pl-6 marker:text-ink/40" {...props} />
+              <ol className="my-3 list-decimal space-y-1.5 pl-5 text-[15px] marker:text-ink/40 sm:my-4 sm:pl-6 sm:text-base" {...props} />
             ),
             li: ({ node, ...props }) => <li className="leading-relaxed" {...props} />,
             a: ({ node, ...props }) => (
               <a className="text-sunset underline hover:opacity-80" {...props} />
             ),
             blockquote: ({ node, ...props }) => (
-              <blockquote className="my-6 border-l-4 border-sunset/40 pl-4 italic text-ink/70" {...props} />
+              <blockquote className="my-5 border-l-4 border-sunset/40 pl-4 italic text-ink/70 sm:my-6" {...props} />
             ),
-            hr: () => <hr className="my-8 border-ink/10" />,
+            hr: () => <hr className="my-6 border-ink/10 sm:my-8" />,
             strong: ({ node, ...props }) => <strong className="font-bold text-ink" {...props} />,
             code: ({ node, ...props }) => (
               <code className="rounded bg-ink/5 px-1.5 py-0.5 text-sm" {...props} />

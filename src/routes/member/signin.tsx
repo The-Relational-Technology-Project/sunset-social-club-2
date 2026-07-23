@@ -82,9 +82,9 @@ function MemberSignInPage() {
   }
 
   return (
-    <main className="view-enter mx-auto max-w-md px-5 py-14">
-      <h1 className="text-3xl font-extrabold italic">Member sign in</h1>
-      <p className="mt-2 text-ink/70">
+    <main className="view-enter mx-auto max-w-md px-4 py-10 sm:px-5 sm:py-14">
+      <h1 className="text-2xl font-extrabold italic sm:text-3xl">Member sign in</h1>
+      <p className="mt-2 text-sm text-ink/70 sm:text-base">
         Enter your email. We'll send you a magic link and a 6-digit code — use either one.
       </p>
 
@@ -95,6 +95,7 @@ function MemberSignInPage() {
             <input
               id="member-email"
               type="email"
+              inputMode="email"
               autoComplete="email"
               required
               value={email}
@@ -104,7 +105,7 @@ function MemberSignInPage() {
             />
           </div>
           {error && <p className="text-sm text-red-600">{error}</p>}
-          <button type="submit" disabled={loading} className="btn-solid">
+          <button type="submit" disabled={loading} className="btn-solid btn-block-mobile">
             {loading ? "Sending…" : "Send me a magic link"}
           </button>
           <p className="text-sm text-ink/60">
@@ -129,12 +130,12 @@ function MemberSignInPage() {
               required
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              className="field-input tracking-widest text-center text-lg"
+              className="field-input text-center text-xl tracking-[0.4em]"
               placeholder="123456"
             />
           </div>
           {error && <p className="text-sm text-red-600">{error}</p>}
-          <button type="submit" disabled={loading} className="btn-solid">
+          <button type="submit" disabled={loading} className="btn-solid btn-block-mobile">
             {loading ? "Verifying…" : "Sign in"}
           </button>
           <button

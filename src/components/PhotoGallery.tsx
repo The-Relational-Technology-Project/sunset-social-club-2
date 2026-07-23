@@ -86,15 +86,16 @@ export function PhotoGallery({ user }: { user: User }) {
 
   return (
     <div>
-      <form onSubmit={onUpload} className="paper-card px-5 py-4">
+      <form onSubmit={onUpload} className="paper-card px-4 py-4 sm:px-5">
         <div>
           <label htmlFor="photo-file" className="field-label">Upload a photo</label>
           <input
             id="photo-file"
             type="file"
             accept="image/*"
+            capture="environment"
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-            className="block w-full text-sm"
+            className="block w-full text-base file:mr-3 file:rounded-full file:border file:border-ink/20 file:bg-paper file:px-3 file:py-2 file:text-sm file:font-medium"
             required
           />
         </div>
@@ -112,7 +113,7 @@ export function PhotoGallery({ user }: { user: User }) {
         </div>
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
         {notice && <p className="mt-3 text-sm text-green-700">{notice}</p>}
-        <button type="submit" disabled={uploading || !file} className="btn-solid mt-4 disabled:opacity-50">
+        <button type="submit" disabled={uploading || !file} className="btn-solid btn-block-mobile mt-4 disabled:opacity-50">
           {uploading ? "Uploading…" : "Upload photo"}
         </button>
       </form>
@@ -120,10 +121,10 @@ export function PhotoGallery({ user }: { user: User }) {
       {mineUnapproved.length > 0 && (
         <div className="mt-8">
           <h3 className="font-semibold text-ink/80">Your uploads awaiting review</h3>
-          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
             {mineUnapproved.map((p) => (
               <figure key={p.id} className="paper-card overflow-hidden">
-                <img src={p.url} alt={p.caption ?? "Awaiting review"} className="block h-32 w-full object-cover opacity-70" />
+                <img src={p.url} alt={p.caption ?? "Awaiting review"} loading="lazy" className="block aspect-square w-full object-cover opacity-70" />
                 <figcaption className="px-2 py-1 text-xs text-ink/60">Pending review</figcaption>
               </figure>
             ))}
@@ -138,10 +139,10 @@ export function PhotoGallery({ user }: { user: User }) {
         ) : approved.length === 0 ? (
           <p className="mt-2 text-sm text-ink/60">No approved photos yet. Be the first.</p>
         ) : (
-          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
             {approved.map((p) => (
               <figure key={p.id} className="paper-card overflow-hidden">
-                <img src={p.url} alt={p.caption ?? "Community photo"} className="block h-32 w-full object-cover" />
+                <img src={p.url} alt={p.caption ?? "Community photo"} loading="lazy" className="block aspect-square w-full object-cover" />
                 {p.caption && (
                   <figcaption className="px-2 py-1 text-xs text-ink/70">{p.caption}</figcaption>
                 )}

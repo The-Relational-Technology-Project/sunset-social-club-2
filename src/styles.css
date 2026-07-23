@@ -39,7 +39,8 @@
     justify-content: center;
     background-color: var(--color-ink);
     color: var(--color-paper);
-    padding: 0.7rem 1.4rem;
+    padding: 0.8rem 1.4rem;
+    min-height: 44px;
     border-radius: 999px;
     font-weight: 500;
     font-size: 0.95rem;
@@ -57,7 +58,8 @@
     justify-content: center;
     background-color: transparent;
     color: var(--color-ink);
-    padding: 0.7rem 1.4rem;
+    padding: 0.8rem 1.4rem;
+    min-height: 44px;
     border-radius: 999px;
     font-weight: 500;
     font-size: 0.95rem;
@@ -69,6 +71,14 @@
     color: var(--color-sunset);
     border-color: var(--color-sunset);
     transform: translateY(-2px);
+  }
+  .btn-block-mobile {
+    width: 100%;
+  }
+  @media (min-width: 640px) {
+    .btn-block-mobile {
+      width: auto;
+    }
   }
   .paper-card {
     background-color: var(--color-paper);
@@ -86,19 +96,21 @@
     background-color: var(--color-paper);
     border: 1px solid rgba(29, 28, 26, 0.18);
     border-radius: 14px;
-    padding: 0.7rem 0.9rem;
+    padding: 0.75rem 0.9rem;
     font: inherit;
+    font-size: 16px; /* prevents iOS zoom on focus */
     color: var(--color-ink);
+    min-height: 44px;
   }
   .field-input::placeholder {
     color: rgba(29, 28, 26, 0.45);
   }
   .field-label {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    color: rgba(29, 28, 26, 0.7);
-    margin-bottom: 0.35rem;
+    color: rgba(29, 28, 26, 0.72);
+    margin-bottom: 0.4rem;
   }
 }
 

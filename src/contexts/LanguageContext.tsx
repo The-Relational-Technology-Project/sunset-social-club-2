@@ -168,7 +168,8 @@ const translations: Record<Language, Dict> = {
     "signup.submit": "加入",
     "signup.crossStreetsLabel": "十字路口（选填）",
     "signup.crossStreetsPlaceholder": "例如：44街与 Judah",
-    "signup.done": "已加入名单。周三见！",
+    "signup.done": "已加入名单。请查看邮箱中的欢迎邮件。",
+    "signup.goToMember": "前往会员主页",
     "signup.consent": "注册后，您将不定期收到关于日落社交俱乐部的邮件更新——聚会、计划以及参与方式。我们不会发送垃圾邮件，也不会分享您的信息。如需退订，请随时发送邮件至 oursunsetsocialclub@gmail.com。",
 
     // Join CTA (landing)

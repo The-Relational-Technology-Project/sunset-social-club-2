@@ -22,8 +22,10 @@ export function PhotoGallery({ user }: { user: User }) {
   const [uploading, setUploading] = useState(false);
   const [caption, setCaption] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [instagramOk, setInstagramOk] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+
 
   const load = useCallback(async () => {
     setLoading(true);

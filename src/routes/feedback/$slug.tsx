@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useMemberSession } from "@/lib/member-session";
 import { JULY_22_INSIGHTS_SLUG, PIZZA_PARTY_FEEDBACK_SLUG } from "@/lib/site-config";
+import { notifyFeedback } from "@/lib/feedback-notify.functions";
 
 interface FormQuestion {
   key: string;
@@ -82,6 +83,17 @@ function FeedbackPage() {
     const { error } = await supabase.from("event_feedback").insert(payload);
     setSubmitting(false);
     if (error) return setError(error.message);
+    try {
+      await notifyFeedback({
+        data: {
+          formSlug: form.slug,
+          memberEmail: payload.member_email,
+          answers,
+        },
+      });
+    } catch (err) {
+      console.warn("feedback notify failed", err);
+    }
     setSubmitted(true);
   }
 

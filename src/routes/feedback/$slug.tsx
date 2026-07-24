@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useMemberSession } from "@/lib/member-session";
 import { JULY_22_INSIGHTS_SLUG, PIZZA_PARTY_FEEDBACK_SLUG } from "@/lib/site-config";
+import { notifyFeedback } from "@/lib/feedback-notify.functions";
 
 interface FormQuestion {
   key: string;

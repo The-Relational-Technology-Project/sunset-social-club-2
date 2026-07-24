@@ -82,6 +82,17 @@ function FeedbackPage() {
     const { error } = await supabase.from("event_feedback").insert(payload);
     setSubmitting(false);
     if (error) return setError(error.message);
+    try {
+      await notifyFeedback({
+        data: {
+          formSlug: form.slug,
+          memberEmail: payload.member_email,
+          answers,
+        },
+      });
+    } catch (err) {
+      console.warn("feedback notify failed", err);
+    }
     setSubmitted(true);
   }
 

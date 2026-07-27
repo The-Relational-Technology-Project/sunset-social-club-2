@@ -62,7 +62,7 @@ function MemberSignInPage() {
     if (error) return setError(error.message);
     setEmail(normalized);
     setStep("code");
-    setNotice("Check your email for a magic link, or enter the 6-digit code we sent.");
+    setNotice("Check your email for a magic link, or enter the 8-digit code we sent.");
   }
 
   async function onVerify(e: React.FormEvent) {
@@ -83,7 +83,7 @@ function MemberSignInPage() {
     <main className="view-enter mx-auto max-w-md px-4 py-10 sm:px-5 sm:py-14">
       <h1 className="text-2xl font-extrabold italic sm:text-3xl">Member sign in</h1>
       <p className="mt-2 text-sm text-ink/70 sm:text-base">
-        Enter your email. We'll send you a magic link and a 6-digit code — use either one.
+        Enter your email. We'll send you a magic link and an 8-digit code — use either one.
       </p>
 
       {step === "email" && (
@@ -118,18 +118,18 @@ function MemberSignInPage() {
         <form onSubmit={onVerify} className="mt-6 space-y-4">
           {notice && <p className="text-sm text-ink/80">{notice}</p>}
           <div>
-            <label className="field-label" htmlFor="member-code">6-digit code</label>
+            <label className="field-label" htmlFor="member-code">8-digit code</label>
             <input
               id="member-code"
               type="text"
               inputMode="numeric"
               autoComplete="one-time-code"
-              maxLength={10}
+              maxLength={8}
               required
               value={code}
               onChange={(e) => setCode(e.target.value)}
               className="field-input text-center text-xl tracking-[0.4em]"
-              placeholder="123456"
+              placeholder="12345678"
             />
           </div>
           {error && <p className="text-sm text-red-600">{error}</p>}

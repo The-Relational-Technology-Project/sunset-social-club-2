@@ -83,7 +83,7 @@ function MemberSignInPage() {
     <main className="view-enter mx-auto max-w-md px-4 py-10 sm:px-5 sm:py-14">
       <h1 className="text-2xl font-extrabold italic sm:text-3xl">Member sign in</h1>
       <p className="mt-2 text-sm text-ink/70 sm:text-base">
-        Enter your email. We'll send you a magic link and a 8-digit code — use either one.
+        Enter your email. We'll send you a magic link and an 8-digit code — use either one.
       </p>
 
       {step === "email" && (

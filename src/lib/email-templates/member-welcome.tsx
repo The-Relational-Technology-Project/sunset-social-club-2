@@ -22,10 +22,17 @@ interface Props {
 }
 
 const DEFAULT_HEADING = 'Welcome{{firstNameComma}}.'
-const DEFAULT_BODY =
-  "You're now a member of Sunset Social Club. Sign in to your Member Home for feedback forms, photos, insights, and the community jukebox."
+const DEFAULT_BODY = `You're now a member of Sunset Social Club. You can access your Member Home at https://sunsetsocialclub.org/member, which includes:
+
+- Things members have shared
+- Photos from our gatherings
+- Community links (e.g. Spotify playlist)
+- Member feedback
+- and more!
+
+Sign in with your email any time to take a look.`
 const DEFAULT_CTA_LABEL = 'Go to Member Home'
-const DEFAULT_CTA_URL = 'https://sunsetsocialclub.org/member/signin'
+const DEFAULT_CTA_URL = 'https://sunsetsocialclub.org/member'
 
 export function renderTokens(input: string, firstName?: string | null): string {
   const name = (firstName ?? '').trim()

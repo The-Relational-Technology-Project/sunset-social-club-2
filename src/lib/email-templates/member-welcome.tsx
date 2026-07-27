@@ -133,6 +133,14 @@ const h1 = {
   margin: '0 0 14px',
   lineHeight: 1.15,
 }
+const bullet = {
+  fontSize: '16px',
+  lineHeight: 1.5,
+  color: '#1d1c1a',
+  margin: '0 0 6px',
+  textAlign: 'left' as const,
+  paddingLeft: '4px',
+}
 const lede = {
   fontSize: '16px',
   lineHeight: 1.55,

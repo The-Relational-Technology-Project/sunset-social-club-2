@@ -63,9 +63,20 @@ const MemberWelcome = ({
             <Text style={crestLabel}>Sunset Social Club</Text>
           </Section>
           <Heading style={h1}>{finalHeading}</Heading>
-          {finalBody.split(/\n\n+/).map((para, i) => (
-            <Text key={i} style={lede}>{para}</Text>
-          ))}
+          {finalBody.split(/\n\n+/).map((para, i) => {
+            const lines = para.split('\n').map((l) => l.trim()).filter(Boolean)
+            const isList = lines.length > 0 && lines.every((l) => /^[-*]\s+/.test(l))
+            if (isList) {
+              return (
+                <Section key={i} style={{ margin: '0 0 14px' }}>
+                  {lines.map((l, j) => (
+                    <Text key={j} style={bullet}>{'\u2022 ' + l.replace(/^[-*]\s+/, '')}</Text>
+                  ))}
+                </Section>
+              )
+            }
+            return <Text key={i} style={lede}>{para}</Text>
+          })}
           {finalCtaLabel && finalCtaUrl && (
             <Section style={{ textAlign: 'center', margin: '20px 0 28px' }}>
               <Button href={finalCtaUrl} style={btn}>{finalCtaLabel}</Button>

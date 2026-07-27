@@ -96,7 +96,7 @@ const MemberWelcome = ({
 
 export const template = {
   component: MemberWelcome,
-  subject: "You're in — welcome to Sunset Social Club",
+  subject: "You're in, welcome to Sunset Social Club",
   displayName: 'Member welcome',
   previewData: { firstName: 'Jane' },
 } satisfies TemplateEntry

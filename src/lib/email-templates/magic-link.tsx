@@ -36,7 +36,7 @@ export const MagicLinkEmail = ({
         </Button>
         {token ? (
           <>
-            <Text style={orText}>Or enter this 6-digit code:</Text>
+            <Text style={orText}>Or enter this 8-digit code:</Text>
             <Text style={codeStyle}>{token}</Text>
           </>
         ) : null}

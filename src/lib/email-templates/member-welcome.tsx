@@ -22,10 +22,17 @@ interface Props {
 }
 
 const DEFAULT_HEADING = 'Welcome{{firstNameComma}}.'
-const DEFAULT_BODY =
-  "You're now a member of Sunset Social Club. Sign in to your Member Home for feedback forms, photos, insights, and the community jukebox."
+const DEFAULT_BODY = `You're now a member of Sunset Social Club. You can access your Member Home at https://sunsetsocialclub.org/member, which includes:
+
+- Things members have shared
+- Photos from our gatherings
+- Community links (e.g. Spotify playlist)
+- Member feedback
+- and more!
+
+Sign in with your email any time to take a look.`
 const DEFAULT_CTA_LABEL = 'Go to Member Home'
-const DEFAULT_CTA_URL = 'https://sunsetsocialclub.org/member/signin'
+const DEFAULT_CTA_URL = 'https://sunsetsocialclub.org/member'
 
 export function renderTokens(input: string, firstName?: string | null): string {
   const name = (firstName ?? '').trim()
@@ -56,9 +63,20 @@ const MemberWelcome = ({
             <Text style={crestLabel}>Sunset Social Club</Text>
           </Section>
           <Heading style={h1}>{finalHeading}</Heading>
-          {finalBody.split(/\n\n+/).map((para, i) => (
-            <Text key={i} style={lede}>{para}</Text>
-          ))}
+          {finalBody.split(/\n\n+/).map((para, i) => {
+            const lines = para.split('\n').map((l) => l.trim()).filter(Boolean)
+            const isList = lines.length > 0 && lines.every((l) => /^[-*]\s+/.test(l))
+            if (isList) {
+              return (
+                <Section key={i} style={{ margin: '0 0 14px' }}>
+                  {lines.map((l, j) => (
+                    <Text key={j} style={bullet}>{'\u2022 ' + l.replace(/^[-*]\s+/, '')}</Text>
+                  ))}
+                </Section>
+              )
+            }
+            return <Text key={i} style={lede}>{para}</Text>
+          })}
           {finalCtaLabel && finalCtaUrl && (
             <Section style={{ textAlign: 'center', margin: '20px 0 28px' }}>
               <Button href={finalCtaUrl} style={btn}>{finalCtaLabel}</Button>
@@ -78,7 +96,7 @@ const MemberWelcome = ({
 
 export const template = {
   component: MemberWelcome,
-  subject: "You're in — welcome to Sunset Social Club",
+  subject: "You're in, welcome to Sunset Social Club",
   displayName: 'Member welcome',
   previewData: { firstName: 'Jane' },
 } satisfies TemplateEntry
@@ -114,6 +132,14 @@ const h1 = {
   color: '#1d1c1a',
   margin: '0 0 14px',
   lineHeight: 1.15,
+}
+const bullet = {
+  fontSize: '16px',
+  lineHeight: 1.5,
+  color: '#1d1c1a',
+  margin: '0 0 6px',
+  textAlign: 'left' as const,
+  paddingLeft: '4px',
 }
 const lede = {
   fontSize: '16px',

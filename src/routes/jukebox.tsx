@@ -5,6 +5,7 @@ import { listPublicQueue } from "@/lib/jukebox.functions";
 import { JukeboxForm } from "@/components/JukeboxForm";
 import { JukeboxQueue } from "@/components/JukeboxQueue";
 import wordmark from "../assets/ssc-script-wordmark-cream.svg.asset.json";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Route = createFileRoute("/jukebox")({
   head: () => ({
@@ -29,6 +30,7 @@ export const Route = createFileRoute("/jukebox")({
 type QueueData = Awaited<ReturnType<typeof listPublicQueue>>;
 
 function JukeboxPage() {
+  const { t } = useLanguage();
   const fetchQueue = useServerFn(listPublicQueue);
   const [data, setData] = useState<QueueData | null>(null);
 
@@ -73,8 +75,8 @@ function JukeboxPage() {
           <div className="jukebox-neck">
             <div className="jukebox-grille" aria-hidden />
             <div className="jukebox-plate">
-              <span className="jukebox-plate-eyebrow">Community</span>
-              <span className="jukebox-plate-title">Jukebox</span>
+              <span className="jukebox-plate-eyebrow">{t("jukebox.plateEyebrow")}</span>
+              <span className="jukebox-plate-title">{t("jukebox.plateTitle")}</span>
             </div>
             <div className="jukebox-grille" aria-hidden />
           </div>
@@ -95,8 +97,8 @@ function JukeboxPage() {
               <span />
             </div>
             <div className="jukebox-base-text">
-              <span className="jukebox-base-eyebrow">Drop a song</span>
-              <span className="jukebox-base-sub">No coins required</span>
+              <span className="jukebox-base-eyebrow">{t("jukebox.baseEyebrow")}</span>
+              <span className="jukebox-base-sub">{t("jukebox.baseSub")}</span>
             </div>
             <div className="jukebox-lights" aria-hidden>
               <span />
@@ -110,7 +112,7 @@ function JukeboxPage() {
         <div className="jukebox-queue mt-6 rounded-[1.75rem] p-5 sm:p-6">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-[10px] font-black uppercase tracking-[0.22em] text-neutral-500">
-              Now spinning
+              {t("jukebox.nowSpinning")}
             </h3>
             <div className="flex gap-1">
               <span className="h-1.5 w-1.5 rounded-full bg-[#ec6a4c] animate-pulse" />
@@ -121,7 +123,7 @@ function JukeboxPage() {
           {data ? (
             <JukeboxQueue queue={data.queue} total={data.total} />
           ) : (
-            <p className="text-xs text-neutral-500">Loading…</p>
+            <p className="text-xs text-neutral-500">{t("jukebox.loading")}</p>
           )}
         </div>
       </div>

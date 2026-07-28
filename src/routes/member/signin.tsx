@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-r
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { isCurrentUserMember } from "@/lib/member-session";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Route = createFileRoute("/member/signin")({
   head: () => ({
@@ -22,6 +23,7 @@ type Step = "email" | "code";
 
 function MemberSignInPage() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const search = useSearch({ from: "/member/signin" });
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
@@ -46,7 +48,7 @@ function MemberSignInPage() {
     const normalized = email.trim().toLowerCase();
     if (!normalized) {
       setLoading(false);
-      return setError("Please enter your email.");
+      return setError(t("signin.errEmail"));
     }
     // Membership is verified server-side after sign-in (see useMemberSession).
     // We don't reveal here whether the email is on the member list.
@@ -62,7 +64,7 @@ function MemberSignInPage() {
     if (error) return setError(error.message);
     setEmail(normalized);
     setStep("code");
-    setNotice("Check your email for a magic link, or enter the 8-digit code we sent.");
+    setNotice(t("signin.notice"));
   }
 
   async function onVerify(e: React.FormEvent) {
@@ -81,15 +83,15 @@ function MemberSignInPage() {
 
   return (
     <main className="view-enter mx-auto max-w-md px-4 py-10 sm:px-5 sm:py-14">
-      <h1 className="text-2xl font-extrabold italic sm:text-3xl">Member sign in</h1>
+      <h1 className="text-2xl font-extrabold italic sm:text-3xl">{t("signin.title")}</h1>
       <p className="mt-2 text-sm text-ink/70 sm:text-base">
-        Enter your email. We'll send you a magic link and an 8-digit code — use either one.
+        {t("signin.intro")}
       </p>
 
       {step === "email" && (
         <form onSubmit={onRequestCode} className="mt-6 space-y-4">
           <div>
-            <label className="field-label" htmlFor="member-email">Email</label>
+            <label className="field-label" htmlFor="member-email">{t("signin.emailLabel")}</label>
             <input
               id="member-email"
               type="email"
@@ -99,17 +101,17 @@ function MemberSignInPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="field-input"
-              placeholder="you@example.com"
+              placeholder={t("signin.emailPlaceholder")}
             />
           </div>
           {error && <p className="text-sm text-red-600">{error}</p>}
           <button type="submit" disabled={loading} className="btn-solid btn-block-mobile">
-            {loading ? "Sending…" : "Send me a magic link"}
+            {loading ? t("signin.sending") : t("signin.send")}
           </button>
           <p className="text-sm text-ink/60">
-            Not a member yet?{" "}
-            <Link to="/join" className="underline">Join the Club</Link>{" "}
-            and your email will be added automatically.
+            {t("signin.notMember")}{" "}
+            <Link to="/join" className="underline">{t("signin.joinLink")}</Link>{" "}
+            {t("signin.joinSuffix")}
           </p>
         </form>
       )}
@@ -118,7 +120,7 @@ function MemberSignInPage() {
         <form onSubmit={onVerify} className="mt-6 space-y-4">
           {notice && <p className="text-sm text-ink/80">{notice}</p>}
           <div>
-            <label className="field-label" htmlFor="member-code">8-digit code</label>
+            <label className="field-label" htmlFor="member-code">{t("signin.codeLabel")}</label>
             <input
               id="member-code"
               type="text"
@@ -129,19 +131,19 @@ function MemberSignInPage() {
               value={code}
               onChange={(e) => setCode(e.target.value)}
               className="field-input text-center text-xl tracking-[0.4em]"
-              placeholder="12345678"
+              placeholder={t("signin.codePlaceholder")}
             />
           </div>
           {error && <p className="text-sm text-red-600">{error}</p>}
           <button type="submit" disabled={loading} className="btn-solid btn-block-mobile">
-            {loading ? "Verifying…" : "Sign in"}
+            {loading ? t("signin.verifying") : t("signin.verify")}
           </button>
           <button
             type="button"
             onClick={() => { setStep("email"); setCode(""); setNotice(null); setError(null); }}
             className="text-sm text-ink/60 underline"
           >
-            Use a different email
+            {t("signin.useDifferent")}
           </button>
         </form>
       )}

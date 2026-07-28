@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { searchSpotify, submitSong } from "@/lib/jukebox.functions";
 import type { SpotifyTrack } from "@/lib/spotify.server";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Result = Pick<SpotifyTrack, "id" | "name" | "artists" | "albumArt" | "album">;
 
@@ -16,6 +17,7 @@ const inputCls =
   "w-full bg-black border-2 border-neutral-800 rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#ec6a4c] transition-colors shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)]";
 
 export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
+  const { t } = useLanguage();
   const search = useServerFn(searchSpotify);
   const submit = useServerFn(submitSong);
 
@@ -63,17 +65,17 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
       if (res.ok) {
         setMessage({
           kind: "ok",
-          text: `Sent to the DJ! You're #${res.position ?? "?"} in the request line.`,
+          text: t("jukebox.form.ok", { position: res.position ?? "?" }),
         });
         setSelected(null);
         setQuery("");
         setResults([]);
         onSubmitted();
       } else {
-        setMessage({ kind: "err", text: res.error ?? "Something went wrong." });
+        setMessage({ kind: "err", text: res.error ?? t("jukebox.form.err") });
       }
     } catch {
-      setMessage({ kind: "err", text: "Something went wrong. Try again." });
+      setMessage({ kind: "err", text: t("jukebox.form.errRetry") });
     } finally {
       setSubmitting(false);
     }
@@ -83,7 +85,7 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
     return (
       <div className="text-center py-6">
         <p className="text-neutral-400 text-sm">
-          Submissions are paused. Check back at the next gathering.
+          {t("jukebox.form.paused")}
         </p>
       </div>
     );
@@ -94,7 +96,7 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <div>
-        <label htmlFor="jb-name" className={labelCls}>Your name</label>
+        <label htmlFor="jb-name" className={labelCls}>{t("jukebox.form.nameLabel")}</label>
         <input
           id="jb-name"
           type="text"
@@ -102,13 +104,13 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
           maxLength={60}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="What we'll call you"
+          placeholder={t("jukebox.form.namePlaceholder")}
           className={inputCls}
         />
       </div>
 
       <div className="relative">
-        <label htmlFor="jb-song" className={labelCls}>Search Spotify</label>
+        <label htmlFor="jb-song" className={labelCls}>{t("jukebox.form.searchLabel")}</label>
         <input
           id="jb-song"
           type="text"
@@ -117,13 +119,13 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
             setSelected(null);
             setQuery(e.target.value);
           }}
-          placeholder="Song or artist"
+          placeholder={t("jukebox.form.searchPlaceholder")}
           className={inputCls}
           autoComplete="off"
         />
         {searching && (
           <p className="mt-1.5 text-[10px] uppercase tracking-widest text-neutral-500">
-            Searching…
+            {t("jukebox.form.searching")}
           </p>
         )}
 
@@ -176,7 +178,7 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
               onClick={() => setSelected(null)}
               className="text-[10px] uppercase tracking-widest text-neutral-400 hover:text-white"
             >
-              Change
+              {t("jukebox.form.change")}
             </button>
           </div>
         )}
@@ -187,7 +189,7 @@ export function JukeboxForm({ submissionsOpen, onSubmitted }: Props) {
         disabled={!canSubmit}
         className="w-full bg-[#ec6a4c] text-white font-black py-5 rounded-2xl text-sm uppercase tracking-[0.25em] shadow-[0_6px_0_rgb(170,70,45),0_10px_20px_rgba(236,106,76,0.35)] active:translate-y-1.5 active:shadow-[0_0_0_rgb(170,70,45),0_4px_8px_rgba(236,106,76,0.3)] transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:active:translate-y-0"
       >
-        {submitting ? "Dropping the coin…" : "Add to queue"}
+        {submitting ? t("jukebox.form.submitting") : t("jukebox.form.submit")}
       </button>
 
       {message && (

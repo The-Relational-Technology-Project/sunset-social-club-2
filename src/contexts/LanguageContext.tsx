@@ -113,7 +113,135 @@ const translations: Record<Language, Dict> = {
     "contact.submit": "Send it",
     "contact.orEmail": "or email",
     "contact.done": "Thanks. We'll write back soon.",
+
+    // Footer extras
+    "footer.privacy": "Privacy & Terms",
+
+    // Member home
+    "member.loading": "Loading…",
+    "member.redirecting": "Redirecting to sign in…",
+    "member.title": "Member home",
+    "member.welcome": "Welcome back, {email}.",
+    "member.signOut": "Sign out",
+    "member.feedback.title": "Event feedback",
+    "member.feedback.body": "Help shape what we do next. Share your thoughts on our first Kick-off Pizza Party.",
+    "member.feedback.cta": "Kick-off Pizza Party reflections →",
+    "member.insights.title": "Community insights",
+    "member.insights.body": "What neighbors shared on the walls, in their own words.",
+    "member.insights.cta": "July 22 kickoff: what went up on the walls →",
+    "member.photos.title": "Photos",
+    "member.photos.body": "Share photos of the neighborhood, club events, or neighbors together. Photos are reviewed by stewards before appearing in the gallery.",
+    "member.links.title": "Community links",
+    "member.links.playlist": "Community playlist on Spotify →",
+    "member.links.jukebox": "Add a song to the club jukebox →",
+    "member.links.idea": "Submit an idea for the club →",
+    "member.account.title": "Your account",
+    "member.account.body": "You can delete your account at any time. This removes your sign-in, your uploaded photos, and takes you off the member list. This cannot be undone.",
+    "member.account.confirm": "Delete your account? This removes your sign-in, your uploaded photos, and your spot on the member list. This cannot be undone.",
+    "member.account.delete": "Delete my account",
+    "member.account.deleting": "Deleting…",
+    "member.account.error": "Could not delete account.",
+
+    // Member sign in
+    "signin.title": "Member sign in",
+    "signin.intro": "Enter your email. We'll send you a magic link and an 8-digit code, use either one.",
+    "signin.emailLabel": "Email",
+    "signin.emailPlaceholder": "you@example.com",
+    "signin.send": "Send me a magic link",
+    "signin.sending": "Sending…",
+    "signin.errEmail": "Please enter your email.",
+    "signin.notice": "Check your email for a magic link, or enter the 8-digit code we sent.",
+    "signin.notMember": "Not a member yet?",
+    "signin.joinLink": "Join the Club",
+    "signin.joinSuffix": "and your email will be added automatically.",
+    "signin.codeLabel": "8-digit code",
+    "signin.codePlaceholder": "12345678",
+    "signin.verify": "Sign in",
+    "signin.verifying": "Verifying…",
+    "signin.useDifferent": "Use a different email",
+
+    // Photo gallery
+    "photos.uploadLabel": "Upload a photo",
+    "photos.captionLabel": "Caption (optional)",
+    "photos.captionPlaceholder": "A note about this photo",
+    "photos.instagram": "Okay to share this on our club's Instagram?",
+    "photos.uploading": "Uploading…",
+    "photos.upload": "Upload photo",
+    "photos.uploaded": "Photo uploaded. Stewards will review it before it appears in the shared gallery.",
+    "photos.pendingTitle": "Your uploads awaiting review",
+    "photos.pending": "Pending review",
+    "photos.awaitingAlt": "Awaiting review",
+    "photos.communityAlt": "Community photo",
+    "photos.galleryTitle": "Gallery ({count})",
+    "photos.loading": "Loading…",
+    "photos.empty": "No approved photos yet. Be the first.",
+
+    // Feedback form
+    "feedback.notFound.title": "Feedback form not found",
+    "feedback.notFound.body": "This form may have been removed.",
+    "feedback.notFound.back": "Back home",
+    "feedback.loading": "Loading…",
+    "feedback.thanks.title": "Thank you.",
+    "feedback.thanks.body": "Your feedback helps shape what we do next.",
+    "feedback.thanks.insights": "See what neighbors shared on the walls →",
+    "feedback.thanks.back": "Back to member home",
+    "feedback.guestEmailLabel": "Your email (optional, so we know who you are)",
+    "feedback.guestEmailPlaceholder": "you@example.com",
+    "feedback.signinLink": "Sign in as a member",
+    "feedback.signinSuffix": "to link this feedback to your account.",
+    "feedback.submittingAs": "Submitting as {email}.",
+    "feedback.submit": "Submit feedback",
+    "feedback.sending": "Sending…",
+
+    // Privacy & Terms
+    "privacy.title": "Privacy & Terms",
+    "privacy.who.title": "Who we are",
+    "privacy.who.p1": "Sunset Social Club is a nonprofit, neighborhood club run by people who live in the Sunset in San Francisco.",
+    "privacy.privacy.title": "Privacy",
+    "privacy.privacy.p1": "We don't sell or share your data.",
+    "privacy.privacy.p2": "We don't use tracking cookies.",
+    "privacy.privacy.p3": "If you give us your contact information when joining the club, submitting an idea, or contacting us, we'll only use it for the purpose you expect (like sending you club updates or replying to your note).",
+    "privacy.privacy.p4": "Members can delete their account and associated data at any time from the Member Home page.",
+    "privacy.privacy.p5": "You can also ask us to delete your information at any time.",
+    "privacy.privacy.p6": "This site is intended for people 14 and older.",
+    "privacy.email.title": "Email",
+    "privacy.email.p1": "If you join the club, we'll email you occasional updates about what's happening. You can unsubscribe at any time using the link in any email.",
+    "privacy.terms.title": "Terms of Use",
+    "privacy.terms.p1": "Please use this site with care and respect.",
+    "privacy.terms.p2": "You are responsible for your own actions when participating in events and gatherings.",
+    "privacy.terms.p3": "We don't endorse user-submitted content.",
+    "privacy.terms.p4": "We accept no liability for what happens in and around this club.",
+    "privacy.terms.p5": "This site is operated in CA, USA and any disputes are subject to its laws.",
+    "privacy.terms.p6": "We may update these terms if needed, but we'll keep them simple and human.",
+    "privacy.care.title": "Community Care",
+    "privacy.care.p1": "We know things don't always go perfectly. If a misunderstanding or conflict arises, our stewards are happy to help neighbors talk it through and find repair.",
+    "privacy.questions.title": "Questions?",
+    "privacy.questions.p1": "Reach us at",
+
+    // Jukebox
+    "jukebox.plateEyebrow": "Community",
+    "jukebox.plateTitle": "Jukebox",
+    "jukebox.baseEyebrow": "Drop a song",
+    "jukebox.baseSub": "No coins required",
+    "jukebox.nowSpinning": "Now spinning",
+    "jukebox.loading": "Loading…",
+    "jukebox.queue.empty": "No songs yet. Yours could be first.",
+    "jukebox.queue.loading": "Loading songs…",
+    "jukebox.queue.next": "Next",
+    "jukebox.form.paused": "Submissions are paused. Check back at the next gathering.",
+    "jukebox.form.nameLabel": "Your name",
+    "jukebox.form.namePlaceholder": "What we'll call you",
+    "jukebox.form.searchLabel": "Search Spotify",
+    "jukebox.form.searchPlaceholder": "Song or artist",
+    "jukebox.form.searching": "Searching…",
+    "jukebox.form.change": "Change",
+    "jukebox.form.submit": "Add to queue",
+    "jukebox.form.submitting": "Dropping the coin…",
+    "jukebox.form.ok": "Sent to the DJ! You're #{position} in the request line.",
+    "jukebox.form.err": "Something went wrong.",
+    "jukebox.form.errRetry": "Something went wrong. Try again.",
   },
+
   zh: {
     // Nav
     "nav.home": "首页",
@@ -222,13 +350,141 @@ const translations: Record<Language, Dict> = {
     "contact.submit": "发送",
     "contact.orEmail": "或发邮件至",
     "contact.done": "谢谢，我们会尽快回复。",
+
+    // Footer extras
+    "footer.privacy": "隐私与条款",
+
+    // Member home
+    "member.loading": "载入中…",
+    "member.redirecting": "正在跳转到登录页…",
+    "member.title": "会员主页",
+    "member.welcome": "欢迎回来，{email}。",
+    "member.signOut": "退出登录",
+    "member.feedback.title": "活动反馈",
+    "member.feedback.body": "帮助我们决定接下来做什么。分享您对首次启动披萨派对的想法。",
+    "member.feedback.cta": "启动披萨派对回顾 →",
+    "member.insights.title": "社区心声",
+    "member.insights.body": "邻居们贴在墙上的话，原汁原味。",
+    "member.insights.cta": "7月22日启动日：墙上都写了什么 →",
+    "member.photos.title": "照片",
+    "member.photos.body": "分享社区、俱乐部活动或邻居相聚的照片。照片会先由管理员审核，然后出现在相册中。",
+    "member.links.title": "社区链接",
+    "member.links.playlist": "Spotify 社区播放列表 →",
+    "member.links.jukebox": "向俱乐部点唱机添加歌曲 →",
+    "member.links.idea": "提交您对俱乐部的想法 →",
+    "member.account.title": "您的账户",
+    "member.account.body": "您可以随时删除账户。这将移除您的登录方式、您上传的照片，并将您从会员名单中移除。此操作无法撤销。",
+    "member.account.confirm": "确定要删除账户吗？这将移除您的登录方式、您上传的照片，以及您在会员名单中的位置。此操作无法撤销。",
+    "member.account.delete": "删除我的账户",
+    "member.account.deleting": "删除中…",
+    "member.account.error": "无法删除账户。",
+
+    // Member sign in
+    "signin.title": "会员登录",
+    "signin.intro": "请输入您的邮箱。我们会发送一个登录链接和一个 8 位验证码，任选其一即可。",
+    "signin.emailLabel": "邮箱",
+    "signin.emailPlaceholder": "you@example.com",
+    "signin.send": "给我发送登录链接",
+    "signin.sending": "发送中…",
+    "signin.errEmail": "请输入您的邮箱。",
+    "signin.notice": "请查收邮件中的登录链接，或输入我们发送的 8 位验证码。",
+    "signin.notMember": "还不是会员？",
+    "signin.joinLink": "加入俱乐部",
+    "signin.joinSuffix": "，您的邮箱会自动加入名单。",
+    "signin.codeLabel": "8 位验证码",
+    "signin.codePlaceholder": "12345678",
+    "signin.verify": "登录",
+    "signin.verifying": "验证中…",
+    "signin.useDifferent": "换一个邮箱",
+
+    // Photo gallery
+    "photos.uploadLabel": "上传照片",
+    "photos.captionLabel": "说明（选填）",
+    "photos.captionPlaceholder": "关于这张照片的一句话",
+    "photos.instagram": "可以把这张照片分享到俱乐部的 Instagram 吗？",
+    "photos.uploading": "上传中…",
+    "photos.upload": "上传照片",
+    "photos.uploaded": "照片已上传。管理员审核后会出现在共享相册中。",
+    "photos.pendingTitle": "您待审核的上传",
+    "photos.pending": "待审核",
+    "photos.awaitingAlt": "待审核",
+    "photos.communityAlt": "社区照片",
+    "photos.galleryTitle": "相册（{count}）",
+    "photos.loading": "载入中…",
+    "photos.empty": "还没有通过审核的照片。来做第一个吧。",
+
+    // Feedback form
+    "feedback.notFound.title": "找不到该反馈表",
+    "feedback.notFound.body": "这个表单可能已被移除。",
+    "feedback.notFound.back": "返回首页",
+    "feedback.loading": "载入中…",
+    "feedback.thanks.title": "谢谢您。",
+    "feedback.thanks.body": "您的反馈帮助我们决定接下来做什么。",
+    "feedback.thanks.insights": "看看邻居们贴在墙上的话 →",
+    "feedback.thanks.back": "返回会员主页",
+    "feedback.guestEmailLabel": "您的邮箱（选填，以便我们知道您是谁）",
+    "feedback.guestEmailPlaceholder": "you@example.com",
+    "feedback.signinLink": "以会员身份登录",
+    "feedback.signinSuffix": "，即可将此反馈关联到您的账户。",
+    "feedback.submittingAs": "以 {email} 的身份提交。",
+    "feedback.submit": "提交反馈",
+    "feedback.sending": "发送中…",
+
+    // Privacy & Terms
+    "privacy.title": "隐私与条款",
+    "privacy.who.title": "我们是谁",
+    "privacy.who.p1": "日落社交俱乐部是一个非营利的邻里俱乐部，由住在旧金山日落区的居民运营。",
+    "privacy.privacy.title": "隐私",
+    "privacy.privacy.p1": "我们不出售或分享您的数据。",
+    "privacy.privacy.p2": "我们不使用追踪 Cookie。",
+    "privacy.privacy.p3": "如果您在加入俱乐部、提交想法或联系我们时提供了联系方式，我们只会将其用于您预期的用途（例如发送俱乐部更新或回复您的留言）。",
+    "privacy.privacy.p4": "会员可以随时在会员主页删除账户及相关数据。",
+    "privacy.privacy.p5": "您也可以随时要求我们删除您的信息。",
+    "privacy.privacy.p6": "本网站面向 14 岁及以上人士。",
+    "privacy.email.title": "邮件",
+    "privacy.email.p1": "如果您加入俱乐部，我们会不定期发送邮件更新。您可以随时通过邮件中的链接退订。",
+    "privacy.terms.title": "使用条款",
+    "privacy.terms.p1": "请以关心与尊重的态度使用本网站。",
+    "privacy.terms.p2": "参加活动与聚会时，您需为自己的行为负责。",
+    "privacy.terms.p3": "我们不为用户提交的内容背书。",
+    "privacy.terms.p4": "对于俱乐部内外发生的事情，我们不承担责任。",
+    "privacy.terms.p5": "本网站在美国加州运营，任何争议均适用当地法律。",
+    "privacy.terms.p6": "如有需要，我们可能会更新这些条款，但会保持简单易懂。",
+    "privacy.care.title": "社区关怀",
+    "privacy.care.p1": "我们知道事情并不总是完美。如果出现误解或冲突，我们的管理员乐意帮助邻居沟通并修复关系。",
+    "privacy.questions.title": "有疑问？",
+    "privacy.questions.p1": "请联系",
+
+    // Jukebox
+    "jukebox.plateEyebrow": "社区",
+    "jukebox.plateTitle": "点唱机",
+    "jukebox.baseEyebrow": "点一首歌",
+    "jukebox.baseSub": "无需投币",
+    "jukebox.nowSpinning": "正在播放",
+    "jukebox.loading": "载入中…",
+    "jukebox.queue.empty": "还没有歌曲。您可以成为第一个。",
+    "jukebox.queue.loading": "正在载入歌曲…",
+    "jukebox.queue.next": "下一首",
+    "jukebox.form.paused": "点歌暂停中。下次聚会时再来看看。",
+    "jukebox.form.nameLabel": "您的名字",
+    "jukebox.form.namePlaceholder": "我们怎么称呼您",
+    "jukebox.form.searchLabel": "搜索 Spotify",
+    "jukebox.form.searchPlaceholder": "歌曲或歌手",
+    "jukebox.form.searching": "搜索中…",
+    "jukebox.form.change": "更换",
+    "jukebox.form.submit": "加入队列",
+    "jukebox.form.submitting": "投币中…",
+    "jukebox.form.ok": "已发送给 DJ！您在点歌队列中排第 {position} 位。",
+    "jukebox.form.err": "出了点问题。",
+    "jukebox.form.errRetry": "出了点问题，请再试一次。",
   },
+
 };
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, vars?: Record<string, string | number>) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -251,7 +507,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const t = (key: string): string => translations[language][key] ?? translations.en[key] ?? key;
+  const t = (key: string, vars?: Record<string, string | number>): string => {
+    const raw = translations[language][key] ?? translations.en[key] ?? key;
+    if (!vars) return raw;
+    return raw.replace(/\{(\w+)\}/g, (m, name: string) =>
+      name in vars ? String(vars[name]) : m,
+    );
+  };
+
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>

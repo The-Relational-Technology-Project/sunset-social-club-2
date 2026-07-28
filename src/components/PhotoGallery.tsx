@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface PhotoRow {
   id: string;
@@ -17,6 +18,7 @@ interface DisplayPhoto extends PhotoRow {
 }
 
 export function PhotoGallery({ user }: { user: User }) {
+  const { t } = useLanguage();
   const [photos, setPhotos] = useState<DisplayPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -81,7 +83,7 @@ export function PhotoGallery({ user }: { user: User }) {
     setCaption("");
     setFile(null);
     setInstagramOk(false);
-    setNotice("Photo uploaded. Stewards will review it before it appears in the shared gallery.");
+    setNotice(t("photos.uploaded"));
     void load();
   }
 
@@ -93,7 +95,7 @@ export function PhotoGallery({ user }: { user: User }) {
     <div>
       <form onSubmit={onUpload} className="paper-card px-4 py-4 sm:px-5">
         <div>
-          <label htmlFor="photo-file" className="field-label">Upload a photo</label>
+          <label htmlFor="photo-file" className="field-label">{t("photos.uploadLabel")}</label>
           <input
             id="photo-file"
             type="file"
@@ -105,7 +107,7 @@ export function PhotoGallery({ user }: { user: User }) {
           />
         </div>
         <div className="mt-3">
-          <label htmlFor="photo-caption" className="field-label">Caption (optional)</label>
+          <label htmlFor="photo-caption" className="field-label">{t("photos.captionLabel")}</label>
           <input
             id="photo-caption"
             type="text"
@@ -113,7 +115,7 @@ export function PhotoGallery({ user }: { user: User }) {
             maxLength={200}
             onChange={(e) => setCaption(e.target.value)}
             className="field-input"
-            placeholder="A note about this photo"
+            placeholder={t("photos.captionPlaceholder")}
           />
         </div>
         <div className="mt-3">
@@ -124,25 +126,25 @@ export function PhotoGallery({ user }: { user: User }) {
               onChange={(e) => setInstagramOk(e.target.checked)}
               className="mt-1 h-4 w-4"
             />
-            <span>Okay to share this on our club's Instagram?</span>
+            <span>{t("photos.instagram")}</span>
           </label>
         </div>
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
         {notice && <p className="mt-3 text-sm text-green-700">{notice}</p>}
 
         <button type="submit" disabled={uploading || !file} className="btn-solid btn-block-mobile mt-4 disabled:opacity-50">
-          {uploading ? "Uploading…" : "Upload photo"}
+          {uploading ? t("photos.uploading") : t("photos.upload")}
         </button>
       </form>
 
       {mineUnapproved.length > 0 && (
         <div className="mt-8">
-          <h3 className="font-semibold text-ink/80">Your uploads awaiting review</h3>
+          <h3 className="font-semibold text-ink/80">{t("photos.pendingTitle")}</h3>
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
             {mineUnapproved.map((p) => (
               <figure key={p.id} className="paper-card overflow-hidden">
-                <img src={p.url} alt={p.caption ?? "Awaiting review"} loading="lazy" className="block aspect-square w-full object-cover opacity-70" />
-                <figcaption className="px-2 py-1 text-xs text-ink/60">Pending review</figcaption>
+                <img src={p.url} alt={p.caption ?? t("photos.awaitingAlt")} loading="lazy" className="block aspect-square w-full object-cover opacity-70" />
+                <figcaption className="px-2 py-1 text-xs text-ink/60">{t("photos.pending")}</figcaption>
               </figure>
             ))}
           </div>
@@ -150,16 +152,16 @@ export function PhotoGallery({ user }: { user: User }) {
       )}
 
       <div className="mt-8">
-        <h3 className="font-semibold text-ink/80">Gallery ({approved.length})</h3>
+        <h3 className="font-semibold text-ink/80">{t("photos.galleryTitle", { count: approved.length })}</h3>
         {loading ? (
-          <p className="mt-2 text-sm text-ink/60">Loading…</p>
+          <p className="mt-2 text-sm text-ink/60">{t("photos.loading")}</p>
         ) : approved.length === 0 ? (
-          <p className="mt-2 text-sm text-ink/60">No approved photos yet. Be the first.</p>
+          <p className="mt-2 text-sm text-ink/60">{t("photos.empty")}</p>
         ) : (
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
             {approved.map((p) => (
               <figure key={p.id} className="paper-card overflow-hidden">
-                <img src={p.url} alt={p.caption ?? "Community photo"} loading="lazy" className="block aspect-square w-full object-cover" />
+                <img src={p.url} alt={p.caption ?? t("photos.communityAlt")} loading="lazy" className="block aspect-square w-full object-cover" />
                 {p.caption && (
                   <figcaption className="px-2 py-1 text-xs text-ink/70">{p.caption}</figcaption>
                 )}

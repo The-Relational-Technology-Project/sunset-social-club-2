@@ -1,3 +1,5 @@
+import { useLanguage } from "@/contexts/LanguageContext";
+
 interface QueueRow {
   id: string;
   requester_name: string;
@@ -13,6 +15,7 @@ interface Props {
 }
 
 export function JukeboxQueue({ queue, total }: Props) {
+  const { t } = useLanguage();
   const upNext = queue.filter((q) => q.status === "approved");
 
   if (upNext.length === 0) {
@@ -20,8 +23,8 @@ export function JukeboxQueue({ queue, total }: Props) {
       <div className="py-2">
         <p className="text-xs text-neutral-500">
           {total === 0
-            ? "No songs yet. Yours could be first."
-            : "Loading songs…"}
+            ? t("jukebox.queue.empty")
+            : t("jukebox.queue.loading")}
         </p>
       </div>
     );
@@ -58,7 +61,7 @@ export function JukeboxQueue({ queue, total }: Props) {
           </div>
           {i === 0 && (
             <span className="text-[9px] font-black uppercase tracking-widest text-[#ec6a4c]">
-              Next
+              {t("jukebox.queue.next")}
             </span>
           )}
         </li>

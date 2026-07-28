@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useMemberSession } from "@/lib/member-session";
 import { JULY_22_INSIGHTS_SLUG, PIZZA_PARTY_FEEDBACK_SLUG } from "@/lib/site-config";
 import { notifyFeedback } from "@/lib/feedback-notify.functions";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface FormQuestion {
   key: string;
@@ -31,6 +32,7 @@ export const Route = createFileRoute("/feedback/$slug")({
 
 function FeedbackPage() {
   const { slug } = useParams({ from: "/feedback/$slug" });
+  const { t } = useLanguage();
   const { user, isMember } = useMemberSession();
   const [form, setForm] = useState<FormDef | null>(null);
   const [notFound, setNotFound] = useState(false);
@@ -101,30 +103,30 @@ function FeedbackPage() {
   if (notFound) {
     return (
       <main className="mx-auto max-w-xl px-4 py-10 sm:px-5 sm:py-14">
-        <h1 className="text-2xl font-extrabold">Feedback form not found</h1>
-        <p className="mt-2 text-ink/70">This form may have been removed.</p>
-        <Link to="/" className="btn-ghost btn-block-mobile mt-6">Back home</Link>
+        <h1 className="text-2xl font-extrabold">{t("feedback.notFound.title")}</h1>
+        <p className="mt-2 text-ink/70">{t("feedback.notFound.body")}</p>
+        <Link to="/" className="btn-ghost btn-block-mobile mt-6">{t("feedback.notFound.back")}</Link>
       </main>
     );
   }
-  if (!form) return <main className="mx-auto max-w-xl px-4 py-10 sm:px-5 sm:py-14">Loading…</main>;
+  if (!form) return <main className="mx-auto max-w-xl px-4 py-10 sm:px-5 sm:py-14">{t("feedback.loading")}</main>;
 
   if (submitted) {
     return (
       <main className="view-enter mx-auto max-w-xl px-4 py-10 text-center sm:px-5 sm:py-14">
-        <h1 className="text-3xl font-extrabold italic">Thank you.</h1>
-        <p className="mt-3 text-ink/80">Your feedback helps shape what we do next.</p>
+        <h1 className="text-3xl font-extrabold italic">{t("feedback.thanks.title")}</h1>
+        <p className="mt-3 text-ink/80">{t("feedback.thanks.body")}</p>
         {showInsightsLink && (
           <Link
             to="/insights/$slug"
             params={{ slug: JULY_22_INSIGHTS_SLUG }}
             className="btn-solid btn-block-mobile mt-8"
           >
-            See what neighbors shared on the walls →
+            {t("feedback.thanks.insights")}
           </Link>
         )}
         <div className="mt-4">
-          <Link to="/member" className="text-sm text-ink/60 underline">Back to member home</Link>
+          <Link to="/member" className="text-sm text-ink/60 underline">{t("feedback.thanks.back")}</Link>
         </div>
       </main>
     );
@@ -141,7 +143,7 @@ function FeedbackPage() {
         {!user && (
           <div className="paper-card px-4 py-4 sm:px-5">
             <label className="field-label" htmlFor="guest-email">
-              Your email (optional — so we know who you are)
+              {t("feedback.guestEmailLabel")}
             </label>
             <input
               id="guest-email"
@@ -150,17 +152,17 @@ function FeedbackPage() {
               autoComplete="email"
               value={guestEmail}
               onChange={(e) => setGuestEmail(e.target.value)}
-              placeholder="you@example.com"
+              placeholder={t("feedback.guestEmailPlaceholder")}
               className="field-input"
             />
             <p className="mt-2 text-xs text-ink/55">
-              <Link to="/member/signin" className="underline">Sign in as a member</Link>{" "}
-              to link this feedback to your account.
+              <Link to="/member/signin" className="underline">{t("feedback.signinLink")}</Link>{" "}
+              {t("feedback.signinSuffix")}
             </p>
           </div>
         )}
         {user && isMember && (
-          <p className="text-sm text-ink/60">Submitting as {user.email}.</p>
+          <p className="text-sm text-ink/60">{t("feedback.submittingAs", { email: user.email ?? "" })}</p>
         )}
 
         {form.questions.map((q) => (
@@ -189,7 +191,7 @@ function FeedbackPage() {
 
         {error && <p className="text-sm text-red-600">{error}</p>}
         <button type="submit" disabled={submitting} className="btn-solid btn-block-mobile">
-          {submitting ? "Sending…" : "Submit feedback"}
+          {submitting ? t("feedback.sending") : t("feedback.submit")}
         </button>
       </form>
     </main>

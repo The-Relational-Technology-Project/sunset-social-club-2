@@ -507,7 +507,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const t = (key: string): string => translations[language][key] ?? translations.en[key] ?? key;
+  const t = (key: string, vars?: Record<string, string | number>): string => {
+    const raw = translations[language][key] ?? translations.en[key] ?? key;
+    if (!vars) return raw;
+    return raw.replace(/\{(\w+)\}/g, (m, name: string) =>
+      name in vars ? String(vars[name]) : m,
+    );
+  };
+
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t }}>

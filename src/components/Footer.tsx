@@ -10,7 +10,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-[640px] flex-col gap-3 px-5 py-8 text-sm text-dusk sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <Link to="/contact" className="hover:text-ink">{t("nav.contact")}</Link>
-          <Link to="/privacy" className="hover:text-ink">Privacy & Terms</Link>
+          <Link to="/privacy" className="hover:text-ink">{t("footer.privacy")}</Link>
           <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-ink">{CONTACT_EMAIL}</a>
           <a
             href="https://www.instagram.com/oursunsetsocialclub/"

@@ -7,6 +7,8 @@ import { Schedule } from "../components/Schedule";
 import { IdeaBoard } from "../components/IdeaBoard";
 import coffee from "../assets/coffee_and_donuts.jpg.asset.json";
 import oceanBeach from "../assets/ocean_beach_sf.jpeg.asset.json";
+import folks from "../assets/ssc_folks.jpeg.asset.json";
+import party from "../assets/kickoff_party.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({

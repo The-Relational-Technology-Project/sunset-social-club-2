@@ -445,6 +445,7 @@ export type Database = {
         Args: { payload: Json; queue_name: string }
         Returns: number
       }
+      is_club_member: { Args: never; Returns: boolean }
       is_current_user_member: { Args: never; Returns: boolean }
       move_to_dlq: {
         Args: {

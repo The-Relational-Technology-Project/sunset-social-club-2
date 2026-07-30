@@ -34,6 +34,17 @@ export function Schedule() {
               </li>
             ))}
           </ul>
+          <p className="mt-5 text-sm text-ink/70">
+            {t("schedule.partners.more")}{" "}
+            <a
+              href="https://outersunset.today/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold underline underline-offset-4 hover:text-ink"
+            >
+              Outer Sunset Today
+            </a>
+          </p>
         </div>
       )}
     </section>

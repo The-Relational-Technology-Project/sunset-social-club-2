@@ -4,6 +4,20 @@ import { submitPublicForm } from "./submissions.functions";
 export const CONTACT_EMAIL = "oursunsetsocialclub@gmail.com";
 export const NOTIFY_EMAILS = ["oursunsetsocialclub@gmail.com", "joshuanesbit@gmail.com"];
 export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
+
+// Set to null when there is no active event; the banner then does not render.
+export const ANNOUNCEMENT: {
+  title: string;
+  date: string;
+  invitation: string;
+  url: string;
+} | null = {
+  title: "Neighborhood Potluck + Yap",
+  date: "Wednesday, Aug. 26",
+  invitation: "Bring a dish, a story, or just yourself.",
+  url: "https://luma.com/wau8wagn",
+};
+
 export const COMMUNITY_PLAYLIST_URL = "https://open.spotify.com/playlist/1saGchZ6JVWKmFnianOtJM?si=IPO4mE9kSaCxOvqOTCUVEw";
 export const PIZZA_PARTY_FEEDBACK_SLUG = "pizza-party-2026-07-22";
 export const JULY_22_INSIGHTS_SLUG = "july-22-kickoff";

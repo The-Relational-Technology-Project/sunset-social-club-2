@@ -25,6 +25,15 @@ export const JULY_22_INSIGHTS_SLUG = "july-22-kickoff";
 // Paste the iframe embed code from Luma here (luma.com/sunsetsocialclub → Embed).
 export const LUMA_CALENDAR_EMBED = `<iframe src="https://luma.com/embed/calendar/cal-EktVbYQFoGMjT6M/events?lt=light" width="100%" height="600" frameborder="0" style="border: 1px solid #bfcbda88; border-radius: 12px; display: block;" allowfullscreen aria-hidden="false" tabindex="0"></iframe>`;
 
+// Upcoming events hosted by partners and members. Empty array hides the section.
+export const PARTNER_EVENTS: { title: string; when: string; url: string }[] = [
+  {
+    title: "Olas Perdidas Live at Sunset Village Music Hall",
+    when: "Friday, August 7th, 7 PM - 10 PM",
+    url: "https://www.eventbrite.com/e/olas-perdidas-sunset-village-music-hall-san-francisco-tickets-1995582299377?aff=oddtdtcreator",
+  },
+];
+
 export type FormType = "signup" | "idea" | "contact";
 
 export async function submitForm(type: FormType, payload: Record<string, string>) {

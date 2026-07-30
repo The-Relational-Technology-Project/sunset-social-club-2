@@ -52,6 +52,8 @@ const translations: Record<Language, Dict> = {
     // Schedule
     "schedule.title": "What's coming up",
     "schedule.subtitle": "We gather most Wednesdays!",
+    "schedule.partners.title": "Partner and Member Events",
+    "schedule.partners.subtitle": "Quick links to upcoming events from partners and members.",
 
     // Email signup
     "signup.title": "Stay in the loop",
@@ -291,6 +293,8 @@ const translations: Record<Language, Dict> = {
     // Schedule
     "schedule.title": "近期活动",
     "schedule.subtitle": "我们大多数周三聚会！",
+    "schedule.partners.title": "伙伴与会员活动",
+    "schedule.partners.subtitle": "伙伴与会员即将举行的活动快速链接。",
 
     // Email signup
     "signup.title": "保持联系",

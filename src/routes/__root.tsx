@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "../contexts/LanguageContext";
 import { Header } from "../components/Header";
+import { AnnouncementBanner } from "../components/AnnouncementBanner";
 import { Footer } from "../components/Footer";
 
 function NotFoundComponent() {
@@ -129,7 +130,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
+        {!isStandalone && <AnnouncementBanner />}
         {!isStandalone && <Header />}
+
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         {!isStandalone && <Footer />}

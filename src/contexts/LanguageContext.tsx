@@ -53,7 +53,7 @@ const translations: Record<Language, Dict> = {
     "schedule.title": "What's coming up",
     "schedule.subtitle": "We gather most Wednesdays!",
     "schedule.partners.title": "Partner and Member Events",
-    "schedule.partners.subtitle": "Quick links to upcoming events from partners and members.",
+    "schedule.partners.subtitle": "Other things going on in the neighborhood",
 
     // Email signup
     "signup.title": "Stay in the loop",

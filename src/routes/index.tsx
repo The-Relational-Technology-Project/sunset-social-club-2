@@ -7,6 +7,8 @@ import { Schedule } from "../components/Schedule";
 import { IdeaBoard } from "../components/IdeaBoard";
 import coffee from "../assets/coffee_and_donuts.jpg.asset.json";
 import oceanBeach from "../assets/ocean_beach_sf.jpeg.asset.json";
+import folks from "../assets/ssc_folks.jpeg.asset.json";
+import party from "../assets/kickoff_party.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,10 +54,19 @@ function Home() {
         </p>
       </section>
 
-      {/* Coffee photo */}
-      <div className="paper-card mb-16 overflow-hidden">
-        <img src={coffee.url} alt={t("home.coffeeAlt")} className="block w-full object-cover" />
+      {/* Photo montage */}
+      <div className="mb-16 grid grid-cols-2 gap-3">
+        <div className="paper-card col-span-2 overflow-hidden">
+          <img src={coffee.url} alt={t("home.coffeeAlt")} className="block h-56 w-full object-cover sm:h-72" />
+        </div>
+        <div className="paper-card overflow-hidden">
+          <img src={folks.url} alt={t("home.folksAlt")} loading="lazy" className="block h-40 w-full object-cover sm:h-52" />
+        </div>
+        <div className="paper-card overflow-hidden">
+          <img src={party.url} alt={t("home.partyAlt")} loading="lazy" className="block h-40 w-full object-cover sm:h-52" />
+        </div>
       </div>
+
 
       {/* What do we do together */}
       <section className="mb-16">

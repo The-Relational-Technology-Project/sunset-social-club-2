@@ -28,9 +28,9 @@ export const LUMA_CALENDAR_EMBED = `<iframe src="https://luma.com/embed/calendar
 // Upcoming events hosted by partners and members. Empty array hides the section.
 export const PARTNER_EVENTS: { title: string; when: string; url: string }[] = [
   {
-    title: "Olas Perdidas Live at Sunset Village Music Hall",
-    when: "Friday, August 7th, 7 PM - 10 PM",
-    url: "https://www.eventbrite.com/e/olas-perdidas-sunset-village-music-hall-san-francisco-tickets-1995582299377",
+    title: "Sunset Variety Opening Celebration, 1399 46th Avenue",
+    when: "Saturday, August 22nd, 2 PM - 6 PM",
+    url: "https://sunsetvariety.com",
   },
 ];
 

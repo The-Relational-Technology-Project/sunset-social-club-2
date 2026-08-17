@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PotluckRouteImport } from './routes/potluck'
 import { Route as JukeboxRouteImport } from './routes/jukebox'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -40,6 +41,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PotluckRoute = PotluckRouteImport.update({
+  id: '/potluck',
+  path: '/potluck',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JukeboxRoute = JukeboxRouteImport.update({
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
+  '/potluck': typeof PotluckRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/stewards': typeof AuthenticatedStewardsRoute
@@ -174,6 +181,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
+  '/potluck': typeof PotluckRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/stewards': typeof AuthenticatedStewardsRoute
@@ -199,6 +207,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
+  '/potluck': typeof PotluckRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/stewards': typeof AuthenticatedStewardsRoute
@@ -224,6 +233,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/join'
     | '/jukebox'
+    | '/potluck'
     | '/privacy'
     | '/reset-password'
     | '/stewards'
@@ -247,6 +257,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/join'
     | '/jukebox'
+    | '/potluck'
     | '/privacy'
     | '/reset-password'
     | '/stewards'
@@ -271,6 +282,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/join'
     | '/jukebox'
+    | '/potluck'
     | '/privacy'
     | '/reset-password'
     | '/_authenticated/stewards'
@@ -296,6 +308,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   JoinRoute: typeof JoinRoute
   JukeboxRoute: typeof JukeboxRoute
+  PotluckRoute: typeof PotluckRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
@@ -327,6 +340,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/potluck': {
+      id: '/potluck'
+      path: '/potluck'
+      fullPath: '/potluck'
+      preLoaderRoute: typeof PotluckRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/jukebox': {
@@ -490,6 +510,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   JoinRoute: JoinRoute,
   JukeboxRoute: JukeboxRoute,
+  PotluckRoute: PotluckRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,

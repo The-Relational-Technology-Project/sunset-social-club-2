@@ -407,6 +407,30 @@ export type Database = {
         }
         Relationships: []
       }
+      potluck_signups: {
+        Row: {
+          bringing: string
+          created_at: string
+          id: string
+          ip_hash: string | null
+          name: string
+        }
+        Insert: {
+          bringing: string
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          name: string
+        }
+        Update: {
+          bringing?: string
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          name?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string

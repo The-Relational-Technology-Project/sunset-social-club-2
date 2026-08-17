@@ -13,9 +13,8 @@ export const Route = createFileRoute("/member/signin")({
       { property: "og:description", content: "Sign in to the Sunset Social Club member area." },
     ],
   }),
-  validateSearch: (s: Record<string, unknown>) => ({
-    redirect: typeof s.redirect === "string" ? s.redirect : undefined,
-  }),
+  validateSearch: (s: Record<string, unknown>): { redirect?: string } =>
+    typeof s.redirect === "string" ? { redirect: s.redirect } : {},
   component: MemberSignInPage,
 });
 

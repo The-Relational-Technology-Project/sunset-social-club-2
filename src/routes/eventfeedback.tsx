@@ -33,11 +33,11 @@ function Choice({
   onChange: (v: boolean) => void;
 }) {
   return (
-    <fieldset className="border-0 p-0 m-0">
-      <legend className="text-[1.25rem] font-bold leading-snug sm:text-[1.4rem]">
+    <div role="group" aria-label={label}>
+      <p className="text-[1.2rem] font-bold leading-snug sm:text-[1.35rem]">
         {label}
-      </legend>
-      <div className="mt-6 grid grid-cols-2 gap-4">
+      </p>
+      <div className="mt-5 grid grid-cols-2 gap-4">
         {[
           { v: true, t: "Yes" },
           { v: false, t: "No" },
@@ -49,10 +49,10 @@ function Choice({
               type="button"
               aria-pressed={selected}
               onClick={() => onChange(o.v)}
-              className={`min-h-[84px] rounded-2xl border-2 text-[1.25rem] font-bold transition-colors ${
+              className={`min-h-[76px] rounded-2xl border bg-transparent text-[1.2rem] font-semibold text-ink transition-all ${
                 selected
-                  ? "border-ink bg-ink text-paper"
-                  : "border-ink/20 bg-transparent text-ink hover:border-ink/50"
+                  ? "border-ink/30 ring-2 ring-ink/70 ring-offset-2 ring-offset-paper"
+                  : "border-ink/15 hover:border-ink/35"
               }`}
             >
               {o.t}
@@ -60,7 +60,7 @@ function Choice({
           );
         })}
       </div>
-    </fieldset>
+    </div>
   );
 }
 
@@ -131,7 +131,7 @@ function EventFeedbackPage() {
       <h1 className="text-[2rem] font-extrabold leading-tight tracking-tight italic sm:text-[2.5rem]">
         Member Feedback
       </h1>
-      <form onSubmit={onSubmit} className="mt-12 space-y-14">
+      <form onSubmit={onSubmit} className="mt-10 flex flex-col gap-12">
         <Choice
           label="Did you meet at least one neighbor at the event?"
           value={metNeighbor}
@@ -144,7 +144,7 @@ function EventFeedbackPage() {
         />
         <button
           type="submit"
-          className="mt-4 min-h-[68px] w-full rounded-full border-2 border-sunset bg-sunset text-[1.15rem] font-bold text-paper transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
+          className="mt-2 min-h-[64px] w-full rounded-full border-2 border-sunset bg-sunset text-[1.1rem] font-bold text-paper transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
           disabled={!ready || status === "sending"}
         >
           {status === "sending" ? "Sending" : "Submit"}

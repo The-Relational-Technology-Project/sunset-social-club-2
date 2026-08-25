@@ -75,3 +75,10 @@ const button = {
   textDecoration: 'none',
 }
 const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
+const code = {
+  fontSize: '26px',
+  fontWeight: 'bold' as const,
+  letterSpacing: '4px',
+  color: '#000000',
+  margin: '10px 0 25px',
+}

@@ -37,7 +37,7 @@ function Choice({
       <legend className="text-[1.25rem] font-bold leading-snug sm:text-[1.4rem]">
         {label}
       </legend>
-      <div className="mt-4 grid grid-cols-2 gap-3">
+      <div className="mt-6 grid grid-cols-2 gap-4">
         {[
           { v: true, t: "Yes" },
           { v: false, t: "No" },
@@ -49,7 +49,7 @@ function Choice({
               type="button"
               aria-pressed={selected}
               onClick={() => onChange(o.v)}
-              className={`min-h-[72px] rounded-2xl border-2 text-[1.25rem] font-bold transition-colors ${
+              className={`min-h-[84px] rounded-2xl border-2 text-[1.25rem] font-bold transition-colors ${
                 selected
                   ? "border-ink bg-ink text-paper"
                   : "border-ink/20 bg-transparent text-ink hover:border-ink/50"
@@ -127,11 +127,11 @@ function EventFeedbackPage() {
   }
 
   return (
-    <main className="view-enter mx-auto max-w-[560px] px-5 pt-14 pb-24">
+    <main className="view-enter mx-auto max-w-[560px] px-6 pt-16 pb-28 sm:pt-20">
       <h1 className="text-[2rem] font-extrabold leading-tight tracking-tight italic sm:text-[2.5rem]">
         Member Feedback
       </h1>
-      <form onSubmit={onSubmit} className="mt-8 space-y-10">
+      <form onSubmit={onSubmit} className="mt-12 space-y-14">
         <Choice
           label="Did you meet at least one neighbor at the event?"
           value={metNeighbor}
@@ -144,7 +144,7 @@ function EventFeedbackPage() {
         />
         <button
           type="submit"
-          className="btn-solid min-h-[64px] w-full text-[1.15rem] disabled:opacity-40"
+          className="mt-4 min-h-[68px] w-full rounded-full border-2 border-sunset bg-sunset text-[1.15rem] font-bold text-paper transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
           disabled={!ready || status === "sending"}
         >
           {status === "sending" ? "Sending" : "Submit"}

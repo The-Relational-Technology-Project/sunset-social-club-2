@@ -33,11 +33,11 @@ function Choice({
   onChange: (v: boolean) => void;
 }) {
   return (
-    <fieldset className="border-0 p-0 m-0">
-      <legend className="text-[1.25rem] font-bold leading-snug sm:text-[1.4rem]">
+    <div role="group" aria-label={label}>
+      <p className="text-[1.2rem] font-bold leading-snug sm:text-[1.35rem]">
         {label}
-      </legend>
-      <div className="mt-6 grid grid-cols-2 gap-4">
+      </p>
+      <div className="mt-5 grid grid-cols-2 gap-4">
         {[
           { v: true, t: "Yes" },
           { v: false, t: "No" },
@@ -49,10 +49,10 @@ function Choice({
               type="button"
               aria-pressed={selected}
               onClick={() => onChange(o.v)}
-              className={`min-h-[84px] rounded-2xl border-2 text-[1.25rem] font-bold transition-colors ${
+              className={`min-h-[76px] rounded-2xl border bg-transparent text-[1.2rem] font-semibold text-ink transition-all ${
                 selected
-                  ? "border-ink bg-ink text-paper"
-                  : "border-ink/20 bg-transparent text-ink hover:border-ink/50"
+                  ? "border-ink/30 ring-2 ring-ink/70 ring-offset-2 ring-offset-paper"
+                  : "border-ink/15 hover:border-ink/35"
               }`}
             >
               {o.t}
@@ -60,7 +60,7 @@ function Choice({
           );
         })}
       </div>
-    </fieldset>
+    </div>
   );
 }
 

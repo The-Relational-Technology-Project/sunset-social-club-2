@@ -37,6 +37,7 @@ export function Header() {
 
         <Link
           to="/join"
+          search={{ from: undefined }}
           activeProps={{ className: "bg-ink text-paper" }}
           className="rounded-full border border-ink bg-ink px-3 py-1 text-xs font-bold uppercase tracking-wider text-paper transition-opacity hover:opacity-90 sm:text-[0.75rem]"
         >

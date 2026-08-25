@@ -109,6 +109,7 @@ function EventFeedbackPage() {
         </p>
         <Link
           to="/join"
+          search={{ from: "eventfeedback" }}
           className="btn-solid mt-5 inline-flex min-h-[56px] items-center justify-center px-8 text-[1.1rem]"
         >
           Join the Club

@@ -109,7 +109,7 @@ function MemberSignInPage() {
           </button>
           <p className="text-sm text-ink/60">
             {t("signin.notMember")}{" "}
-            <Link to="/join" className="underline">{t("signin.joinLink")}</Link>{" "}
+            <Link to="/join" search={{ from: undefined }} className="underline">{t("signin.joinLink")}</Link>{" "}
             {t("signin.joinSuffix")}
           </p>
         </form>

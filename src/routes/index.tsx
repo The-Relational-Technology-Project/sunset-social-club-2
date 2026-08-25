@@ -106,7 +106,7 @@ function Home() {
             {t("joinCta.title")}
           </h2>
           <p className="mt-3 text-ink/80">{t("joinCta.body")}</p>
-          <Link to="/join" className="btn-solid mt-6 inline-block">
+          <Link to="/join" search={{ from: undefined }} className="btn-solid mt-6 inline-block">
             {t("joinCta.button")}
           </Link>
         </div>

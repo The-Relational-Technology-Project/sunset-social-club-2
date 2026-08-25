@@ -4,7 +4,7 @@ import { useLanguage } from "../contexts/LanguageContext";
 
 export const Route = createFileRoute("/join")({
   validateSearch: (search: Record<string, unknown>) => ({
-    from: search.from === "eventfeedback" ? "eventfeedback" as const : undefined,
+    from: search.from === "eventfeedback" ? "eventfeedback" : undefined,
   }),
   head: () => ({
     meta: [

@@ -431,6 +431,33 @@ export type Database = {
         }
         Relationships: []
       }
+      quick_event_feedback: {
+        Row: {
+          created_at: string
+          id: string
+          ip_hash: string | null
+          met_neighbor: boolean
+          summarized_at: string | null
+          would_recommend: boolean
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          met_neighbor: boolean
+          summarized_at?: string | null
+          would_recommend: boolean
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          met_neighbor?: boolean
+          summarized_at?: string | null
+          would_recommend?: boolean
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string

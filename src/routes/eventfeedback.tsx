@@ -131,7 +131,7 @@ function EventFeedbackPage() {
       <h1 className="text-[2rem] font-extrabold leading-tight tracking-tight italic sm:text-[2.5rem]">
         Member Feedback
       </h1>
-      <form onSubmit={onSubmit} className="mt-12 space-y-14">
+      <form onSubmit={onSubmit} className="mt-10 flex flex-col gap-12">
         <Choice
           label="Did you meet at least one neighbor at the event?"
           value={metNeighbor}
@@ -144,7 +144,7 @@ function EventFeedbackPage() {
         />
         <button
           type="submit"
-          className="mt-4 min-h-[68px] w-full rounded-full border-2 border-sunset bg-sunset text-[1.15rem] font-bold text-paper transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
+          className="mt-2 min-h-[64px] w-full rounded-full border-2 border-sunset bg-sunset text-[1.1rem] font-bold text-paper transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
           disabled={!ready || status === "sending"}
         >
           {status === "sending" ? "Sending" : "Submit"}

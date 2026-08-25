@@ -14,6 +14,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PotluckRouteImport } from './routes/potluck'
 import { Route as JukeboxRouteImport } from './routes/jukebox'
 import { Route as JoinRouteImport } from './routes/join'
+import { Route as EventfeedbackRouteImport } from './routes/eventfeedback'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -54,6 +55,11 @@ const JukeboxRoute = JukeboxRouteImport.update({
 const JoinRoute = JoinRouteImport.update({
   id: '/join',
   path: '/join',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventfeedbackRoute = EventfeedbackRouteImport.update({
+  id: '/eventfeedback',
+  path: '/eventfeedback',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -142,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/eventfeedback': typeof EventfeedbackRoute
   '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
   '/potluck': typeof PotluckRoute
@@ -164,6 +171,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/eventfeedback': typeof EventfeedbackRoute
   '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
   '/potluck': typeof PotluckRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/eventfeedback': typeof EventfeedbackRoute
   '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
   '/potluck': typeof PotluckRoute
@@ -212,6 +221,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contact'
+    | '/eventfeedback'
     | '/join'
     | '/jukebox'
     | '/potluck'
@@ -234,6 +244,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contact'
+    | '/eventfeedback'
     | '/join'
     | '/jukebox'
     | '/potluck'
@@ -257,6 +268,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/contact'
+    | '/eventfeedback'
     | '/join'
     | '/jukebox'
     | '/potluck'
@@ -281,6 +293,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  EventfeedbackRoute: typeof EventfeedbackRoute
   JoinRoute: typeof JoinRoute
   JukeboxRoute: typeof JukeboxRoute
   PotluckRoute: typeof PotluckRoute
@@ -334,6 +347,13 @@ declare module '@tanstack/react-router' {
       path: '/join'
       fullPath: '/join'
       preLoaderRoute: typeof JoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eventfeedback': {
+      id: '/eventfeedback'
+      path: '/eventfeedback'
+      fullPath: '/eventfeedback'
+      preLoaderRoute: typeof EventfeedbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -467,6 +487,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  EventfeedbackRoute: EventfeedbackRoute,
   JoinRoute: JoinRoute,
   JukeboxRoute: JukeboxRoute,
   PotluckRoute: PotluckRoute,

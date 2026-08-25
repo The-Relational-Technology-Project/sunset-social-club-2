@@ -22,15 +22,11 @@ import { Route as MemberIndexRouteImport } from './routes/member/index'
 import { Route as MemberSigninRouteImport } from './routes/member/signin'
 import { Route as InsightsSlugRouteImport } from './routes/insights/$slug'
 import { Route as FeedbackSlugRouteImport } from './routes/feedback/$slug'
-import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticated/stewards'
-import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as ApiPublicSpotifyDiagRouteImport } from './routes/api/public/spotify-diag'
 import { Route as ApiPublicSpotifyConnectRouteImport } from './routes/api/public/spotify-connect'
-import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
-import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 
@@ -98,20 +94,10 @@ const FeedbackSlugRoute = FeedbackSlugRouteImport.update({
   path: '/feedback/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
-  id: '/email/unsubscribe',
-  path: '/email/unsubscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticatedStewardsRoute = AuthenticatedStewardsRouteImport.update({
   id: '/stewards',
   path: '/stewards',
   getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
-  id: '/lovable/email/suppression',
-  path: '/lovable/email/suppression',
-  getParentRoute: () => rootRouteImport,
 } as any)
 const LovableEmailEventsRoute = LovableEmailEventsRouteImport.update({
   id: '/lovable/email/events',
@@ -128,22 +114,10 @@ const ApiPublicSpotifyConnectRoute = ApiPublicSpotifyConnectRouteImport.update({
   path: '/api/public/spotify-connect',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LovableEmailTransactionalSendRoute =
-  LovableEmailTransactionalSendRouteImport.update({
-    id: '/lovable/email/transactional/send',
-    path: '/lovable/email/transactional/send',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
     path: '/lovable/email/transactional/preview',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const LovableEmailQueueProcessRoute =
-  LovableEmailQueueProcessRouteImport.update({
-    id: '/lovable/email/queue/process',
-    path: '/lovable/email/queue/process',
     getParentRoute: () => rootRouteImport,
   } as any)
 const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
@@ -167,7 +141,6 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/stewards': typeof AuthenticatedStewardsRoute
-  '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/feedback/$slug': typeof FeedbackSlugRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/member/signin': typeof MemberSigninRoute
@@ -175,12 +148,9 @@ export interface FileRoutesByFullPath {
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
-  '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
-  '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
-  '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -192,7 +162,6 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/stewards': typeof AuthenticatedStewardsRoute
-  '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/feedback/$slug': typeof FeedbackSlugRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/member/signin': typeof MemberSigninRoute
@@ -200,12 +169,9 @@ export interface FileRoutesByTo {
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
-  '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
-  '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
-  '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -219,7 +185,6 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/stewards': typeof AuthenticatedStewardsRoute
-  '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/feedback/$slug': typeof FeedbackSlugRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/member/signin': typeof MemberSigninRoute
@@ -227,12 +192,9 @@ export interface FileRoutesById {
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
-  '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
-  '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
-  '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -246,7 +208,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/stewards'
-    | '/email/unsubscribe'
     | '/feedback/$slug'
     | '/insights/$slug'
     | '/member/signin'
@@ -254,12 +215,9 @@ export interface FileRouteTypes {
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/events'
-    | '/lovable/email/suppression'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
-    | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
-    | '/lovable/email/transactional/send'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -271,7 +229,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/stewards'
-    | '/email/unsubscribe'
     | '/feedback/$slug'
     | '/insights/$slug'
     | '/member/signin'
@@ -279,12 +236,9 @@ export interface FileRouteTypes {
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/events'
-    | '/lovable/email/suppression'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
-    | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
-    | '/lovable/email/transactional/send'
   id:
     | '__root__'
     | '/'
@@ -297,7 +251,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/_authenticated/stewards'
-    | '/email/unsubscribe'
     | '/feedback/$slug'
     | '/insights/$slug'
     | '/member/signin'
@@ -305,12 +258,9 @@ export interface FileRouteTypes {
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/events'
-    | '/lovable/email/suppression'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
-    | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
-    | '/lovable/email/transactional/send'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -323,7 +273,6 @@ export interface RootRouteChildren {
   PotluckRoute: typeof PotluckRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
-  EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   FeedbackSlugRoute: typeof FeedbackSlugRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   MemberSigninRoute: typeof MemberSigninRoute
@@ -331,12 +280,9 @@ export interface RootRouteChildren {
   ApiPublicSpotifyConnectRoute: typeof ApiPublicSpotifyConnectRoute
   ApiPublicSpotifyDiagRoute: typeof ApiPublicSpotifyDiagRoute
   LovableEmailEventsRoute: typeof LovableEmailEventsRoute
-  LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
-  LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
-  LovableEmailTransactionalSendRoute: typeof LovableEmailTransactionalSendRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -432,26 +378,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeedbackSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/email/unsubscribe': {
-      id: '/email/unsubscribe'
-      path: '/email/unsubscribe'
-      fullPath: '/email/unsubscribe'
-      preLoaderRoute: typeof EmailUnsubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated/stewards': {
       id: '/_authenticated/stewards'
       path: '/stewards'
       fullPath: '/stewards'
       preLoaderRoute: typeof AuthenticatedStewardsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/lovable/email/suppression': {
-      id: '/lovable/email/suppression'
-      path: '/lovable/email/suppression'
-      fullPath: '/lovable/email/suppression'
-      preLoaderRoute: typeof LovableEmailSuppressionRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/lovable/email/events': {
       id: '/lovable/email/events'
@@ -474,25 +406,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSpotifyConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/transactional/send': {
-      id: '/lovable/email/transactional/send'
-      path: '/lovable/email/transactional/send'
-      fullPath: '/lovable/email/transactional/send'
-      preLoaderRoute: typeof LovableEmailTransactionalSendRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
       fullPath: '/lovable/email/transactional/preview'
       preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lovable/email/queue/process': {
-      id: '/lovable/email/queue/process'
-      path: '/lovable/email/queue/process'
-      fullPath: '/lovable/email/queue/process'
-      preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lovable/email/auth/webhook': {
@@ -533,7 +451,6 @@ const rootRouteChildren: RootRouteChildren = {
   PotluckRoute: PotluckRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
-  EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   FeedbackSlugRoute: FeedbackSlugRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   MemberSigninRoute: MemberSigninRoute,
@@ -541,12 +458,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicSpotifyConnectRoute: ApiPublicSpotifyConnectRoute,
   ApiPublicSpotifyDiagRoute: ApiPublicSpotifyDiagRoute,
   LovableEmailEventsRoute: LovableEmailEventsRoute,
-  LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
-  LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
-  LovableEmailTransactionalSendRoute: LovableEmailTransactionalSendRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

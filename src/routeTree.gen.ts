@@ -14,6 +14,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PotluckRouteImport } from './routes/potluck'
 import { Route as JukeboxRouteImport } from './routes/jukebox'
 import { Route as JoinRouteImport } from './routes/join'
+import { Route as EventfeedbackRouteImport } from './routes/eventfeedback'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -26,6 +27,7 @@ import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticat
 import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as ApiPublicSpotifyDiagRouteImport } from './routes/api/public/spotify-diag'
 import { Route as ApiPublicSpotifyConnectRouteImport } from './routes/api/public/spotify-connect'
+import { Route as ApiPublicEventFeedbackSummaryRouteImport } from './routes/api/public/event-feedback-summary'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
@@ -53,6 +55,11 @@ const JukeboxRoute = JukeboxRouteImport.update({
 const JoinRoute = JoinRouteImport.update({
   id: '/join',
   path: '/join',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventfeedbackRoute = EventfeedbackRouteImport.update({
+  id: '/eventfeedback',
+  path: '/eventfeedback',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -114,6 +121,12 @@ const ApiPublicSpotifyConnectRoute = ApiPublicSpotifyConnectRouteImport.update({
   path: '/api/public/spotify-connect',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicEventFeedbackSummaryRoute =
+  ApiPublicEventFeedbackSummaryRouteImport.update({
+    id: '/api/public/event-feedback-summary',
+    path: '/api/public/event-feedback-summary',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailTransactionalPreviewRoute =
   LovableEmailTransactionalPreviewRouteImport.update({
     id: '/lovable/email/transactional/preview',
@@ -135,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/eventfeedback': typeof EventfeedbackRoute
   '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
   '/potluck': typeof PotluckRoute
@@ -145,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/insights/$slug': typeof InsightsSlugRoute
   '/member/signin': typeof MemberSigninRoute
   '/member/': typeof MemberIndexRoute
+  '/api/public/event-feedback-summary': typeof ApiPublicEventFeedbackSummaryRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
@@ -156,6 +171,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/eventfeedback': typeof EventfeedbackRoute
   '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
   '/potluck': typeof PotluckRoute
@@ -166,6 +182,7 @@ export interface FileRoutesByTo {
   '/insights/$slug': typeof InsightsSlugRoute
   '/member/signin': typeof MemberSigninRoute
   '/member': typeof MemberIndexRoute
+  '/api/public/event-feedback-summary': typeof ApiPublicEventFeedbackSummaryRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
@@ -179,6 +196,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/eventfeedback': typeof EventfeedbackRoute
   '/join': typeof JoinRoute
   '/jukebox': typeof JukeboxRoute
   '/potluck': typeof PotluckRoute
@@ -189,6 +207,7 @@ export interface FileRoutesById {
   '/insights/$slug': typeof InsightsSlugRoute
   '/member/signin': typeof MemberSigninRoute
   '/member/': typeof MemberIndexRoute
+  '/api/public/event-feedback-summary': typeof ApiPublicEventFeedbackSummaryRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
@@ -202,6 +221,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contact'
+    | '/eventfeedback'
     | '/join'
     | '/jukebox'
     | '/potluck'
@@ -212,6 +232,7 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/member/signin'
     | '/member/'
+    | '/api/public/event-feedback-summary'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/events'
@@ -223,6 +244,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/contact'
+    | '/eventfeedback'
     | '/join'
     | '/jukebox'
     | '/potluck'
@@ -233,6 +255,7 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/member/signin'
     | '/member'
+    | '/api/public/event-feedback-summary'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/events'
@@ -245,6 +268,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/contact'
+    | '/eventfeedback'
     | '/join'
     | '/jukebox'
     | '/potluck'
@@ -255,6 +279,7 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/member/signin'
     | '/member/'
+    | '/api/public/event-feedback-summary'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
     | '/lovable/email/events'
@@ -268,6 +293,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  EventfeedbackRoute: typeof EventfeedbackRoute
   JoinRoute: typeof JoinRoute
   JukeboxRoute: typeof JukeboxRoute
   PotluckRoute: typeof PotluckRoute
@@ -277,6 +303,7 @@ export interface RootRouteChildren {
   InsightsSlugRoute: typeof InsightsSlugRoute
   MemberSigninRoute: typeof MemberSigninRoute
   MemberIndexRoute: typeof MemberIndexRoute
+  ApiPublicEventFeedbackSummaryRoute: typeof ApiPublicEventFeedbackSummaryRoute
   ApiPublicSpotifyConnectRoute: typeof ApiPublicSpotifyConnectRoute
   ApiPublicSpotifyDiagRoute: typeof ApiPublicSpotifyDiagRoute
   LovableEmailEventsRoute: typeof LovableEmailEventsRoute
@@ -320,6 +347,13 @@ declare module '@tanstack/react-router' {
       path: '/join'
       fullPath: '/join'
       preLoaderRoute: typeof JoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eventfeedback': {
+      id: '/eventfeedback'
+      path: '/eventfeedback'
+      fullPath: '/eventfeedback'
+      preLoaderRoute: typeof EventfeedbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -406,6 +440,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSpotifyConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/event-feedback-summary': {
+      id: '/api/public/event-feedback-summary'
+      path: '/api/public/event-feedback-summary'
+      fullPath: '/api/public/event-feedback-summary'
+      preLoaderRoute: typeof ApiPublicEventFeedbackSummaryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/transactional/preview': {
       id: '/lovable/email/transactional/preview'
       path: '/lovable/email/transactional/preview'
@@ -446,6 +487,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  EventfeedbackRoute: EventfeedbackRoute,
   JoinRoute: JoinRoute,
   JukeboxRoute: JukeboxRoute,
   PotluckRoute: PotluckRoute,
@@ -455,6 +497,7 @@ const rootRouteChildren: RootRouteChildren = {
   InsightsSlugRoute: InsightsSlugRoute,
   MemberSigninRoute: MemberSigninRoute,
   MemberIndexRoute: MemberIndexRoute,
+  ApiPublicEventFeedbackSummaryRoute: ApiPublicEventFeedbackSummaryRoute,
   ApiPublicSpotifyConnectRoute: ApiPublicSpotifyConnectRoute,
   ApiPublicSpotifyDiagRoute: ApiPublicSpotifyDiagRoute,
   LovableEmailEventsRoute: LovableEmailEventsRoute,

@@ -25,6 +25,7 @@ import { Route as FeedbackSlugRouteImport } from './routes/feedback/$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticated/stewards'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as ApiPublicSpotifyDiagRouteImport } from './routes/api/public/spotify-diag'
 import { Route as ApiPublicSpotifyConnectRouteImport } from './routes/api/public/spotify-connect'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -112,6 +113,11 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LovableEmailEventsRoute = LovableEmailEventsRouteImport.update({
+  id: '/lovable/email/events',
+  path: '/lovable/email/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicSpotifyDiagRoute = ApiPublicSpotifyDiagRouteImport.update({
   id: '/api/public/spotify-diag',
   path: '/api/public/spotify-diag',
@@ -168,6 +174,7 @@ export interface FileRoutesByFullPath {
   '/member/': typeof MemberIndexRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
+  '/lovable/email/events': typeof LovableEmailEventsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -192,6 +199,7 @@ export interface FileRoutesByTo {
   '/member': typeof MemberIndexRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
+  '/lovable/email/events': typeof LovableEmailEventsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -218,6 +226,7 @@ export interface FileRoutesById {
   '/member/': typeof MemberIndexRoute
   '/api/public/spotify-connect': typeof ApiPublicSpotifyConnectRoute
   '/api/public/spotify-diag': typeof ApiPublicSpotifyDiagRoute
+  '/lovable/email/events': typeof LovableEmailEventsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -244,6 +253,7 @@ export interface FileRouteTypes {
     | '/member/'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
+    | '/lovable/email/events'
     | '/lovable/email/suppression'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -268,6 +278,7 @@ export interface FileRouteTypes {
     | '/member'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
+    | '/lovable/email/events'
     | '/lovable/email/suppression'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -293,6 +304,7 @@ export interface FileRouteTypes {
     | '/member/'
     | '/api/public/spotify-connect'
     | '/api/public/spotify-diag'
+    | '/lovable/email/events'
     | '/lovable/email/suppression'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -318,6 +330,7 @@ export interface RootRouteChildren {
   MemberIndexRoute: typeof MemberIndexRoute
   ApiPublicSpotifyConnectRoute: typeof ApiPublicSpotifyConnectRoute
   ApiPublicSpotifyDiagRoute: typeof ApiPublicSpotifyDiagRoute
+  LovableEmailEventsRoute: typeof LovableEmailEventsRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
@@ -440,6 +453,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lovable/email/events': {
+      id: '/lovable/email/events'
+      path: '/lovable/email/events'
+      fullPath: '/lovable/email/events'
+      preLoaderRoute: typeof LovableEmailEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/spotify-diag': {
       id: '/api/public/spotify-diag'
       path: '/api/public/spotify-diag'
@@ -520,6 +540,7 @@ const rootRouteChildren: RootRouteChildren = {
   MemberIndexRoute: MemberIndexRoute,
   ApiPublicSpotifyConnectRoute: ApiPublicSpotifyConnectRoute,
   ApiPublicSpotifyDiagRoute: ApiPublicSpotifyDiagRoute,
+  LovableEmailEventsRoute: LovableEmailEventsRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,

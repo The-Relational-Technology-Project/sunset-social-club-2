@@ -38,7 +38,6 @@ const SAMPLE_DATA: Record<string, object> = {
   magiclink: {
     siteName: SITE_NAME,
     confirmationUrl: SAMPLE_PROJECT_URL,
-    token: '123456',
   },
   recovery: {
     siteName: SITE_NAME,
@@ -65,7 +64,7 @@ export const Route = createFileRoute("/lovable/email/auth/preview")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const apiKey = process.env.LOVABLE_API_KEY
+        const apiKey = process.env['LOVABLE_API_KEY']
 
         if (!apiKey) {
           return Response.json(

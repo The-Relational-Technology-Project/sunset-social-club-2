@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { submitForm } from "../lib/site-config";
 import { useLanguage } from "../contexts/LanguageContext";
 
-export function EmailSignupForm() {
+export function EmailSignupForm({ returnToFeedback = false }: { returnToFeedback?: boolean }) {
   const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -48,11 +49,16 @@ export function EmailSignupForm() {
         <button type="submit" className="btn-solid">{t("signup.submit")}</button>
         <p className="text-xs text-ink/60 leading-relaxed">{t("signup.consent")}</p>
         {done && (
-          <div role="status" className="space-y-3">
+          <div role="status" className="flex flex-col items-start gap-3">
             <p className="text-sunset font-medium">{t("signup.done")}</p>
-            <a href="/member/signin" className="btn-solid inline-block">
+            {returnToFeedback && (
+              <Link to="/eventfeedback" className="btn-solid inline-flex">
+                {t("signup.backToFeedback")}
+              </Link>
+            )}
+            <Link to="/member/signin" className="btn-ghost inline-flex">
               {t("signup.goToMember")}
-            </a>
+            </Link>
           </div>
         )}
       </form>

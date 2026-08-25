@@ -24,71 +24,61 @@ export const MagicLinkEmail = ({
 }: MagicLinkEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your sign-in link for {siteName}</Preview>
+    <Preview>Your login link for {siteName}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Heading style={h1}>Sign in to {siteName}</Heading>
+        <Heading style={h1}>Your login link</Heading>
         <Text style={text}>
-          Click the button below to sign in. This link will expire shortly.
+          Click the button below to log in to {siteName}. This link will expire
+          shortly.
         </Text>
         <Button style={button} href={confirmationUrl}>
-          Sign In
+          Log In
         </Button>
         {token ? (
           <>
-            <Text style={orText}>Or enter this 8-digit code:</Text>
-            <Text style={codeStyle}>{token}</Text>
+            <Text style={text}>Or enter this code on the sign-in page:</Text>
+            <Text style={code}>{token}</Text>
           </>
         ) : null}
         <Text style={footer}>
-          If you didn't request this, you can safely ignore this email.
+          If you didn't request this link, you can safely ignore this email.
         </Text>
       </Container>
     </Body>
   </Html>
 )
 
+
 export default MagicLinkEmail
 
-const main = { backgroundColor: '#ffffff', fontFamily: 'Nunito, Helvetica, Arial, sans-serif', color: '#1d1c1a' }
-const container = { padding: '32px 28px', maxWidth: '520px', textAlign: 'center' as const }
+const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
+const container = { padding: '20px 25px' }
 const h1 = {
-  fontSize: '26px',
-  fontWeight: 800,
-  fontStyle: 'italic' as const,
-  color: '#1d1c1a',
-  margin: '0 0 16px',
-}
-const text = {
-  fontSize: '15px',
-  color: '#1d1c1a',
-  lineHeight: '1.55',
+  fontSize: '22px',
+  fontWeight: 'bold' as const,
+  color: '#000000',
   margin: '0 0 20px',
 }
-const orText = {
-  fontSize: '13px',
-  color: '#1d1c1a',
-  opacity: 0.7,
-  letterSpacing: '2px',
-  textTransform: 'uppercase' as const,
-  margin: '28px 0 8px',
-}
-const codeStyle = {
-  fontFamily: 'Courier, monospace',
-  fontSize: '28px',
-  fontWeight: 800,
-  letterSpacing: '8px',
-  color: '#1d1c1a',
-  margin: '0 0 24px',
+const text = {
+  fontSize: '14px',
+  color: '#55575d',
+  lineHeight: '1.5',
+  margin: '0 0 25px',
 }
 const button = {
-  backgroundColor: '#1d1c1a',
+  backgroundColor: '#000000',
   color: '#ffffff',
-  fontSize: '15px',
-  fontWeight: 700,
-  borderRadius: '9999px',
-  padding: '14px 24px',
+  fontSize: '14px',
+  borderRadius: '8px',
+  padding: '12px 20px',
   textDecoration: 'none',
-  display: 'inline-block',
 }
-const footer = { fontSize: '12px', color: '#1d1c1a', opacity: 0.6, margin: '28px 0 0' }
+const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
+const code = {
+  fontSize: '26px',
+  fontWeight: 'bold' as const,
+  letterSpacing: '4px',
+  color: '#000000',
+  margin: '10px 0 25px',
+}

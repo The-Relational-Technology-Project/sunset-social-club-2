@@ -9,7 +9,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 interface FormQuestion {
   key: string;
   label: string;
-  type: "textarea" | "text" | "number";
+  type: "textarea" | "text" | "number" | "select";
+  options?: string[];
 }
 interface FormDef {
   slug: string;
@@ -168,10 +169,22 @@ function FeedbackPage() {
         {form.questions.map((q) => (
           <div key={q.key}>
             <label className="field-label" htmlFor={`q-${q.key}`}>{q.label}</label>
-            {q.type === "textarea" ? (
+            {q.type === "select" ? (
+              <select
+                id={`q-${q.key}`}
+                value={answers[q.key] ?? ""}
+                onChange={(e) => setAnswers((a) => ({ ...a, [q.key]: e.target.value }))}
+                className="field-input"
+              >
+                <option value="">—</option>
+                {(q.options ?? []).map((o) => (
+                  <option key={o} value={o}>{o}</option>
+                ))}
+              </select>
+            ) : q.type === "textarea" ? (
               <textarea
                 id={`q-${q.key}`}
-                rows={5}
+                rows={8}
                 value={answers[q.key] ?? ""}
                 onChange={(e) => setAnswers((a) => ({ ...a, [q.key]: e.target.value }))}
                 className="field-input resize-y"

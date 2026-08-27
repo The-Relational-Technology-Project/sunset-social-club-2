@@ -8,7 +8,7 @@ import { deleteMyAccount } from "@/lib/account.functions";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   COMMUNITY_PLAYLIST_URL,
-  PIZZA_PARTY_FEEDBACK_SLUG,
+  GENERAL_FEEDBACK_SLUG,
   JULY_22_INSIGHTS_SLUG,
 } from "@/lib/site-config";
 
@@ -86,7 +86,7 @@ function MemberHome() {
         </p>
         <Link
           to="/feedback/$slug"
-          params={{ slug: PIZZA_PARTY_FEEDBACK_SLUG }}
+          params={{ slug: GENERAL_FEEDBACK_SLUG }}
           className="btn-solid btn-block-mobile mt-4"
         >
           {t("member.feedback.cta")}

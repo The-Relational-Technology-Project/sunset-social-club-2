@@ -11,12 +11,7 @@ export const ANNOUNCEMENT: {
   date: string;
   invitation: string;
   url: string;
-} | null = {
-  title: "Neighborhood Potluck + Yap",
-  date: "Wednesday, Aug. 26",
-  invitation: "Bring a dish, a story, or just yourself.",
-  url: "https://luma.com/wau8wagn",
-};
+} | null = null;
 
 export const COMMUNITY_PLAYLIST_URL = "https://open.spotify.com/playlist/1saGchZ6JVWKmFnianOtJM?si=IPO4mE9kSaCxOvqOTCUVEw";
 export const PIZZA_PARTY_FEEDBACK_SLUG = "pizza-party-2026-07-22";

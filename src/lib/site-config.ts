@@ -20,6 +20,7 @@ export const ANNOUNCEMENT: {
 
 export const COMMUNITY_PLAYLIST_URL = "https://open.spotify.com/playlist/1saGchZ6JVWKmFnianOtJM?si=IPO4mE9kSaCxOvqOTCUVEw";
 export const PIZZA_PARTY_FEEDBACK_SLUG = "pizza-party-2026-07-22";
+export const GENERAL_FEEDBACK_SLUG = "general-feedback";
 export const JULY_22_INSIGHTS_SLUG = "july-22-kickoff";
 
 // Paste the iframe embed code from Luma here (luma.com/sunsetsocialclub → Embed).

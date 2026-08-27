@@ -1,42 +1,61 @@
-## What's going on
+# Potluck signups + a general-purpose feedback form
 
-Every failed row in `email_send_log` is for the `admin-notification` template going to `joshuanesbit@gmail.com`. The original failure is a single `400 missing_unsubscribe`:
+## 1. New members from the Aug 26 potluck
 
-> Transactional emails must include an unsubscribe_token
+The approved guest list has 45 people. Comparing against the club email list:
 
-After that, every retry hits `409 run_failed` ("Send again with a new idempotency key") because the queue keeps retrying the same payload — so one bad send balloons into ~40 failed rows and 8 DLQ rows.
+- 26 were already on the list
+- **19 are new**
 
-## Root cause
+New folks to add:
 
-`src/routes/api/public/notify-submission.ts` enqueues the admin email directly into pgmq without an `unsubscribe_token`. The Lovable email API requires one on every transactional send. The canonical send route (`src/routes/lovable/email/transactional/send.ts`) handles this by looking up or creating a token in `email_unsubscribe_tokens` before enqueuing — the notify-submission route was scaffolded earlier and skipped that step.
+```text
+adearamburo@gmail.com          agrawalharshikaa@gmail.com     alexmyerscooper@gmail.com
+annguyen.era@gmail.com         benjaminshaw@gmail.com         bwinerip@gmail.com
+christozama@gmail.com          claireandwilken@gmail.com      cody@xory.us
+divya.m.oswal@gmail.com        frances.england@gmail.com      icamara02@gmail.com
+irashaughnessy@gmail.com       jennlouisew@gmail.com          joshcoy31@gmail.com
+michaelagnorton@gmail.com      natalieengu@gmail.com          sw6syfxkjd@privaterelay.appleid.com
+tdncwth7sy@privaterelay.appleid.com
+```
 
-Idempotency amplifies the problem: `idempotency_key` is set to `messageId`, so once the first attempt is marked failed at the provider, subsequent retries with the same key are rejected with 409 until TTL expires and the message moves to DLQ.
+(Two are Apple private-relay addresses; they still deliver.)
 
-## Fix
+What happens on approval:
 
-Update `src/routes/api/public/notify-submission.ts` to mirror the token logic in the canonical send route:
+- Insert all 19 into the club email list with their first names from the guest list, so they get future event invites and can sign in to Member Home.
+- Send each of them the existing welcome email (the Member Home one, unchanged copy).
+- Skip anyone already on the suppression list.
 
-1. Normalize the recipient email (lowercase).
-2. Look up an existing unused token in `email_unsubscribe_tokens`; if none, generate a 32-byte hex token and upsert with `onConflict: 'email', ignoreDuplicates: true`, then re-read to handle races.
-3. Include `unsubscribe_token: <token>` in the pgmq payload passed to `enqueue_email`.
-4. On token lookup/create failure, log a `failed` row and return 500 (same pattern as send.ts).
+## 2. General-purpose member feedback form
 
-No other files need to change. The queue processor, template, and infrastructure are all correct.
+Replace the pizza-party-specific form linked from Member Home with one general
+feedback form.
 
-## Cleanup of existing stuck messages
+Fields, in order:
 
-The 8 `pending` rows correspond to messages still in the pgmq `transactional_emails` queue that are poisoned by the old payload (no token, reused idempotency key). Options:
+1. "What are you providing feedback on?" (optional dropdown)
+   - Kick-off pizza party
+   - August 26th potluck
+   - General club feedback
+   - Other
+2. A large open text box for the qualitative feedback.
 
-- Leave them: they'll TTL out to DLQ within the hour and stop generating failures. Simplest.
-- Purge them: delete the pgmq messages so no further 409s are logged before TTL.
+Everything else stays as it is: members submit signed in, guests can leave an
+email, and the full submission is emailed to oursunsetsocialclub@gmail.com. The
+old pizza-party form stays reachable at its own link so past responses and the
+insights link keep working.
 
-Recommend leaving them and letting the queue drain naturally — new submissions after the fix will succeed on first try. If you want, I can also purge the queue as part of the same change.
+## Technical notes
 
-## Verification
-
-After the change, submitting a contact form (or signup/idea) will:
-- Insert a row in `email_unsubscribe_tokens` for `joshuanesbit@gmail.com` if not already present.
-- Enqueue with `unsubscribe_token` set.
-- Land as `status='sent'` in `email_send_log` on the next 5-second cron tick.
-
-I'll confirm by watching `email_send_log` for a new `sent` row after a test submission.
+- Migration: insert a new `event_feedback_forms` row (slug `general-feedback`)
+  whose `questions` jsonb includes a new `"select"` question type with an
+  `options` array, plus a `textarea` question.
+- Migration: insert the 19 new `email_signups` rows with first names.
+- `src/routes/feedback/$slug.tsx`: extend `FormQuestion` with `options?` and
+  render `type: "select"` as a native `<select>` with an empty default.
+- `src/lib/site-config.ts`: add `GENERAL_FEEDBACK_SLUG`; point the Member Home
+  feedback card at it (`src/routes/member/index.tsx`).
+- Welcome emails sent through the existing transactional send path, one call per
+  new address, using the current member-welcome template.
+- Add English and Mandarin strings for the updated Member Home feedback card.

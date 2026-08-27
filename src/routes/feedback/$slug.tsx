@@ -9,7 +9,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 interface FormQuestion {
   key: string;
   label: string;
-  type: "textarea" | "text" | "number";
+  type: "textarea" | "text" | "number" | "select";
+  options?: string[];
 }
 interface FormDef {
   slug: string;

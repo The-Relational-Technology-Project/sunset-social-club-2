@@ -69,6 +69,8 @@ function Stewards() {
   const [emails, setEmails] = useState<EmailTemplates | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [copiedEmails, setCopiedEmails] = useState(false);
+
   const [busyId, setBusyId] = useState<string | null>(null);
 
   const refreshEmails = useCallback(() => {

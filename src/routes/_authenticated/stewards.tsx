@@ -69,6 +69,8 @@ function Stewards() {
   const [emails, setEmails] = useState<EmailTemplates | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [copiedEmails, setCopiedEmails] = useState(false);
+
   const [busyId, setBusyId] = useState<string | null>(null);
 
   const refreshEmails = useCallback(() => {
@@ -339,14 +341,33 @@ function Stewards() {
       <section>
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-xl font-bold">Email subscribers ({data.signups.length})</h2>
-          <button
-            onClick={() => download(`signups-${new Date().toISOString().slice(0, 10)}.csv`, toCsv(data.signups))}
-            className="btn-solid"
-            disabled={!data.signups.length}
-          >
-            Download CSV
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={async () => {
+                const list = data.signups.map((s: any) => s.email).filter(Boolean).join(", ");
+                try {
+                  await navigator.clipboard.writeText(list);
+                  setCopiedEmails(true);
+                  setTimeout(() => setCopiedEmails(false), 2000);
+                } catch {
+                  // no-op
+                }
+              }}
+              className="btn-ghost"
+              disabled={!data.signups.length}
+            >
+              {copiedEmails ? "Copied!" : "Copy all emails"}
+            </button>
+            <button
+              onClick={() => download(`signups-${new Date().toISOString().slice(0, 10)}.csv`, toCsv(data.signups))}
+              className="btn-solid"
+              disabled={!data.signups.length}
+            >
+              Download CSV
+            </button>
+          </div>
         </div>
+
         <div className="border rounded overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="bg-black/5"><tr><th className="text-left p-2">Email</th><th className="text-left p-2">First name</th><th className="text-left p-2">Signed up</th></tr></thead>

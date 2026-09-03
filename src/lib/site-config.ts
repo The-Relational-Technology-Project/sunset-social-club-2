@@ -28,6 +28,16 @@ export const PARTNER_EVENTS: { title: string; when: string; url: string }[] = [
     when: "Saturday, August 22nd, 2 PM - 6 PM",
     url: "https://sunsetvariety.com",
   },
+  {
+    title: "Summer in the Sunset, a group art exhibition at Sunset Variety",
+    when: "Saturday, September 5th, 2 PM - 5 PM",
+    url: "https://sunsetvariety.com/",
+  },
+  {
+    title: "Olas Perdidas playing at Sunset Village Music Hall",
+    when: "Wednesday, September 9th",
+    url: "https://www.tickettailor.com/events/toddhanniganmusicllc/2361891",
+  },
 ];
 
 export type FormType = "signup" | "idea" | "contact";

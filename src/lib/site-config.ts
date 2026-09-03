@@ -24,11 +24,6 @@ export const LUMA_CALENDAR_EMBED = `<iframe src="https://luma.com/embed/calendar
 // Upcoming events hosted by partners and members. Empty array hides the section.
 export const PARTNER_EVENTS: { title: string; when: string; url: string }[] = [
   {
-    title: "Sunset Variety Opening Celebration, 1399 46th Avenue",
-    when: "Saturday, August 22nd, 2 PM - 6 PM",
-    url: "https://sunsetvariety.com",
-  },
-  {
     title: "Summer in the Sunset, a group art exhibition at Sunset Variety",
     when: "Saturday, September 5th, 2 PM - 5 PM",
     url: "https://sunsetvariety.com/",

@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-async function await ensureSteward(email: string | undefined) {
+async function ensureSteward(email: string | undefined) {
   const mod = await import("./private-emails.server");
   mod.assertSteward(email);
 }

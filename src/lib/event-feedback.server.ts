@@ -4,7 +4,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const FROM = "Sunset Social Club <notifications@sunsetsocialclub.org>";
 const REPLY_TO = "oursunsetsocialclub@gmail.com";
-const SUMMARY_RECIPIENTS = ["joshuanesbit@gmail.com", "oursunsetsocialclub@gmail.com"];
+import { feedbackSummaryEmails } from "./private-emails.server";
 
 // Rate limit: the form is meant to run on a shared tablet at an event, so the
 // window is generous — it only blocks obvious spam bursts.
@@ -127,7 +127,7 @@ export async function sendEventFeedbackSummary() {
     },
     body: JSON.stringify({
       from: FROM,
-      to: SUMMARY_RECIPIENTS,
+      to: feedbackSummaryEmails(),
       reply_to: REPLY_TO,
       subject: `Member Feedback summary: ${total} responses`,
       html,

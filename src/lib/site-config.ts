@@ -2,7 +2,6 @@
 import { submitPublicForm } from "./submissions.functions";
 
 export const CONTACT_EMAIL = "oursunsetsocialclub@gmail.com";
-export const NOTIFY_EMAILS = ["oursunsetsocialclub@gmail.com", "joshuanesbit@gmail.com"];
 export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
 
 // Set to null when there is no active event; the banner then does not render.

@@ -2,7 +2,7 @@
 import { getRequestHeader } from "@tanstack/react-start/server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
-const NOTIFY_TO = "joshuanesbit@gmail.com";
+import { potluckNotifyEmail } from "./private-emails.server";
 const FROM = "Sunset Social Club <notifications@sunsetsocialclub.org>";
 const REPLY_TO = "oursunsetsocialclub@gmail.com";
 
@@ -51,7 +51,7 @@ async function sendNotification(name: string, bringing: string) {
     },
     body: JSON.stringify({
       from: FROM,
-      to: [NOTIFY_TO],
+      to: [potluckNotifyEmail()],
       reply_to: REPLY_TO,
       subject: `New potluck signup: ${name}`,
       html,

@@ -12,7 +12,8 @@ const SITE_NAME = "Sunset Social Club";
 const SENDER_DOMAIN = "notify.sunsetsocialclub.org";
 const FROM_DOMAIN = "notify.sunsetsocialclub.org";
 
-const ADMIN_RECIPIENTS = ["joshuanesbit@gmail.com", "sandi.lamharder@gmail.com"];
+import { adminNotifyEmails } from "./private-emails.server";
+
 const CONTACT_INBOX = "oursunsetsocialclub@gmail.com";
 
 async function sendAdminNotification(
@@ -144,8 +145,8 @@ export async function processSubmission(input: SubmissionInput): Promise<{ ok: t
 
   const recipients =
     input.type === "contact"
-      ? [...ADMIN_RECIPIENTS, CONTACT_INBOX]
-      : ADMIN_RECIPIENTS;
+      ? [...adminNotifyEmails(), CONTACT_INBOX]
+      : adminNotifyEmails();
   try {
     await sendAdminNotification(notifyType, fields, recipients);
   } catch (e) {

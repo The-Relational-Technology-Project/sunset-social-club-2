@@ -1,16 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-const ALLOWED = ["joshuanesbit@gmail.com", "sandi.lamharder@gmail.com"];
-
-function ensureSteward(email: string | undefined) {
-  if (!email || !ALLOWED.includes(email.toLowerCase())) throw new Error("Forbidden");
+async function ensureSteward(email: string | undefined) {
+  const mod = await import("./private-emails.server");
+  mod.assertSteward(email);
 }
 
 export const listEmailTemplates = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    ensureSteward(String(context.claims.email ?? ""));
+    await ensureSteward(String(context.claims.email ?? ""));
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
       .from("email_templates")
@@ -32,7 +31,7 @@ export const updateEmailTemplate = createServerFn({ method: "POST" })
   }) => d)
   .handler(async ({ data, context }) => {
     const email = String(context.claims.email ?? "");
-    ensureSteward(email);
+    await ensureSteward(email);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("email_templates")

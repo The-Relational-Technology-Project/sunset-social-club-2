@@ -1,18 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-const ALLOWED = ["joshuanesbit@gmail.com", "sandi.lamharder@gmail.com"];
-
-function assertSteward(email: unknown): string {
-  const e = String(email ?? "").toLowerCase();
-  if (!ALLOWED.includes(e)) throw new Error("Forbidden");
-  return e;
+async function assertSteward(email: unknown): Promise<string> {
+  const mod = await import("./private-emails.server");
+  return mod.assertSteward(email);
 }
 
 export const listAllSubmissions = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    assertSteward(context.claims.email);
+    await assertSteward(context.claims.email);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: submissions } = await supabaseAdmin
       .from("jukebox_submissions")
@@ -30,7 +27,7 @@ export const approveSubmission = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => ({ id: String(data?.id ?? "").slice(0, 60) }))
   .handler(async ({ data, context }) => {
-    assertSteward(context.claims.email);
+    await assertSteward(context.claims.email);
     if (!data.id) return { ok: false, error: "Missing id" };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const now = new Date().toISOString();
@@ -51,7 +48,7 @@ export const removeFromPlaylist = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => ({ id: String(data?.id ?? "").slice(0, 60) }))
   .handler(async ({ data, context }) => {
-    assertSteward(context.claims.email);
+    await assertSteward(context.claims.email);
     if (!data.id) return { ok: false, error: "Missing id" };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: row } = await supabaseAdmin
@@ -81,7 +78,7 @@ export const rejectSubmission = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => ({ id: String(data?.id ?? "").slice(0, 60) }))
   .handler(async ({ data, context }) => {
-    assertSteward(context.claims.email);
+    await assertSteward(context.claims.email);
     if (!data.id) return { ok: false, error: "Missing id" };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
@@ -96,7 +93,7 @@ export const markPlayed = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { id: string }) => ({ id: String(data?.id ?? "").slice(0, 60) }))
   .handler(async ({ data, context }) => {
-    assertSteward(context.claims.email);
+    await assertSteward(context.claims.email);
     if (!data.id) return { ok: false, error: "Missing id" };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
@@ -114,7 +111,7 @@ export const toggleSubmissions = createServerFn({ method: "POST" })
     eventLabel: data?.eventLabel != null ? String(data.eventLabel).slice(0, 120) : undefined,
   }))
   .handler(async ({ data, context }) => {
-    assertSteward(context.claims.email);
+    await assertSteward(context.claims.email);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const update: { submissions_open: boolean; current_event_label?: string } = {
       submissions_open: data.open,

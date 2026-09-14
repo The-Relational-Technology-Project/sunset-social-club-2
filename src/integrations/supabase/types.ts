@@ -458,6 +458,21 @@ export type Database = {
         }
         Relationships: []
       }
+      stewards: {
+        Row: {
+          created_at: string
+          email: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
@@ -489,6 +504,7 @@ export type Database = {
     Functions: {
       is_club_member: { Args: never; Returns: boolean }
       is_current_user_member: { Args: never; Returns: boolean }
+      is_steward: { Args: never; Returns: boolean }
     }
     Enums: {
       [_ in never]: never

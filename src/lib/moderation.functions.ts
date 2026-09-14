@@ -1,16 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-const ALLOWED = ["joshuanesbit@gmail.com", "sandi.lamharder@gmail.com"];
-
-function ensureSteward(email: string | undefined) {
-  if (!email || !ALLOWED.includes(email.toLowerCase())) throw new Error("Forbidden");
+async function ensureSteward(email: string | undefined) {
+  const mod = await import("./private-emails.server");
+  mod.assertSteward(email);
 }
 
 export const listModeration = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    ensureSteward(String(context.claims.email ?? ""));
+    await ensureSteward(String(context.claims.email ?? ""));
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const [feedback, forms, insights, photos] = await Promise.all([
       supabaseAdmin.from("event_feedback").select("*").order("created_at", { ascending: false }),
@@ -39,7 +38,7 @@ export const setPhotoApproval = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string; approved: boolean }) => d)
   .handler(async ({ data, context }) => {
-    ensureSteward(String(context.claims.email ?? ""));
+    await ensureSteward(String(context.claims.email ?? ""));
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("photos")
@@ -53,7 +52,7 @@ export const deletePhoto = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
-    ensureSteward(String(context.claims.email ?? ""));
+    await ensureSteward(String(context.claims.email ?? ""));
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: row } = await supabaseAdmin
       .from("photos")
@@ -71,7 +70,7 @@ export const upsertInsight = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { slug: string; title: string; markdown: string; published: boolean }) => d)
   .handler(async ({ data, context }) => {
-    ensureSteward(String(context.claims.email ?? ""));
+    await ensureSteward(String(context.claims.email ?? ""));
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("community_insights")
@@ -92,7 +91,7 @@ export const updateFeedbackForm = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { slug: string; title: string; intro: string }) => d)
   .handler(async ({ data, context }) => {
-    ensureSteward(String(context.claims.email ?? ""));
+    await ensureSteward(String(context.claims.email ?? ""));
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("event_feedback_forms")

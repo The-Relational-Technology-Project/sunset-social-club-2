@@ -46,7 +46,7 @@ export const template = {
   subject: (data: Record<string, any>) =>
     `New ${data?.type ?? 'submission'} — Sunset Social Club`,
   displayName: 'Admin submission notification',
-  to: 'joshuanesbit@gmail.com',
+  to: 'oursunsetsocialclub@gmail.com',
   previewData: {
     type: 'contact message',
     fields: [

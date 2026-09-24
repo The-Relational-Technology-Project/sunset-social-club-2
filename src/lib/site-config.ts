@@ -4,13 +4,32 @@ import { submitPublicForm } from "./submissions.functions";
 export const CONTACT_EMAIL = "oursunsetsocialclub@gmail.com";
 export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
 
-// Set to null when there is no active event; the banner then does not render.
-export const ANNOUNCEMENT: {
+// Announcement banners, one per event. Empty array hides the banner.
+export const ANNOUNCEMENTS: {
+  icon: string;
   title: string;
   date: string;
   invitation: string;
   url: string;
-} | null = null;
+  tone: "amber" | "sunset";
+}[] = [
+  {
+    icon: "🎨",
+    title: "Creative Play Workshop",
+    date: "Wednesday, Sept 30",
+    invitation: "Come make art with your neighbors!",
+    url: "https://luma.com/2nszfy10",
+    tone: "amber",
+  },
+  {
+    icon: "🛠️",
+    title: "Sunset Neighborhood Build-a-Thon",
+    date: "Friday, Oct 9",
+    invitation: "Let’s build what our neighborhood needs!",
+    url: "https://luma.com/tzyvkp9j",
+    tone: "sunset",
+  },
+];
 
 export const COMMUNITY_PLAYLIST_URL = "https://open.spotify.com/playlist/1saGchZ6JVWKmFnianOtJM?si=IPO4mE9kSaCxOvqOTCUVEw";
 export const PIZZA_PARTY_FEEDBACK_SLUG = "pizza-party-2026-07-22";

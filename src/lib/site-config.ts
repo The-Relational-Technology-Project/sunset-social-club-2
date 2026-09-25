@@ -62,7 +62,8 @@ export async function submitForm(type: FormType, payload: Record<string, string>
       const firstName = (payload.firstName ?? "").trim() || null;
       const crossStreets = (payload.crossStreets ?? "").trim() || null;
       if (!email) return { ok: false };
-      await submitPublicForm({ data: { type: "signup", email, firstName, crossStreets } });
+      const res = await submitPublicForm({ data: { type: "signup", email, firstName, crossStreets } });
+      if (res && "alreadyMember" in res && res.alreadyMember) return { ok: true, alreadyMember: true };
     } else if (type === "idea") {
       const idea = (payload.idea ?? "").trim();
       const name = (payload.name ?? "").trim();
@@ -75,9 +76,9 @@ export async function submitForm(type: FormType, payload: Record<string, string>
       if (!name || !email || !message) return { ok: false };
       await submitPublicForm({ data: { type: "contact", name, email, message } });
     }
-    return { ok: true };
+    return { ok: true, alreadyMember: false };
   } catch (err) {
     console.error("submitForm failed", err);
-    return { ok: false };
+    return { ok: false, alreadyMember: false };
   }
 }

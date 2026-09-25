@@ -9,10 +9,12 @@ export function EmailSignupForm({ returnToFeedback = false }: { returnToFeedback
   const [name, setName] = useState("");
   const [crossStreets, setCrossStreets] = useState("");
   const [done, setDone] = useState(false);
+  const [already, setAlready] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await submitForm("signup", { email, firstName: name, crossStreets });
+    const res = await submitForm("signup", { email, firstName: name, crossStreets });
+    setAlready(!!res.alreadyMember);
     setEmail("");
     setName("");
     setCrossStreets("");
@@ -50,7 +52,7 @@ export function EmailSignupForm({ returnToFeedback = false }: { returnToFeedback
         <p className="text-xs text-ink/60 leading-relaxed">{t("signup.consent")}</p>
         {done && (
           <div role="status" className="flex flex-col items-start gap-3">
-            <p className="text-sunset font-medium">{t("signup.done")}</p>
+            <p className="text-sunset font-medium">{already ? t("signup.alreadyMember") : t("signup.done")}</p>
             {returnToFeedback && (
               <Link to="/eventfeedback" className="btn-solid inline-flex">
                 {t("signup.backToFeedback")}

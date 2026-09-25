@@ -101,7 +101,7 @@ export type SubmissionInput =
   | { type: "idea"; idea: string; name: string }
   | { type: "contact"; name: string; email: string; message: string };
 
-export async function processSubmission(input: SubmissionInput): Promise<{ ok: true }> {
+export async function processSubmission(input: SubmissionInput): Promise<{ ok: true; alreadyMember?: boolean }> {
   let fields: Array<{ label: string; value: string }> = [];
   let notifyType = "";
   let welcome: { email: string; firstName: string | null } | null = null;
@@ -112,7 +112,10 @@ export async function processSubmission(input: SubmissionInput): Promise<{ ok: t
       first_name: input.firstName,
       cross_streets: input.crossStreets,
     });
-    if (error) throw new Error(error.message);
+    if (error) {
+      if (error.code === "23505") return { ok: true, alreadyMember: true };
+      throw new Error(error.message);
+    }
     fields = [
       { label: "Email", value: input.email },
       { label: "First name", value: input.firstName ?? "" },

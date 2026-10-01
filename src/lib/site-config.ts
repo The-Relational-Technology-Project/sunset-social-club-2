@@ -14,14 +14,6 @@ export const ANNOUNCEMENTS: {
   tone: "amber" | "sunset";
 }[] = [
   {
-    icon: "🎨",
-    title: "Creative Play Workshop",
-    date: "Wednesday, Sept 30",
-    invitation: "Come make art with your neighbors!",
-    url: "https://luma.com/2nszfy10",
-    tone: "amber",
-  },
-  {
     icon: "🛠️",
     title: "Sunset Neighborhood Build-a-Thon",
     date: "Friday, Oct 9",

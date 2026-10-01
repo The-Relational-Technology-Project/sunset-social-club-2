@@ -9,62 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PotluckRouteImport } from './routes/potluck'
-import { Route as JukeboxRouteImport } from './routes/jukebox'
-import { Route as JoinRouteImport } from './routes/join'
-import { Route as EventfeedbackRouteImport } from './routes/eventfeedback'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EventfeedbackRouteImport } from './routes/eventfeedback'
+import { Route as JoinRouteImport } from './routes/join'
+import { Route as JukeboxRouteImport } from './routes/jukebox'
+import { Route as PotluckRouteImport } from './routes/potluck'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticated/stewards'
+import { Route as FeedbackSlugRouteImport } from './routes/feedback/$slug'
+import { Route as InsightsSlugRouteImport } from './routes/insights/$slug'
 import { Route as MemberIndexRouteImport } from './routes/member/index'
 import { Route as MemberSigninRouteImport } from './routes/member/signin'
-import { Route as InsightsSlugRouteImport } from './routes/insights/$slug'
-import { Route as FeedbackSlugRouteImport } from './routes/feedback/$slug'
-import { Route as AuthenticatedStewardsRouteImport } from './routes/_authenticated/stewards'
-import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
-import { Route as ApiPublicSpotifyDiagRouteImport } from './routes/api/public/spotify-diag'
-import { Route as ApiPublicSpotifyConnectRouteImport } from './routes/api/public/spotify-connect'
 import { Route as ApiPublicEventFeedbackSummaryRouteImport } from './routes/api/public/event-feedback-summary'
-import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
-import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as ApiPublicSpotifyConnectRouteImport } from './routes/api/public/spotify-connect'
+import { Route as ApiPublicSpotifyDiagRouteImport } from './routes/api/public/spotify-diag'
+import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PotluckRoute = PotluckRouteImport.update({
-  id: '/potluck',
-  path: '/potluck',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JukeboxRoute = JukeboxRouteImport.update({
-  id: '/jukebox',
-  path: '/jukebox',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JoinRoute = JoinRouteImport.update({
-  id: '/join',
-  path: '/join',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EventfeedbackRoute = EventfeedbackRouteImport.update({
-  id: '/eventfeedback',
-  path: '/eventfeedback',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -72,13 +46,54 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const EventfeedbackRoute = EventfeedbackRouteImport.update({
+  id: '/eventfeedback',
+  path: '/eventfeedback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinRoute = JoinRouteImport.update({
+  id: '/join',
+  path: '/join',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JukeboxRoute = JukeboxRouteImport.update({
+  id: '/jukebox',
+  path: '/jukebox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PotluckRoute = PotluckRouteImport.update({
+  id: '/potluck',
+  path: '/potluck',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedStewardsRoute = AuthenticatedStewardsRouteImport.update({
+  id: '/stewards',
+  path: '/stewards',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const FeedbackSlugRoute = FeedbackSlugRouteImport.update({
+  id: '/feedback/$slug',
+  path: '/feedback/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsSlugRoute = InsightsSlugRouteImport.update({
+  id: '/insights/$slug',
+  path: '/insights/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MemberIndexRoute = MemberIndexRouteImport.update({
@@ -91,24 +106,15 @@ const MemberSigninRoute = MemberSigninRouteImport.update({
   path: '/member/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InsightsSlugRoute = InsightsSlugRouteImport.update({
-  id: '/insights/$slug',
-  path: '/insights/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FeedbackSlugRoute = FeedbackSlugRouteImport.update({
-  id: '/feedback/$slug',
-  path: '/feedback/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedStewardsRoute = AuthenticatedStewardsRouteImport.update({
-  id: '/stewards',
-  path: '/stewards',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const LovableEmailEventsRoute = LovableEmailEventsRouteImport.update({
-  id: '/lovable/email/events',
-  path: '/lovable/email/events',
+const ApiPublicEventFeedbackSummaryRoute =
+  ApiPublicEventFeedbackSummaryRouteImport.update({
+    id: '/api/public/event-feedback-summary',
+    path: '/api/public/event-feedback-summary',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicSpotifyConnectRoute = ApiPublicSpotifyConnectRouteImport.update({
+  id: '/api/public/spotify-connect',
+  path: '/api/public/spotify-connect',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicSpotifyDiagRoute = ApiPublicSpotifyDiagRouteImport.update({
@@ -116,26 +122,9 @@ const ApiPublicSpotifyDiagRoute = ApiPublicSpotifyDiagRouteImport.update({
   path: '/api/public/spotify-diag',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicSpotifyConnectRoute = ApiPublicSpotifyConnectRouteImport.update({
-  id: '/api/public/spotify-connect',
-  path: '/api/public/spotify-connect',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicEventFeedbackSummaryRoute =
-  ApiPublicEventFeedbackSummaryRouteImport.update({
-    id: '/api/public/event-feedback-summary',
-    path: '/api/public/event-feedback-summary',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const LovableEmailTransactionalPreviewRoute =
-  LovableEmailTransactionalPreviewRouteImport.update({
-    id: '/lovable/email/transactional/preview',
-    path: '/lovable/email/transactional/preview',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
-  id: '/lovable/email/auth/webhook',
-  path: '/lovable/email/auth/webhook',
+const LovableEmailEventsRoute = LovableEmailEventsRouteImport.update({
+  id: '/lovable/email/events',
+  path: '/lovable/email/events',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
@@ -143,6 +132,17 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
+  id: '/lovable/email/auth/webhook',
+  path: '/lovable/email/auth/webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -314,60 +314,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/potluck': {
-      id: '/potluck'
-      path: '/potluck'
-      fullPath: '/potluck'
-      preLoaderRoute: typeof PotluckRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/jukebox': {
-      id: '/jukebox'
-      path: '/jukebox'
-      fullPath: '/jukebox'
-      preLoaderRoute: typeof JukeboxRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/join': {
-      id: '/join'
-      path: '/join'
-      fullPath: '/join'
-      preLoaderRoute: typeof JoinRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/eventfeedback': {
-      id: '/eventfeedback'
-      path: '/eventfeedback'
-      fullPath: '/eventfeedback'
-      preLoaderRoute: typeof EventfeedbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -377,11 +328,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/eventfeedback': {
+      id: '/eventfeedback'
+      path: '/eventfeedback'
+      fullPath: '/eventfeedback'
+      preLoaderRoute: typeof EventfeedbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join': {
+      id: '/join'
+      path: '/join'
+      fullPath: '/join'
+      preLoaderRoute: typeof JoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jukebox': {
+      id: '/jukebox'
+      path: '/jukebox'
+      fullPath: '/jukebox'
+      preLoaderRoute: typeof JukeboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/potluck': {
+      id: '/potluck'
+      path: '/potluck'
+      fullPath: '/potluck'
+      preLoaderRoute: typeof PotluckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/stewards': {
+      id: '/_authenticated/stewards'
+      path: '/stewards'
+      fullPath: '/stewards'
+      preLoaderRoute: typeof AuthenticatedStewardsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/feedback/$slug': {
+      id: '/feedback/$slug'
+      path: '/feedback/$slug'
+      fullPath: '/feedback/$slug'
+      preLoaderRoute: typeof FeedbackSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights/$slug': {
+      id: '/insights/$slug'
+      path: '/insights/$slug'
+      fullPath: '/insights/$slug'
+      preLoaderRoute: typeof InsightsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/member/': {
@@ -398,39 +419,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MemberSigninRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/insights/$slug': {
-      id: '/insights/$slug'
-      path: '/insights/$slug'
-      fullPath: '/insights/$slug'
-      preLoaderRoute: typeof InsightsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/feedback/$slug': {
-      id: '/feedback/$slug'
-      path: '/feedback/$slug'
-      fullPath: '/feedback/$slug'
-      preLoaderRoute: typeof FeedbackSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/stewards': {
-      id: '/_authenticated/stewards'
-      path: '/stewards'
-      fullPath: '/stewards'
-      preLoaderRoute: typeof AuthenticatedStewardsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/lovable/email/events': {
-      id: '/lovable/email/events'
-      path: '/lovable/email/events'
-      fullPath: '/lovable/email/events'
-      preLoaderRoute: typeof LovableEmailEventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/spotify-diag': {
-      id: '/api/public/spotify-diag'
-      path: '/api/public/spotify-diag'
-      fullPath: '/api/public/spotify-diag'
-      preLoaderRoute: typeof ApiPublicSpotifyDiagRouteImport
+    '/api/public/event-feedback-summary': {
+      id: '/api/public/event-feedback-summary'
+      path: '/api/public/event-feedback-summary'
+      fullPath: '/api/public/event-feedback-summary'
+      preLoaderRoute: typeof ApiPublicEventFeedbackSummaryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/spotify-connect': {
@@ -440,18 +433,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSpotifyConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/event-feedback-summary': {
-      id: '/api/public/event-feedback-summary'
-      path: '/api/public/event-feedback-summary'
-      fullPath: '/api/public/event-feedback-summary'
-      preLoaderRoute: typeof ApiPublicEventFeedbackSummaryRouteImport
+    '/api/public/spotify-diag': {
+      id: '/api/public/spotify-diag'
+      path: '/api/public/spotify-diag'
+      fullPath: '/api/public/spotify-diag'
+      preLoaderRoute: typeof ApiPublicSpotifyDiagRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/transactional/preview': {
-      id: '/lovable/email/transactional/preview'
-      path: '/lovable/email/transactional/preview'
-      fullPath: '/lovable/email/transactional/preview'
-      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+    '/lovable/email/events': {
+      id: '/lovable/email/events'
+      path: '/lovable/email/events'
+      fullPath: '/lovable/email/events'
+      preLoaderRoute: typeof LovableEmailEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/preview': {
+      id: '/lovable/email/auth/preview'
+      path: '/lovable/email/auth/preview'
+      fullPath: '/lovable/email/auth/preview'
+      preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lovable/email/auth/webhook': {
@@ -461,11 +461,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/auth/preview': {
-      id: '/lovable/email/auth/preview'
-      path: '/lovable/email/auth/preview'
-      fullPath: '/lovable/email/auth/preview'
-      preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
   }

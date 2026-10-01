@@ -14,7 +14,7 @@ function fingerprint(): string {
   try {
     const headers = getRequestHeaders();
     const ip = getRequestIP({ xForwardedFor: true }) ?? "";
-    const ua = headers["user-agent"] ?? "";
+    const ua = headers.get("user-agent") ?? "";
     return createHash("sha256").update(`${ip}|${ua}`).digest("hex").slice(0, 32);
   } catch {
     return "unknown";

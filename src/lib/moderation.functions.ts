@@ -22,7 +22,7 @@ export const listModeration = createServerFn({ method: "GET" })
       (photos.data ?? []).map(async (p: any) => {
         const { data } = await supabaseAdmin.storage
           .from("photos")
-          .createSignedUrl(p.storage_path, 3600);
+          .createSignedUrl(p.storage_path, 300);
         return { ...p, url: data?.signedUrl ?? "" };
       }),
     );

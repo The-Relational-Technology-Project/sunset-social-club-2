@@ -12,16 +12,7 @@ export const ANNOUNCEMENTS: {
   invitation: string;
   url: string;
   tone: "amber" | "sunset";
-}[] = [
-  {
-    icon: "🛠️",
-    title: "Sunset Neighborhood Build-a-Thon",
-    date: "Friday, Oct 9",
-    invitation: "Let’s build what our neighborhood needs!",
-    url: "https://luma.com/tzyvkp9j",
-    tone: "sunset",
-  },
-];
+}[] = [];
 
 export const COMMUNITY_PLAYLIST_URL = "https://open.spotify.com/playlist/1saGchZ6JVWKmFnianOtJM?si=IPO4mE9kSaCxOvqOTCUVEw";
 export const PIZZA_PARTY_FEEDBACK_SLUG = "pizza-party-2026-07-22";
@@ -32,18 +23,7 @@ export const JULY_22_INSIGHTS_SLUG = "july-22-kickoff";
 export const LUMA_CALENDAR_EMBED = `<iframe src="https://luma.com/embed/calendar/cal-EktVbYQFoGMjT6M/events?lt=light" width="100%" height="600" frameborder="0" style="border: 1px solid #bfcbda88; border-radius: 12px; display: block;" allowfullscreen aria-hidden="false" tabindex="0"></iframe>`;
 
 // Upcoming events hosted by partners and members. Empty array hides the section.
-export const PARTNER_EVENTS: { title: string; when: string; url: string }[] = [
-  {
-    title: "Summer in the Sunset, a group art exhibition at Sunset Variety",
-    when: "Saturday, September 5th, 2 PM - 5 PM",
-    url: "https://sunsetvariety.com/",
-  },
-  {
-    title: "Olas Perdidas playing at Sunset Village Music Hall",
-    when: "Wednesday, September 9th",
-    url: "https://www.tickettailor.com/events/toddhanniganmusicllc/2361891",
-  },
-];
+export const PARTNER_EVENTS: { title: string; when: string; url: string }[] = [];
 
 export type FormType = "signup" | "idea" | "contact";
 

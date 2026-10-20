@@ -8,6 +8,13 @@
       "when": 1789418176659,
       "tag": "0000_stewards_table_private",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792540311497,
+      "tag": "0001_bind_photo_storage_reads",
+      "breakpoints": true
     }
   ]
 }

@@ -46,7 +46,7 @@ export function PhotoGallery({ user }: { user: User }) {
       rows.map(async (r) => {
         const { data: signed } = await supabase.storage
           .from("photos")
-          .createSignedUrl(r.storage_path, 3600);
+          .createSignedUrl(r.storage_path, 300);
         return { ...r, url: signed?.signedUrl ?? "", mine: r.user_id === user.id };
       }),
     );

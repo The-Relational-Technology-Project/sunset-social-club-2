@@ -17,6 +17,10 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "A club for our neighborhood. Neighbors coming together to strengthen our social fabric." },
       { property: "og:title", content: "Sunset Social Club" },
       { property: "og:description", content: "A club for our neighborhood. Neighbors coming together to strengthen our social fabric." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: coffee.url },
+      { name: "twitter:image", content: coffee.url },
     ],
   }),
   component: Home,
@@ -47,11 +51,22 @@ function Home() {
       </section>
 
       {/* A club for our neighborhood */}
-      <section className="mb-16">
+      <section className="mb-8">
         <p className="text-lg text-ink/85">
           <em className="font-semibold not-italic">{t("home.neighborhood.lead")}</em>{" "}
           {t("home.neighborhood.body")}
         </p>
+      </section>
+
+      {/* Join the Club CTA */}
+      <section className="mb-16">
+        <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">
+          {t("signup.title")}
+        </h2>
+        <p className="mt-3 text-ink/80">{t("joinCta.body")}</p>
+        <Link to="/join" search={{ from: undefined }} className="btn-solid mt-6 inline-block">
+          {t("joinCta.button")}
+        </Link>
       </section>
 
       {/* Photo montage */}
@@ -98,19 +113,6 @@ function Home() {
       <div className="paper-card mb-16 overflow-hidden">
         <img src={oceanBeach.url} alt={t("photo.oceanAlt")} className="block h-48 w-full object-cover sm:h-64" />
       </div>
-
-      {/* Join the Club CTA */}
-      <section className="mb-8">
-        <div className="paper-card px-6 py-10 text-center">
-          <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">
-            {t("joinCta.title")}
-          </h2>
-          <p className="mt-3 text-ink/80">{t("joinCta.body")}</p>
-          <Link to="/join" search={{ from: undefined }} className="btn-solid mt-6 inline-block">
-            {t("joinCta.button")}
-          </Link>
-        </div>
-      </section>
 
       {/* Member Sign In CTA */}
       <section className="mb-16">

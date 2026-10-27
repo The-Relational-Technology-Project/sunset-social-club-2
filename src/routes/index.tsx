@@ -40,7 +40,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 function Home() {
   const { t } = useLanguage();
   return (
-    <main className="view-enter mx-auto max-w-[640px] px-5 pb-24 text-center">
+    <main className="view-enter mx-auto max-w-[640px] px-5 pb-24 lg:max-w-[860px] text-center">
       {/* Hero: logo + vision statement */}
       <section className="pt-10 pb-16 text-center sm:pt-14 sm:pb-24">
         <div className="flex flex-col items-center">

@@ -9,6 +9,9 @@ import coffee from "../assets/coffee_and_donuts.jpg.asset.json";
 import oceanBeach from "../assets/ocean_beach_sf.jpeg.asset.json";
 import folks from "../assets/ssc_folks.jpeg.asset.json";
 import party from "../assets/kickoff_party.png.asset.json";
+import buildWelcome from "../assets/neighborhood_build-a-thon_welcome.jpg.asset.json";
+import buildOpening from "../assets/neighborhood_build-a-thon_opening.jpg.asset.json";
+import beachWalk from "../assets/walk_on_the_beach.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -60,13 +63,10 @@ function Home() {
 
       {/* Join the Club CTA */}
       <section className="mb-16">
-        <h2 className="text-[1.75rem] font-extrabold leading-tight tracking-tight italic">
-          {t("signup.title")}
-        </h2>
-        <p className="mt-3 text-ink/80">{t("joinCta.body")}</p>
-        <Link to="/join" search={{ from: undefined }} className="btn-solid mt-6 inline-block">
+        <Link to="/join" search={{ from: undefined }} className="btn-solid inline-block">
           {t("joinCta.button")}
         </Link>
+        <p className="mt-4 text-ink/80">{t("joinCta.body")}</p>
       </section>
 
       {/* Photo montage */}
@@ -80,34 +80,40 @@ function Home() {
         <div className="paper-card overflow-hidden">
           <img src={party.url} alt={t("home.partyAlt")} loading="lazy" className="block h-40 w-full object-cover sm:h-52" />
         </div>
+        <div className="paper-card overflow-hidden">
+          <img src={buildWelcome.url} alt={t("home.photoAlt")} loading="lazy" className="block h-40 w-full object-cover sm:h-52" />
+        </div>
+        <div className="paper-card overflow-hidden">
+          <img src={buildOpening.url} alt={t("home.photoAlt")} loading="lazy" className="block h-40 w-full object-cover sm:h-52" />
+        </div>
+        <div className="paper-card col-span-2 overflow-hidden">
+          <img src={beachWalk.url} alt={t("home.photoAlt")} loading="lazy" className="block h-56 w-full object-cover sm:h-72" />
+        </div>
       </div>
+
+      {/* Support the club */}
+      <section className="mb-16">
+        <SectionHeading>{t("support.title")}</SectionHeading>
+        <p className="mt-4 text-ink/80">{t("support.body")}</p>
+        <Link to="/contact" className="btn-ghost mt-6 inline-block">
+          {t("support.button")}
+        </Link>
+      </section>
 
 
       {/* What do we do together */}
       <section className="mb-16">
         <SectionHeading>{t("home.what.title")}</SectionHeading>
-        <p className="mt-5 text-ink/85">{t("home.what.p1")}</p>
-        <p className="mt-4 text-ink/85">{t("home.what.p2")}</p>
-        <ul className="mt-4 space-y-1.5 text-ink/80">
-          <li>{t("home.what.li1")}</li>
-          <li>{t("home.what.li2")}</li>
-          <li>{t("home.what.li3")}</li>
-        </ul>
-        <p className="mt-4 text-ink/80">{t("home.what.p3")}</p>
+        <p className="mt-5 text-ink/85">{t("home.what.n1")}</p>
+        <p className="mt-4 text-ink/85">{t("home.what.n2")}</p>
+        <p className="mt-4 text-ink/80">{t("home.what.n3")}</p>
+        <p className="mt-4 text-ink/80">{t("home.what.n4")}</p>
       </section>
 
       {/* What's coming up */}
       <div className="mb-16">
         <Schedule />
       </div>
-
-      {/* Where we're headed */}
-      <section className="mb-16">
-        <SectionHeading>{t("home.headed.title")}</SectionHeading>
-        <p className="mt-5 text-ink/85">{t("home.headed.p1")}</p>
-        <p className="mt-4 text-ink/80">{t("home.headed.p2")}</p>
-        <p className="mt-4 text-ink/80">{t("home.headed.p3")}</p>
-      </section>
 
       {/* Ocean photo */}
       <div className="paper-card mb-16 overflow-hidden">

@@ -74,7 +74,15 @@ const translations: Record<Language, Dict> = {
 
     // Join CTA (landing)
     "joinCta.title": "Join the Club",
-    "joinCta.body": "Become a member and get notes and updates by email.",
+    "joinCta.body": "Become a member, stay in the loop, and get involved!",
+    "home.what.n1": "We've gathered for a pizza party and a neighborhood potluck. A neighbor hosted a creative play workshop. We co-hosted our first neighborhood build-a-thon.",
+    "home.what.n2": "We organize events and experiences that bring people together, help us get to know our neighbors, and support us all to play a role in shaping our shared place.",
+    "home.what.n3": "Our hope is that over time, Sunset Social Club becomes a consistent place where neighbors know one another by name, share resources, support local businesses, organize projects, celebrate together, and collectively shape the future of the neighborhood.",
+    "home.what.n4": "As our community evolves, what we do together will follow suit. We will create new traditions, rituals, and initiatives together.",
+    "support.title": "Want to support the neighborhood club?",
+    "support.body": "Interested in sponsoring or hosting an event? We'd love to hear from you.",
+    "support.button": "Contact Us",
+    "home.photoAlt": "Neighbors at a Sunset Social Club event",
     "joinCta.button": "Join the Club",
 
     // Join page
@@ -318,7 +326,15 @@ const translations: Record<Language, Dict> = {
 
     // Join CTA (landing)
     "joinCta.title": "加入俱乐部",
-    "joinCta.body": "成为会员，通过邮件收到活动通知与更新。",
+    "joinCta.body": "成为会员，保持联系，一起参与！",
+    "home.what.n1": "我们一起办过披萨派对和邻里百家宴。一位邻居主持了创意游戏工作坊。我们还联合举办了第一次邻里共创马拉松。",
+    "home.what.n2": "我们组织各种活动与体验，把大家聚在一起，帮助我们认识邻居，并让每个人都能参与塑造我们共同的家园。",
+    "home.what.n3": "我们希望随着时间推移，日落社交俱乐部能成为一个持续的所在：邻居们彼此熟识、分享资源、支持本地商家、组织项目、共同庆祝，并一起塑造社区的未来。",
+    "home.what.n4": "随着社区的发展，我们一起做的事情也会随之演变。我们将共同创造新的传统、仪式与行动。",
+    "support.title": "想支持我们的邻里俱乐部吗？",
+    "support.body": "有兴趣赞助或主办活动吗？我们很期待你的来信。",
+    "support.button": "联系我们",
+    "home.photoAlt": "日落社交俱乐部活动上的邻居们",
     "joinCta.button": "加入俱乐部",
 
     // Join page

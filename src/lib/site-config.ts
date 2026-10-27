@@ -8,11 +8,20 @@ export const EVENT_RSVP_URL = "https://luma.com/p6zop4tg";
 export const ANNOUNCEMENTS: {
   icon: string;
   title: string;
-  date: string;
-  invitation: string;
+  date?: string;
+  invitation?: string;
+  cta?: string;
   url: string;
-  tone: "amber" | "sunset";
-}[] = [];
+  tone: "amber" | "sunset" | "wave";
+}[] = [
+  {
+    icon: "",
+    title: "The Sunset Wave – sign up to host a neighbor gathering on your block!",
+    cta: "Sign up",
+    url: "https://thesunsetwave.org/",
+    tone: "wave",
+  },
+];
 
 export const COMMUNITY_PLAYLIST_URL = "https://open.spotify.com/playlist/1saGchZ6JVWKmFnianOtJM?si=IPO4mE9kSaCxOvqOTCUVEw";
 export const PIZZA_PARTY_FEEDBACK_SLUG = "pizza-party-2026-07-22";

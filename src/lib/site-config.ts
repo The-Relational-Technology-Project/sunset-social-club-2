@@ -14,13 +14,14 @@ export const ANNOUNCEMENTS: {
   url: string;
   tone: "amber" | "sunset" | "wave";
 }[] = [
-  {
-    icon: "",
-    title: "The Sunset Wave – sign up to host a neighbor gathering on your block!",
-    cta: "Sign up",
-    url: "https://thesunsetwave.org/",
-    tone: "wave",
-  },
+  // Hidden for now. To restore, uncomment:
+  // {
+  //   icon: "",
+  //   title: "The Sunset Wave – sign up to host a neighbor gathering on your block!",
+  //   cta: "Sign up",
+  //   url: "https://thesunsetwave.org/",
+  //   tone: "wave",
+  // },
 ];
 
 export const COMMUNITY_PLAYLIST_URL = "https://open.spotify.com/playlist/1saGchZ6JVWKmFnianOtJM?si=IPO4mE9kSaCxOvqOTCUVEw";

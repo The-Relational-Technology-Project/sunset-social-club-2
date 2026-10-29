@@ -25,17 +25,17 @@ export function AnnouncementBanner() {
           rel="noopener noreferrer"
           className={`block w-full transition-all ${TONES[a.tone]}`}
         >
-          <div className="mx-auto flex min-h-[56px] max-w-[860px] flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2 text-center text-sm sm:min-h-[48px] sm:flex-nowrap sm:py-1.5">
+          <div className="mx-auto flex min-h-[56px] max-w-[1280px] flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2 text-center text-sm sm:min-h-[48px] sm:flex-nowrap sm:py-1.5">
             {a.icon && (
               <span aria-hidden="true" className="text-base">
                 {a.icon}
               </span>
             )}
-            <span className="font-bold">{a.title}</span>
+            <span className="shrink-0 font-bold">{a.title}</span>
             {a.date && (
               <>
                 <span className="hidden opacity-40 sm:inline">•</span>
-                <span className="font-semibold">{a.date}</span>
+                <span className="shrink-0 font-semibold">{a.date}</span>
               </>
             )}
             {a.invitation && (

@@ -14,6 +14,15 @@ export const ANNOUNCEMENTS: {
   url: string;
   tone: "amber" | "sunset" | "wave";
 }[] = [
+  {
+    icon: "🫖",
+    title: "Tea + Tai Chi",
+    date: "Wednesday, Nov 18",
+    invitation: "Come slow down, sip tea, and practice Tai Chi in our neighbor’s backyard",
+    cta: "RSVP",
+    url: "https://luma.com/wur0mjuy",
+    tone: "amber",
+  },
   // Hidden for now. To restore, uncomment:
   // {
   //   icon: "",

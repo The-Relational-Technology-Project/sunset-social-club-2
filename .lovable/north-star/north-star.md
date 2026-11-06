@@ -6,4 +6,4 @@ Neighbors in the Sunset know someone on every block
 
 ## Metric
 
-Event attendees who answer yes to meeting a new neighbor each month
+Gathering attendees who answer yes to meeting a new neighbor; club members who report being meaningfully supported by club members and neighbors, each month

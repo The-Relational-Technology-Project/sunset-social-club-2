@@ -166,7 +166,7 @@ export async function getTrack(trackId: string): Promise<SpotifyTrack | null> {
 export async function appendTrackToPlaylist(trackUri: string): Promise<{ snapshotId: string }> {
   const playlistId = requireEnv("SPOTIFY_PLAYLIST_ID");
   const doJsonRequest = async (token: string) =>
-    fetch(`https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}/tracks`, {
+    fetch(`https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}/items`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -177,7 +177,7 @@ export async function appendTrackToPlaylist(trackUri: string): Promise<{ snapsho
     });
   const doQueryRequest = async (token: string) =>
     fetch(
-      `https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}/tracks?uris=${encodeURIComponent(trackUri)}`,
+      `https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}/items?uris=${encodeURIComponent(trackUri)}`,
       {
         method: "POST",
         headers: {
@@ -213,13 +213,13 @@ export async function appendTrackToPlaylist(trackUri: string): Promise<{ snapsho
 export async function removeTrackFromPlaylist(trackUri: string): Promise<{ snapshotId: string }> {
   const playlistId = requireEnv("SPOTIFY_PLAYLIST_ID");
   const doRequest = async (token: string) =>
-    fetch(`https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}/tracks`, {
+    fetch(`https://api.spotify.com/v1/playlists/${encodeURIComponent(playlistId)}/items`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tracks: [{ uri: trackUri }] }),
+      body: JSON.stringify({ items: [{ uri: trackUri }] }),
     });
   let token = await getUserToken();
   let res = await doRequest(token);

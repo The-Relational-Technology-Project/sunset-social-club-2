@@ -38,7 +38,7 @@ export function AnnouncementBanner() {
                 {a.icon}
               </span>
             )}
-            <span className="shrink-0 font-bold">{a.title}</span>
+            <span className={`font-bold ${a.tone === "wave" ? "min-w-0" : "shrink-0"}`}>{a.title}</span>
             {a.date && (
               <>
                 <span className="hidden opacity-40 sm:inline">•</span>

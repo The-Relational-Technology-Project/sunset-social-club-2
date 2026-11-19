@@ -4,12 +4,14 @@ const TONES = {
   amber: "bg-amber/90 hover:bg-amber text-ink",
   sunset: "bg-sunset/85 hover:bg-sunset text-ink",
   wave: "bg-wave-sky hover:brightness-95 text-wave-navy",
+  holiday: "bg-holiday hover:bg-holiday-hover text-holiday-ink",
 };
 
 const PILLS = {
   amber: "border-ink bg-ink text-paper",
   sunset: "border-ink bg-ink text-paper",
   wave: "border-wave-navy bg-wave-yellow text-wave-navy",
+  holiday: "border-holiday-ink bg-holiday-ink text-paper",
 };
 
 export function AnnouncementBanner() {

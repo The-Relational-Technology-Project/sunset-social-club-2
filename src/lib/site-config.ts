@@ -12,16 +12,16 @@ export const ANNOUNCEMENTS: {
   invitation?: string;
   cta?: string;
   url: string;
-  tone: "amber" | "sunset" | "wave";
+  tone: "amber" | "sunset" | "wave" | "holiday";
 }[] = [
   {
-    icon: "🫖",
-    title: "Tea + Tai Chi",
-    date: "Wednesday, Nov 18",
-    invitation: "Come slow down, sip tea, and practice Tai Chi in our neighbor’s backyard",
+    icon: "🎶🎤🎄",
+    title: "Sunset Holiday Jamboree",
+    date: "Sunday, December 6",
+    invitation: "Come sing with your neighbors!",
     cta: "RSVP",
-    url: "https://luma.com/wur0mjuy",
-    tone: "amber",
+    url: "https://luma.com/4f1omde6",
+    tone: "holiday",
   },
   // Hidden for now. To restore, uncomment:
   // {

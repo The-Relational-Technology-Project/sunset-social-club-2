@@ -11,6 +11,9 @@
   --color-wave-sky: #C5E0F2;
   --color-wave-navy: #062A40;
   --color-wave-yellow: #F5CE5E;
+  --color-holiday: #D9E9DC;
+  --color-holiday-hover: #CBE0CF;
+  --color-holiday-ink: #17452B;
 
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
 }

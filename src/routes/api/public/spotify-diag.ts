@@ -19,7 +19,7 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
           // Try both Spotify-supported append formats with a known track, then clean it up if either works.
           const testUri = "spotify:track:4cOdK2wGLETKBW3PvgPWqT";
           const jsonAppendRes = await fetch(
-            `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
+            `https://api.spotify.com/v1/playlists/${playlist.id}/items`,
             {
               method: "POST",
               headers: {
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
           let queryAppend: { status: number; body: string } | null = null;
           if (!jsonAppendRes.ok) {
             const queryAppendRes = await fetch(
-              `https://api.spotify.com/v1/playlists/${playlist.id}/tracks?uris=${encodeURIComponent(testUri)}`,
+              `https://api.spotify.com/v1/playlists/${playlist.id}/items?uris=${encodeURIComponent(testUri)}`,
               {
                 method: "POST",
                 headers: { Authorization: `Bearer ${accessToken}`, Accept: "application/json" },
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
           let cleanup: { status: number; body: string } | null = null;
           if (jsonAppendRes.ok || queryAppend?.status === 201) {
             const cleanupRes = await fetch(
-              `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
+              `https://api.spotify.com/v1/playlists/${playlist.id}/items`,
               {
                 method: "DELETE",
                 headers: {
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
                   Accept: "application/json",
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ tracks: [{ uri: testUri }] }),
+                body: JSON.stringify({ items: [{ uri: testUri }] }),
               },
             );
             cleanup = { status: cleanupRes.status, body: await cleanupRes.text() };
@@ -89,7 +89,7 @@ export const Route = createFileRoute("/api/public/spotify-diag")({
           if (createTempRes.ok) {
             const tempPlaylist = JSON.parse(createTempBody) as { id: string };
             const appendTempRes = await fetch(
-              `https://api.spotify.com/v1/playlists/${tempPlaylist.id}/tracks`,
+              `https://api.spotify.com/v1/playlists/${tempPlaylist.id}/items`,
               {
                 method: "POST",
                 headers: {

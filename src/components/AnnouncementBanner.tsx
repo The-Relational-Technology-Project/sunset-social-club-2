@@ -25,9 +25,14 @@ export function AnnouncementBanner() {
           href={a.url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`block w-full transition-all ${TONES[a.tone]}`}
+          className={`relative isolate block w-full overflow-hidden transition-colors ${TONES[a.tone]}`}
         >
-          <div className="mx-auto flex min-h-[56px] max-w-[1280px] flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2 text-center text-sm sm:min-h-[48px] sm:flex-nowrap sm:py-1.5">
+          {a.tone === "holiday" && (
+            <span className="holiday-twinkles" aria-hidden="true">
+              {Array.from({ length: 18 }, (_, index) => <span key={index} />)}
+            </span>
+          )}
+          <div className="relative mx-auto flex min-h-[56px] max-w-[1280px] flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-2 text-center text-sm sm:min-h-[48px] sm:flex-nowrap sm:py-1.5">
             {a.icon && (
               <span aria-hidden="true" className="text-base">
                 {a.icon}

@@ -11,9 +11,10 @@
   --color-wave-sky: #C5E0F2;
   --color-wave-navy: #062A40;
   --color-wave-yellow: #F5CE5E;
-  --color-holiday: #D9E9DC;
-  --color-holiday-hover: #CBE0CF;
+  --color-holiday: #BDD5C2;
+  --color-holiday-hover: #B0CCB6;
   --color-holiday-ink: #17452B;
+  --color-holiday-twinkle: #FFFFFF;
 
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
 }
@@ -120,6 +121,33 @@
   }
 }
 
+.holiday-twinkles {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 4px 0;
+  pointer-events: none;
+}
+.holiday-twinkles span {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  background: var(--color-holiday-twinkle);
+  clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
+  animation: holiday-twinkle 6s ease-in-out infinite;
+  opacity: 0.12;
+}
+.holiday-twinkles span:nth-child(even) { align-self: flex-end; animation-delay: -3s; }
+.holiday-twinkles span:nth-child(3n) { animation-duration: 8s; animation-delay: -1.5s; }
+.holiday-twinkles span:nth-child(4n) { animation-delay: -5s; width: 5px; height: 5px; }
+.holiday-twinkles span:nth-child(5n) { animation-duration: 7s; animation-delay: -4s; }
+@keyframes holiday-twinkle {
+  0%, 100% { opacity: 0.12; transform: scale(0.75); }
+  50% { opacity: 0.65; transform: scale(1); }
+}
+
 /* Hero radial glow — the one gradient on the site. */
 .hero-glow {
   position: absolute;
@@ -159,6 +187,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .holiday-twinkles span {
+    animation: none;
+    opacity: 0.35;
+  }
   [data-sig] {
     animation: none;
     opacity: 0.5;

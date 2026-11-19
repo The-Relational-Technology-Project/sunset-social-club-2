@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep holiday announcement decorations presentational, scoped to the holiday tone, and disable their animation for reduced-motion preferences so other announcements and accessibility remain unaffected.

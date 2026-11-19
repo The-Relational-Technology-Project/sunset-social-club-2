@@ -25,7 +25,7 @@ export const ANNOUNCEMENTS: {
   },
   {
     icon: "👋🏼",
-    title: "The Sunset Wave - sign up to host a neighbor gathering on your block on March 20, 2027!",
+    title: "The Sunset Wave - host a neighbor gathering on your block on March 20, 2027!",
     cta: "Sign up",
     url: "https://thesunsetwave.org/",
     tone: "wave",
